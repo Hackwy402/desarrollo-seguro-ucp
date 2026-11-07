@@ -1,0 +1,18 @@
+<section id="inst-seguridad" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#E8893A;letter-spacing:3px">LABORATORIO DE INSTALACIÓN · 2 DE 3</p>
+<p style="font-size:26px;color:#BCC8D2">setup/GUIA_INSTALACION.md, sección 4</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1;color:#F4F2EC">Herramientas de seguridad</h2>
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding:14px 22px;border-bottom:1px solid #2A3F51">Semgrep, gitleaks, ZAP</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.55;padding:18px 22px">pipx install semgrep<br>sudo apt install -y gitleaks<br>sudo snap install zaproxy --classic<br><br># Threat Dragon: .deb de<br># github.com/OWASP/threat-dragon<br>sudo apt install -y \<br>&#160;&#160;./threat-dragon_*.deb</p>
+</div>
+<div style="flex:1;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding:14px 22px;border-bottom:1px solid #2A3F51">Trivy (solo repositorio oficial)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.55;padding:18px 22px"># llave de Aqua Security<br># y repositorio: ver la guía<br>sudo apt update<br>sudo apt install -y trivy<br>trivy --version<br><br><span style="color:#E8893A"># verificar la versión que</span><br><span style="color:#E8893A"># indica el canal del curso</span></p>
+</div>
+</div>
+<aside>Las herramientas de seguridad también son software de terceros: se instalan desde el canal oficial, con firma, y en la versión acordada. Si una herramienta de seguridad se compromete, se compromete todo lo que analiza.</aside>
+</section>

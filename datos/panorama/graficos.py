@@ -90,7 +90,7 @@ def g_cve():
 
 
 def g_cwe():
-    filas = sorted(csv.DictReader(open("cwe_2025.csv")), key=lambda f: int(f["cve_publicados"]))[-12:]
+    filas = sorted([f for f in csv.DictReader(open("cwe_2025.csv")) if f["cwe"].startswith("CWE-")], key=lambda f: int(f["cve_publicados"]))[-12:]
     fig, ax = plt.subplots(figsize=(12, 7))
     ys = range(len(filas))
     vals = [int(f["cve_publicados"]) for f in filas]

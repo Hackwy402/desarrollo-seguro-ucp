@@ -41,6 +41,10 @@ CWES = {
     "CWE-502": "Deserialización insegura",
     "CWE-918": "SSRF",
     "CWE-798": "Credenciales embebidas",
+    "CWE-74": "Inyección (neutralización incorrecta)",
+    "CWE-284": "Control de acceso incorrecto",
+    "CWE-476": "Desreferencia de puntero nulo",
+    "CWE-119": "Desbordamiento de búfer",
 }
 
 
@@ -85,14 +89,60 @@ def por_anio(desde, hasta):
         print(f"# {anio}: {n}", file=sys.stderr)
 
 
+def pagina(ini, fin, inicio):
+    params = {
+        "pubStartDate": f"{ini.isoformat()}T00:00:00.000",
+        "pubEndDate": f"{fin.isoformat()}T23:59:59.999",
+        "resultsPerPage": 2000,
+        "startIndex": inicio,
+    }
+    url = API + "?" + urllib.parse.urlencode(params) + "&noRejected"
+    for intento in range(6):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "ucp-desarrollo-seguro/1.0"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                d = json.load(r)
+            time.sleep(PAUSA)
+            return d
+        except Exception as e:
+            print(f"# reintento {intento + 1}: {e}", file=sys.stderr)
+            time.sleep(30)
+    raise SystemExit(f"No se pudo consultar {url}")
+
+
 def por_cwe(anio):
+    """Recorre todos los CVE del año y cuenta las CWE de cada registro (las de NVD y las del CNA).
+
+    El filtro cweId de la API solo cubre los CVE que NVD analizó; en 2025-2026 muchos quedan
+    sin analizar (Deferred), por eso aquí se lee cada registro completo.
+    Un CVE con varias CWE cuenta una vez en cada una.
+    """
+    conteo, total_cve, sin_cwe = {}, 0, 0
+    for ini, fin in trimestres(anio):
+        inicio, total_rango = 0, None
+        while total_rango is None or inicio < total_rango:
+            d = pagina(ini, fin, inicio)
+            total_rango = d["totalResults"]
+            for item in d["vulnerabilities"]:
+                cwes = {
+                    desc["value"]
+                    for w in item["cve"].get("weaknesses", [])
+                    for desc in w.get("description", [])
+                    if desc["value"].startswith("CWE-")
+                }
+                total_cve += 1
+                if not cwes:
+                    sin_cwe += 1
+                for c in cwes:
+                    conteo[c] = conteo.get(c, 0) + 1
+            inicio += d["resultsPerPage"] or 2000
+            print(f"# {ini}: {min(inicio, total_rango)}/{total_rango}", file=sys.stderr)
     w = csv.writer(sys.stdout)
     w.writerow(["cwe", "nombre", "cve_publicados", "anio"])
-    for cwe, nombre in CWES.items():
-        n = sum(total(i, f, cweId=cwe) for i, f in trimestres(anio))
-        w.writerow([cwe, nombre, n, anio])
-        sys.stdout.flush()
-        print(f"# {cwe}: {n}", file=sys.stderr)
+    for c, n in sorted(conteo.items(), key=lambda x: -x[1]):
+        w.writerow([c, CWES.get(c, ""), n, anio])
+    w.writerow(["(sin CWE)", "Sin CWE asignada", sin_cwe, anio])
+    w.writerow(["(total)", "Total de CVE del año", total_cve, anio])
 
 
 if __name__ == "__main__":

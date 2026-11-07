@@ -1,0 +1,18 @@
+<section id="inst-base" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#E8893A;letter-spacing:3px">LABORATORIO DE INSTALACIÓN · 1 DE 3</p>
+<p style="font-size:26px;color:#BCC8D2">setup/GUIA_INSTALACION.md, secciones 2 y 3</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1;color:#F4F2EC">Sistema base y Docker Engine</h2>
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding:14px 22px;border-bottom:1px solid #2A3F51">1 · Actualizar y herramientas base</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.55;padding:18px 22px">sudo apt update<br>sudo apt -y upgrade<br>sudo apt install -y git curl \<br>&#160;&#160;wget gnupg ca-certificates \<br>&#160;&#160;python3 python3-venv pipx<br>pipx ensurepath<br>sudo snap install code --classic<br>sudo snap install node \<br>&#160;&#160;--classic --channel=22</p>
+</div>
+<div style="flex:1;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding:14px 22px;border-bottom:1px solid #2A3F51">2 · Docker Engine (repositorio oficial)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.55;padding:18px 22px"># llave y repositorio de Docker:<br># ver la guía, sección 3<br>sudo apt install -y docker-ce \<br>&#160;&#160;docker-ce-cli containerd.io \<br>&#160;&#160;docker-buildx-plugin \<br>&#160;&#160;docker-compose-plugin<br>sudo usermod -aG docker $USER<br><span style="color:#E8893A"># cerrar sesión y volver a entrar</span><br>docker run --rm hello-world</p>
+</div>
+</div>
+<aside>El paso que más falla: olvidar cerrar sesión después de usermod; sin eso, docker pide sudo. Docker se instala desde su repositorio oficial con la llave firmada, no con el paquete docker.io de Ubuntu ni con scripts copiados de un blog.</aside>
+</section>

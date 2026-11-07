@@ -1,0 +1,18 @@
+<section id="inst-verificar" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#E8893A;letter-spacing:3px">LABORATORIO DE INSTALACIÓN · 3 DE 3</p>
+<p style="font-size:26px;color:#BCC8D2">setup/GUIA_INSTALACION.md, secciones 5 y 6</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1;color:#F4F2EC">Clonar, levantar y verificar</h2>
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:2;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding:14px 22px;border-bottom:1px solid #2A3F51">Comandos</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.55;padding:18px 22px">git clone https://github.com/<br>&#160;&#160;Hackwy402/desarrollo-seguro-ucp<br>cd desarrollo-seguro-ucp<br>docker compose -f \<br>&#160;&#160;lab-env/docker-compose.yml up -d<br>bash setup/check-env.sh \<br>&#160;&#160;| tee check-env-$(whoami).txt</p>
+</div>
+<div style="flex:3;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding:14px 22px;border-bottom:1px solid #2A3F51">Formato de la salida de check-env.sh</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.5;padding:18px 22px">== Herramientas base ==<br>&#160;&#160;<span style="color:#7FB3E6">[OK]</span>&#160;&#160;&#160;&#160;docker daemon&#160;&#160;en ejecución sin sudo<br>&#160;&#160;<span style="color:#7FB3E6">[OK]</span>&#160;&#160;&#160;&#160;compose&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Docker Compose version …<br>== Herramientas de seguridad ==<br>&#160;&#160;<span style="color:#7FB3E6">[OK]</span>&#160;&#160;&#160;&#160;semgrep&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;…<br>&#160;&#160;<span style="color:#E8893A">[FALTA]</span> zap&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;no se encontró zaproxy<br>== Entorno de práctica ==<br>&#160;&#160;<span style="color:#7FB3E6">[OK]</span>&#160;&#160;&#160;&#160;juice-shop&#160;&#160;&#160;&#160;&#160;responde en 127.0.0.1:3000<br><br>Resultado: entorno listo.</p>
+</div>
+</div>
+<aside>La meta es que todas las líneas salgan en OK. Una línea FALTA dice exactamente qué instalar. El archivo check-env-usuario.txt y el pantallazo de Juice Shop se suben como comentario en el issue del equipo.</aside>
+</section>

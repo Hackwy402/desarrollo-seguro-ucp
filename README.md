@@ -26,6 +26,7 @@ demos/        demos en vivo, reproducibles, organizadas por sesión
   sesion-3/   Semgrep con reglas propias
   sesion-4/   cadena de suministro y pipeline en GitHub
 docs/         diagramas de arquitectura y de flujo (Graphviz) y pantallazos
+datos/        panorama: CVE (NVD), vulnerabilidades explotadas (CISA KEV), gráficos y fuentes
 deck/         fuentes del deck de la sesión 1
 estudio/      guías de estudio independiente por sesión
 labs/         laboratorios, se publican antes de cada sesión

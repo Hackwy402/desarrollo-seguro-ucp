@@ -1,6 +1,6 @@
 # Deck de la sesión 1
 
-Fuentes del deck «Desarrollo Seguro UCP – Sesión 1»: 48 diapositivas (una oculta), una por archivo.
+Fuentes del deck «Desarrollo Seguro UCP – Sesión 1»: 65 diapositivas (una oculta), una por archivo.
 
 - `deck.json`: título, orden de las diapositivas, secciones y tipografías (IBM Plex Sans y JetBrains Mono).
 - `slides/<id>.html`: cada diapositiva, en HTML con estilos en línea sobre un lienzo de 1920×1080. El `<aside>` final de cada una son las notas del orador.
@@ -25,7 +25,12 @@ Las diapositivas referencian las imágenes por su identificador de recurso (`/_b
 | `4170e3edc017e5087ae1ff029e3ad950` | `docs/diagramas/png/caso-shai-hulud.png` |
 | `e0868b7a8b69705b71d5a802606608ec` | `docs/pantallazos/juice-shop.png` |
 | `8197b795ff0f8b75c16cb5cc9e504b13` | `docs/pantallazos/api-insegura-error.png` |
+| `fcb385f7fecd79444fb3facf80a63182` | `datos/panorama/png/cve_por_anio.png` |
+| `f7001ed024e61230a7bb5af9640e7713` | `datos/panorama/png/cwe_2025.png` |
+| `3302b211af2741760b30fc4a11ca7b48` | `datos/panorama/png/kev_por_anio.png` |
+| `59eefaeb323dcc4aaf783617f66a41ca` | `datos/panorama/png/kev_categorias.png` |
+| `8bacf0c0c0ac053dea6fc85f099772a8` | `datos/panorama/png/kev_fabricantes.png` |
+| `9beb34719b543de657ec2e2abf2ebfa0` | `datos/panorama/png/paquetes_maliciosos.png` |
+| `8c9b9d0c27890ffb510373038631baa9` | `datos/panorama/png/dbir.png` |
+| `233d014a05ae38dddafc5f4fc3f8a78c` | Logo de la UCP (versión para fondo oscuro), tomado de ucp.edu.co; no se incluye en el repositorio |
 
-## Pendiente
-
-- Logo oficial de la Universidad Católica de Pereira en la portada (`slides/cover.html`): hoy hay un espacio reservado.
