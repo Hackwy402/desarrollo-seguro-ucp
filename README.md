@@ -20,6 +20,7 @@ El curso trata los principios de seguridad y el ciclo de vida de desarrollo segu
 
 ```
 setup/        guía de instalación y script de verificación del entorno
+estudio/      guías de estudio independiente por sesión
 lab-env/      aplicaciones de práctica (docker compose, solo 127.0.0.1)
 labs/         laboratorios, se publican antes de cada sesión
 proyecto/     plantilla del proyecto integrador
@@ -31,6 +32,7 @@ proyecto/     plantilla del proyecto integrador
 2. Ejecutar `bash setup/check-env.sh` dentro de la VM y guardar la salida.
 3. Levantar el entorno de práctica: `docker compose -f lab-env/docker-compose.yml up -d`.
 4. Abrir un issue con la plantilla **Equipo y aplicación** para registrar su equipo.
+5. Antes del 13 de noviembre: [estudio/SESION_01.md](estudio/SESION_01.md) (16 h de estudio independiente).
 
 ## Reglas del laboratorio
 
