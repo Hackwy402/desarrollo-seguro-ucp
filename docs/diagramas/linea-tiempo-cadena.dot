@@ -1,0 +1,52 @@
+digraph linea {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.25, ranksep=0.25, newrank=true];
+  node  [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=13, fontcolor="#12202B", margin="0.14,0.08", penwidth=2, width=2.55];
+  edge  [style=invis];
+
+  node [shape=plaintext, style="", fontsize=22, fontcolor="#12202B", width=0];
+  y2020 [label=<<b>2020</b>>]; y2021 [label=<<b>2021</b>>]; y2022 [label=<<b>2022</b>>]; y2023 [label=<<b>2023</b>>];
+  y2024 [label=<<b>2024</b>>]; y2025 [label=<<b>2025</b>>]; y2026 [label=<<b>2026</b>>];
+  {rank=same; y2020; y2021; y2022; y2023; y2024; y2025; y2026}
+  y2020 -> y2021 -> y2022 -> y2023 -> y2024 -> y2025 -> y2026;
+
+  // Colores: azul = proveedor o herramienta de build comprometida; naranja = paquete o ecosistema; verde = vulnerabilidad en librería o producto
+  node [shape=box, style="rounded,filled", fontsize=13, width=2.55];
+  solar [label=<<b>SolarWinds Orion</b><br/>actualizaciones troyanizadas<br/><font point-size="11">dic · CISA</font>>, fillcolor="#E3EDF7", color="#2a78d6"];
+
+  codecov [label=<<b>Codecov</b><br/>script de CI robaba credenciales<br/><font point-size="11">abr · BleepingComputer</font>>, fillcolor="#E3EDF7", color="#2a78d6"];
+  kaseya  [label=<<b>Kaseya VSA</b><br/>ransomware vía proveedor<br/><font point-size="11">jul · The Record</font>>, fillcolor="#E3EDF7", color="#2a78d6"];
+  uap     [label=<<b>ua-parser-js</b><br/>cuenta npm secuestrada<br/><font point-size="11">oct · BleepingComputer</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+  log4j   [label=<<b>Log4Shell</b><br/>RCE en Log4j · CVSS 10<br/><font point-size="11">dic · CISA</font>>, fillcolor="#DDF3EA", color="#1baf7a"];
+
+  torch [label=<<b>PyTorch torchtriton</b><br/>dependency confusion en PyPI<br/><font point-size="11">dic · BleepingComputer</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+
+  cx3    [label=<<b>3CX</b><br/>app firmada troyanizada<br/><font point-size="11">mar · BleepingComputer</font>>, fillcolor="#E3EDF7", color="#2a78d6"];
+  moveit [label=<<b>MOVEit</b><br/>inyección SQL · +16 M personas<br/><font point-size="11">jun · The Record</font>>, fillcolor="#DDF3EA", color="#1baf7a"];
+
+  xz   [label=<<b>xz utils</b><br/>puerta trasera en el tarball<br/><font point-size="11">mar · CISA</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+  poly [label=<<b>polyfill.io</b><br/>CDN inyecta JS · +100 k sitios<br/><font point-size="11">jun · BleepingComputer</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+
+  tj    [label=<<b>tj-actions</b><br/>GitHub Action filtra secretos<br/><font point-size="11">mar · BleepingComputer</font>>, fillcolor="#E3EDF7", color="#2a78d6"];
+  chalk [label=<<b>chalk y debug</b><br/>2.600 M descargas/semana<br/><font point-size="11">sep · BleepingComputer</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+  shai  [label=<<b>Shai-Hulud</b><br/>gusano npm · +500 paquetes<br/><font point-size="11">sep · CISA</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+  shai2 [label=<<b>Shai-Hulud 2.0</b><br/>+800 paquetes · ~400 k secretos<br/><font point-size="11">nov · BleepingComputer</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+
+  trivy [label=<<b>Trivy</b><br/>escáner de seguridad troyanizado<br/><font point-size="11">mar · BleepingComputer</font>>, fillcolor="#E3EDF7", color="#2a78d6"];
+  chain [label=<<b>ChainDrop</b><br/>gusano npm con procedencia<br/>SLSA válida · cientos de paquetes<br/><font point-size="11">ago · BleepingComputer</font>>, fillcolor="#FCE6DC", color="#eb6834"];
+
+  y2020 -> solar;
+  y2021 -> codecov -> kaseya -> uap -> log4j;
+  y2022 -> torch;
+  y2023 -> cx3 -> moveit;
+  y2024 -> xz -> poly;
+  y2025 -> tj -> chalk -> shai -> shai2;
+  y2026 -> trivy -> chain;
+
+  // Leyenda
+  node [shape=box, style="rounded,filled", width=0, fontsize=13];
+  l1 [label="Proveedor o herramienta de build comprometida", fillcolor="#E3EDF7", color="#2a78d6"];
+  l2 [label="Paquete o ecosistema open source", fillcolor="#FCE6DC", color="#eb6834"];
+  l3 [label="Vulnerabilidad en librería o producto", fillcolor="#DDF3EA", color="#1baf7a"];
+  {rank=sink; l1; l2; l3}
+  log4j -> l1; shai2 -> l2; chain -> l3;
+}
