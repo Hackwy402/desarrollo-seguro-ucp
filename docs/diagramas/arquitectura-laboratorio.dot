@@ -1,0 +1,38 @@
+digraph laboratorio {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", fontsize=16, pad=0.3, nodesep=0.5, ranksep=0.6, compound=true];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=14, fontcolor="#12202B", margin="0.25,0.14", penwidth=1.5];
+  edge  [color="#4A5560", fontname="DejaVu Sans", fontsize=12, fontcolor="#4A5560", penwidth=1.5];
+
+  red [label="Red del café, la oficina o la universidad", style="rounded,dashed", fillcolor="#F4F2EC", color="#A8520F", fontcolor="#A8520F"];
+
+  subgraph cluster_host {
+    label="Equipo del estudiante · Windows, macOS o Linux"; labeljust=l;
+    style="rounded,filled"; fillcolor="#E9E5DA"; color="#D9D4C7"; fontcolor="#12202B";
+
+    subgraph cluster_vm {
+      label="VM Ubuntu 24.04 LTS · VirtualBox o UTM · red NAT · 4 vCPU · 8 GB"; labeljust=l;
+      style="rounded,filled"; fillcolor="#12202B"; color="#12202B"; fontcolor="#F4F2EC";
+
+      cli [label="git · VS Code · semgrep · gitleaks · trivy · ZAP"];
+      nav [label="Navegador de la VM"];
+
+      subgraph cluster_docker {
+        label="Docker Engine"; labeljust=l;
+        style="rounded,filled"; fillcolor="#24384A"; color="#24384A"; fontcolor="#F4F2EC";
+        tools [label="gcc · Rust · pytm\ncontenedores desechables"];
+        bd    [label="PostgreSQL\nsin puertos publicados"];
+        api   [label="API de facturas\n127.0.0.1:5001 y :5002"];
+        juice [label="OWASP Juice Shop\n127.0.0.1:3000"];
+        {rank=same; juice; api}
+        {rank=same; bd; tools}
+        juice -> bd [style=invis];
+        api -> tools [style=invis];
+      }
+    }
+  }
+
+  nav -> juice;
+  nav -> api;
+  cli -> api [style=invis];
+  red -> juice [label="  bloqueado: solo escucha en 127.0.0.1", style=dashed, color="#A8520F", fontcolor="#A8520F", arrowhead=tee];
+}

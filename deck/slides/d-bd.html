@@ -1,0 +1,21 @@
+<section id="d-bd" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#E8893A;letter-spacing:3px">DEMO 4 · 15 MIN</p>
+<p style="font-size:26px;color:#BCC8D2">Mínimo privilegio · separación de privilegios</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1;color:#F4F2EC">Si inyectan SQL, ¿qué puede hacer el usuario de la app?</h2>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;background:#F4F2EC;border-radius:16px;padding:20px;display:flex;justify-content:center;align-items:center">
+<img src="/_blob/0a231805150aa62ee240c60f8c48913f" alt="Diagrama de roles: migraciones es dueño de todo; app_facturas solo puede SELECT e INSERT en facturas y SELECT de id y nombre en clientes; cédula, DELETE y DROP bloqueados" style="width:760px;height:304px;object-fit:contain">
+</div>
+<div style="flex:1;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:12px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:14px;height:14px;border-radius:50%;background:#E8893A"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:12px">psql como app_facturas · salida real</p>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.5;padding:18px 24px">SELECT nombre, cedula FROM clientes;<br><span style="color:#7FB3E6">ERROR: permission denied for table clientes</span><br>DELETE FROM facturas;<br><span style="color:#7FB3E6">ERROR: permission denied for table facturas</span><br>DROP TABLE facturas;<br><span style="color:#7FB3E6">ERROR: must be owner of table facturas</span><br>SELECT usename, passwd FROM pg_shadow;<br><span style="color:#7FB3E6">ERROR: permission denied for view pg_shadow</span></p>
+</div>
+</div>
+<p style="font-size:26px;color:#BCC8D2;line-height:1.4">La inyección sigue siendo un error que se corrige el 13 de noviembre. El mínimo privilegio decide <b style="color:#F4F2EC">cuánto daño</b> hace mientras tanto.</p>
+<aside>bash demos/sesion-1/04-minimo-privilegio-bd/demo-bd.sh. Mostrar init.sql: los GRANT son el control. Paso 3 del script: con el usuario dueño, todo funciona; por eso la app nunca se conecta como dueño.</aside>
+</section>

@@ -1,0 +1,17 @@
+<section id="errordebug" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#A8520F;letter-spacing:2px">DEMO 3C · SEGURO POR DEFECTO · A02</p>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1">Lo que ve cualquiera cuando la API falla</h2>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:3;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;font-weight:600;color:#A8520F">Insegura · 127.0.0.1:5001/error · pantallazo real</p>
+<img src="/_blob/8197b795ff0f8b75c16cb5cc9e504b13" alt="Pantallazo de la página de depuración de Werkzeug: traza completa con rutas internas, versión de Python 3.15 y el aviso de que se puede ejecutar código Python arbitrario" style="width:960px;height:540px;object-fit:cover;border-radius:12px;border:3px solid #A8520F">
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px">
+<p style="font-size:24px;font-weight:600;color:#2F6FB0">Segura · 127.0.0.1:5002/error</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#12202B;background:#E3EDF7;border:2px solid #2F6FB0;border-radius:12px;padding:24px">{"error": "solicitud no procesada"}</p>
+<h3 style="font-size:28px;font-weight:600">Lo que revela la insegura</h3>
+<p style="font-size:24px;color:#4A5560;line-height:1.45">Rutas internas, versión de Python, el código de la línea que falló y, abajo: «You can execute arbitrary Python code in the stack frames».</p>
+</div>
+</div>
+<aside>Abrir http://127.0.0.1:5001/error en el navegador en vivo. La consola de Werkzeug pide un PIN, pero exponerla ya es un error grave. Causa: debug=True, SECRET_KEY en el código y CORS "*": volver al ejercicio 3.</aside>
+</section>

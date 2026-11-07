@@ -1,0 +1,29 @@
+<section id="d-capas" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#E8893A;letter-spacing:3px">DEMO 5 · 15 MIN</p>
+<p style="font-size:26px;color:#BCC8D2">Defensa en profundidad</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1;color:#F4F2EC">El atacante ya está dentro. ¿Qué lo contiene?</h2>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:2;background:#F4F2EC;border-radius:16px;padding:20px;display:flex;justify-content:center;align-items:center">
+<img src="/_blob/d877a9967e96d28c00a28bd0494f44ef" alt="Capas concéntricas alrededor del código del atacante: usuario sin privilegios, sistema de archivos de solo lectura, sin capacidades, no-new-privileges y límites de recursos" style="width:600px;height:303px;object-fit:contain">
+</div>
+<div style="flex:3;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:12px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:14px;height:14px;border-radius:50%;background:#E8893A"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:12px">demo-capas.sh · salida real</p>
+</div>
+<table style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;background:#0B151D">
+<tr style="background:#0B151D"><th style="width:46%">Prueba</th><th style="width:27%">insegura</th><th style="width:27%">segura</th></tr>
+<tr style="background:#0B151D"><td>id</td><td style="color:#E8893A">uid=0 root</td><td style="color:#7FB3E6">uid=10001</td></tr>
+<tr style="background:#0B151D"><td>Escribir en /etc</td><td style="color:#E8893A">PERMITIDO</td><td style="color:#7FB3E6">BLOQUEADO</td></tr>
+<tr style="background:#0B151D"><td>Cambiar el código</td><td style="color:#E8893A">PERMITIDO</td><td style="color:#7FB3E6">BLOQUEADO</td></tr>
+<tr style="background:#0B151D"><td>Binario en /usr/local</td><td style="color:#E8893A">PERMITIDO</td><td style="color:#7FB3E6">BLOQUEADO</td></tr>
+<tr style="background:#0B151D"><td>CapEff</td><td style="color:#E8893A">a80425fb</td><td style="color:#7FB3E6">00000000</td></tr>
+<tr style="background:#0B151D"><td>NoNewPrivs</td><td style="color:#E8893A">0</td><td style="color:#7FB3E6">1</td></tr>
+<tr style="background:#0B151D"><td>pids.max</td><td style="color:#E8893A">max</td><td style="color:#7FB3E6">64</td></tr>
+</table>
+</div>
+</div>
+<aside>bash demos/sesion-1/05-defensa-profundidad/demo-capas.sh, con el entorno de la demo 3 arriba. Simulamos al atacante con docker compose exec. Las capas están en el Dockerfile (USER) y en el compose (read_only, cap_drop, no-new-privileges, pids_limit, mem_limit). Ninguna es perfecta; juntas contienen.</aside>
+</section>

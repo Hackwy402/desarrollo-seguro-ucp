@@ -1,0 +1,26 @@
+digraph falla_abierta {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.5, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=14, fontcolor="#12202B", margin="0.22,0.12", penwidth=1.5];
+  edge  [color="#4A5560", fontname="DejaVu Sans", fontsize=12, fontcolor="#4A5560", penwidth=1.5];
+
+  ini  [label="Luis: POST /documentos/10/editar", fillcolor="#12202B", fontcolor="#F4F2EC", color="#12202B"];
+  cons [label="puede_editar(): consultar el rol\nal servicio de permisos"];
+  resp [label="¿El servicio\nrespondió?", shape=diamond, style=filled, fillcolor="#E9E5DA"];
+  rol  [label="¿rol == editor?", shape=diamond, style=filled, fillcolor="#E9E5DA"];
+  ok   [label="200 · editar"];
+  no   [label="403 · lector"];
+
+  ins  [label=<<b>Insegura</b><br/><font face="DejaVu Sans Mono" point-size="12">except Exception:<br/>    return True</font>>, fillcolor="#FBEBDD", color="#A8520F"];
+  insr [label="200 · Luis edita\nfalla ABIERTA", fillcolor="#A8520F", fontcolor="#FFFDF8", color="#A8520F"];
+  seg  [label=<<b>Segura</b><br/><font face="DejaVu Sans Mono" point-size="12">except PermisosNoDisponibles:<br/>    log.warning(...)<br/>    return False</font>>, fillcolor="#E3EDF7", color="#2F6FB0"];
+  segr [label="403 · acceso negado\nfalla SEGURA", fillcolor="#2F6FB0", fontcolor="#FFFDF8", color="#2F6FB0"];
+
+  ini -> cons -> resp;
+  resp -> rol [label="  sí"];
+  rol -> ok [label="  sí"];
+  rol -> no [label="  no"];
+  resp -> ins [label="  no: timeout, caída", color="#A8520F", fontcolor="#A8520F"];
+  resp -> seg [label="  no", color="#2F6FB0", fontcolor="#2F6FB0"];
+  ins -> insr [color="#A8520F"];
+  seg -> segr [color="#2F6FB0"];
+}

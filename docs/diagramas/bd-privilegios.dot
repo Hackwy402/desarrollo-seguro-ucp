@@ -1,0 +1,17 @@
+digraph bd {
+  graph [rankdir=LR, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.5, ranksep=1.2];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=14, fontcolor="#12202B", margin="0.22,0.14", penwidth=1.5];
+  edge  [fontname="DejaVu Sans", fontsize=12, penwidth=1.6];
+
+  mig [label=<<b>migraciones</b><br/><font point-size="12">dueño del esquema<br/>solo en despliegues</font>>, fillcolor="#12202B", fontcolor="#F4F2EC", color="#12202B"];
+  app [label=<<b>app_facturas</b><br/><font point-size="12">usuario de la aplicación<br/>en tiempo de ejecución</font>>, fillcolor="#E3EDF7", color="#2F6FB0"];
+
+  fac [label=<<b>facturas</b><br/><font point-size="12">id · cliente_id · total</font>>, shape=cylinder, style=filled];
+  cli [label=<<b>clientes</b><br/><font point-size="12">id · nombre · <u>cedula</u></font>>, shape=cylinder, style=filled];
+
+  mig -> fac [label="  todo: DDL, DELETE, DROP", color="#4A5560", fontcolor="#4A5560"];
+  mig -> cli [label="  todo", color="#4A5560", fontcolor="#4A5560"];
+  app -> fac [label="  SELECT, INSERT", color="#2F6FB0", fontcolor="#2F6FB0"];
+  app -> cli [label="  SELECT (id, nombre)", color="#2F6FB0", fontcolor="#2F6FB0"];
+  app -> cli [label="  cedula · DELETE · DROP", color="#A8520F", fontcolor="#A8520F", style=dashed, arrowhead=tee];
+}

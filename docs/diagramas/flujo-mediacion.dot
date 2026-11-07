@@ -1,0 +1,22 @@
+digraph mediacion {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.6, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=14, fontcolor="#12202B", margin="0.22,0.12", penwidth=1.5];
+  edge  [color="#4A5560", fontname="DejaVu Sans", fontsize=12, fontcolor="#4A5560", penwidth=1.5];
+
+  ini  [label="Ana: GET /facturas/2\n(la factura 2 es de Luis)", fillcolor="#12202B", fontcolor="#F4F2EC", color="#12202B"];
+  tok  [label="¿Token válido?", shape=diamond, style=filled, fillcolor="#E9E5DA"];
+  r401 [label="401 · no autenticado"];
+
+  ins  [label=<<b>Insegura</b><br/><font face="DejaVu Sans Mono" point-size="12">FACTURAS.get(2)</font>>, fillcolor="#FBEBDD", color="#A8520F"];
+  insr [label="200 · Ana lee la factura de Luis\nautenticado ≠ autorizado", fillcolor="#A8520F", fontcolor="#FFFDF8", color="#A8520F"];
+
+  seg  [label=<<b>Segura</b><br/><font face="DejaVu Sans Mono" point-size="12">factura.cliente_id == g.usuario.id ?</font>>, fillcolor="#E3EDF7", color="#2F6FB0"];
+  segr [label="404 · no revela que existe\nmediación completa", fillcolor="#2F6FB0", fontcolor="#FFFDF8", color="#2F6FB0"];
+
+  ini -> tok;
+  tok -> r401 [label="  no"];
+  tok -> ins [label="  sí", color="#A8520F", fontcolor="#A8520F"];
+  tok -> seg [label="  sí", color="#2F6FB0", fontcolor="#2F6FB0"];
+  ins -> insr [color="#A8520F"];
+  seg -> segr [color="#2F6FB0"];
+}

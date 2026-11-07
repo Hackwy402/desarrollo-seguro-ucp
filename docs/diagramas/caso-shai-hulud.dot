@@ -1,0 +1,21 @@
+digraph shai {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.9, ranksep=0.4];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=15, fontcolor="#12202B", margin="0.22,0.12", penwidth=1.5, width=3.8];
+  edge  [color="#A8520F", penwidth=1.8, fontname="DejaVu Sans", fontsize=13, fontcolor="#A8520F"];
+
+  a [label=<<b>1. npm install</b><br/><font point-size="13">de un paquete comprometido</font>>];
+  b [label=<<b>2. postinstall</b><br/><font point-size="13">se ejecuta en silencio con los permisos del usuario</font>>, fillcolor="#FBEBDD", color="#A8520F"];
+  c [label=<<b>3. Roba credenciales</b><br/><font point-size="13">tokens de npm, GitHub y de la nube</font>>, fillcolor="#FBEBDD", color="#A8520F"];
+  d [label=<<b>4. Se publica solo</b><br/><font point-size="13">versiones infectadas de otros paquetes del mantenedor</font>>, fillcolor="#A8520F", fontcolor="#FFFDF8", color="#A8520F"];
+  a -> b -> c -> d;
+  e [label=<<b>5. Se propaga</b><br/><font point-size="13">otros desarrolladores instalan esas versiones: vuelve al paso 1</font>>, style="rounded,dashed", color="#A8520F"];
+  d -> e [style=dashed];
+
+  node [fillcolor="#E3EDF7", color="#2F6FB0", width=2.8];
+  edge [color="#2F6FB0", style=dashed, arrowhead=tee, penwidth=1.5, label=""];
+  cb [label="--ignore-scripts\ninstalar en contenedor"];
+  cc [label="Tokens de corta vida\ny mínimo privilegio"];
+  cd [label="Trusted publishing\nesperar antes de adoptar"];
+  {rank=same; b; cb} {rank=same; c; cc} {rank=same; d; cd}
+  cb -> b; cc -> c; cd -> d;
+}

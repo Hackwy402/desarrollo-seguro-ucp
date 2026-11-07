@@ -1,0 +1,21 @@
+digraph log4shell {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.9, ranksep=0.35];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=15, fontcolor="#12202B", margin="0.22,0.12", penwidth=1.5, width=3.6];
+  edge  [color="#A8520F", penwidth=1.8];
+
+  a [label=<<b>1. Entrada</b><br/><font point-size="13">texto con una expresión en un encabezado HTTP</font>>];
+  b [label=<<b>2. Registro</b><br/><font point-size="13">la app hace log.info(encabezado)</font>>];
+  c [label=<<b>3. Interpretación</b><br/><font point-size="13">Log4j 2 evalúa la expresión: JNDI activo por defecto</font>>, fillcolor="#FBEBDD", color="#A8520F"];
+  d [label=<<b>4. Salida a la red</b><br/><font point-size="13">consulta a un servidor externo del atacante</font>>, fillcolor="#FBEBDD", color="#A8520F"];
+  e [label=<<b>5. Ejecución remota</b><br/><font point-size="13">carga y ejecuta código · CVSS 10</font>>, fillcolor="#A8520F", fontcolor="#FFFDF8", color="#A8520F"];
+  a -> b -> c -> d -> e;
+
+  node [fillcolor="#E3EDF7", color="#2F6FB0", width=2.8];
+  edge [color="#2F6FB0", style=dashed, arrowhead=tee, penwidth=1.5];
+  ca [label="Nunca confiar en la entrada"];
+  cc [label="Seguro por defecto:\nlookups desactivados"];
+  cd [label="Bloquear salida a internet"];
+  ce [label="SBOM: saber dónde está\nlog4j y actualizar"];
+  {rank=same; a; ca} {rank=same; c; cc} {rank=same; d; cd} {rank=same; e; ce}
+  ca -> a; cc -> c; cd -> d; ce -> e;
+}

@@ -1,0 +1,21 @@
+<section id="d-memoria" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#E8893A;letter-spacing:3px">DEMO 6 · 15 MIN</p>
+<p style="font-size:26px;color:#BCC8D2">Seguro por defecto desde el lenguaje</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1;color:#F4F2EC">Un carácter de más convierte a Ana en administradora</h2>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;background:#F4F2EC;border-radius:16px;padding:20px;display:flex;justify-content:center;align-items:center">
+<img src="/_blob/deb4137b362554b7c002bcdb4c0db0aa" alt="Memoria de la estructura: ocho bytes de nombre seguidos de es_admin; con la entrada ana_____X, la X (88) sobrescribe es_admin" style="width:760px;height:367px;object-fit:contain">
+</div>
+<div style="flex:1;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:12px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:14px;height:14px;border-radius:50%;background:#E8893A"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:12px">gcc:14 y rust:1.88 · salida real</p>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.5;padding:18px 24px"># C sin protecciones<br>usuario: ana_____X | es_admin = 88<br><span style="color:#E8893A">ACCESO DE ADMINISTRADOR CONCEDIDO</span><br># C con -D_FORTIFY_SOURCE=2<br><span style="color:#7FB3E6">*** buffer overflow detected ***</span><br># Rust<br><span style="color:#7FB3E6">panicked: index out of bounds:</span><br><span style="color:#7FB3E6">the len is 8 but the index is 8</span></p>
+</div>
+</div>
+<p style="font-size:26px;color:#BCC8D2;line-height:1.4">En C, la seguridad depende de que cada persona y cada opción de compilación acierten. En Rust es el comportamiento por defecto.</p>
+<aside>bash demos/sesion-1/06-memoria/demo-memoria.sh. Compila en contenedores desechables sin red. Conectar con la diapositiva del 70 %: por esto CISA y la NSA piden hojas de ruta hacia lenguajes memory-safe para código nuevo.</aside>
+</section>

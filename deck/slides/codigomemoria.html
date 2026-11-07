@@ -1,0 +1,15 @@
+<section id="codigomemoria" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#A8520F;letter-spacing:2px">EL MISMO PROGRAMA EN DOS LENGUAJES</p>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1">login.c contra login.rs</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;background:#12202B;padding:32px;border-radius:16px;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:26px;font-weight:600;color:#E8893A">C</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#F4F2EC;line-height:1.5">struct sesion {<br>&#160;&#160;char nombre[8];<br>&#160;&#160;int es_admin;<br>};<br><br>s.es_admin = 0;<br><span style="color:#E8893A">strcpy(s.nombre, argv[1]);</span><br>// sin verificar el tamaño</p>
+</div>
+<div style="flex:1;background:#FFFDF8;padding:32px;border-radius:16px;border:2px solid #D9D4C7;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:26px;font-weight:600;color:#2F6FB0">Rust</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#12202B;line-height:1.5">struct Sesion {<br>&#160;&#160;nombre: [u8; 8],<br>&#160;&#160;es_admin: i32,<br>}<br><br>for (i, b) in entrada.bytes()<br>&#160;&#160;&#160;&#160;.enumerate() {<br>&#160;&#160;<span style="color:#2F6FB0">s.nombre[i] = b; // verifica límites</span><br>}</p>
+</div>
+</div>
+<aside>Leer el código antes de correr la demo. Pregunta: ¿qué pasa en C si el nombre tiene 9 caracteres? Dejar que respondan y pasar a la ejecución.</aside>
+</section>

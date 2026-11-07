@@ -1,0 +1,24 @@
+digraph memoria {
+  graph [bgcolor="transparent", pad=0.3, ranksep=0.5];
+  node  [shape=plaintext, fontname="DejaVu Sans Mono", fontsize=16];
+
+  antes [label=<
+  <table border="0" cellborder="1" cellspacing="0" cellpadding="10" color="#4A5560">
+    <tr><td colspan="8" bgcolor="#12202B"><font color="#F4F2EC" face="DejaVu Sans">char nombre[8]</font></td>
+        <td colspan="4" bgcolor="#2F6FB0"><font color="#FFFDF8" face="DejaVu Sans">int es_admin</font></td></tr>
+    <tr><td width="56" height="48" fixedsize="true">a</td><td width="56" height="48" fixedsize="true">n</td><td width="56" height="48" fixedsize="true">a</td><td width="56" height="48" fixedsize="true">\0</td><td width="56" height="48" fixedsize="true"> </td><td width="56" height="48" fixedsize="true"> </td><td width="56" height="48" fixedsize="true"> </td><td width="56" height="48" fixedsize="true"> </td>
+        <td width="56" height="48" fixedsize="true" bgcolor="#E3EDF7">0</td><td width="56" height="48" fixedsize="true" bgcolor="#E3EDF7">0</td><td width="56" height="48" fixedsize="true" bgcolor="#E3EDF7">0</td><td width="56" height="48" fixedsize="true" bgcolor="#E3EDF7">0</td></tr>
+    <tr><td colspan="12" border="0"><font face="DejaVu Sans" point-size="13" color="#4A5560">./login ana  →  es_admin = 0 · acceso normal</font></td></tr>
+  </table>>];
+
+  despues [label=<
+  <table border="0" cellborder="1" cellspacing="0" cellpadding="10" color="#4A5560">
+    <tr><td colspan="8" bgcolor="#12202B"><font color="#F4F2EC" face="DejaVu Sans">char nombre[8]</font></td>
+        <td colspan="4" bgcolor="#A8520F"><font color="#FFFDF8" face="DejaVu Sans">int es_admin</font></td></tr>
+    <tr><td width="56" height="48" fixedsize="true">a</td><td width="56" height="48" fixedsize="true">n</td><td width="56" height="48" fixedsize="true">a</td><td width="56" height="48" fixedsize="true">_</td><td width="56" height="48" fixedsize="true">_</td><td width="56" height="48" fixedsize="true">_</td><td width="56" height="48" fixedsize="true">_</td><td width="56" height="48" fixedsize="true">_</td>
+        <td width="56" height="48" fixedsize="true" bgcolor="#A8520F"><font color="#FFFDF8">X</font></td><td width="56" height="48" fixedsize="true" bgcolor="#FBEBDD">\0</td><td width="56" height="48" fixedsize="true" bgcolor="#FBEBDD">0</td><td width="56" height="48" fixedsize="true" bgcolor="#FBEBDD">0</td></tr>
+    <tr><td colspan="12" border="0"><font face="DejaVu Sans" point-size="13" color="#A8520F">./login ana_____X  →  'X' = 88 · es_admin = 88 · ACCESO DE ADMINISTRADOR</font></td></tr>
+  </table>>];
+
+  antes -> despues [label="  strcpy() sin verificar el tamaño", fontname="DejaVu Sans", fontsize=13, fontcolor="#A8520F", color="#A8520F", penwidth=1.8];
+}

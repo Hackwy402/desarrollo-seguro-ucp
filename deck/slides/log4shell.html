@@ -1,0 +1,16 @@
+<section id="log4shell" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#A8520F;letter-spacing:2px">CASO 1 · DICIEMBRE DE 2021 · CVE-2021-44228 · CVSS 10</p>
+<h2 style="font-size:60px;font-weight:700;line-height:1.1">Log4Shell: una línea de log que ejecuta código</h2>
+<div style="display:flex;gap:40px;align-items:center">
+<div style="flex:3;background:#FFFDF8;border:2px solid #D9D4C7;border-radius:16px;padding:20px;display:flex;justify-content:center">
+<img src="/_blob/da95f52a268199363ff4c70f24337bdc" alt="Diagrama: cadena de Log4Shell en cinco pasos, de la entrada al registro, la interpretación JNDI, la salida a la red y la ejecución remota; a la izquierda, el control que corta cada paso" style="width:920px;height:496px;object-fit:contain">
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-size:32px;font-weight:600">Lecciones para quien desarrolla</h3>
+<p style="font-size:26px;color:#4A5560;line-height:1.45"><b style="color:#12202B">Nunca confiar en la entrada:</b> un texto del usuario llegó a una función poderosa.</p>
+<p style="font-size:26px;color:#4A5560;line-height:1.45"><b style="color:#12202B">Seguro por defecto:</b> la función venía activa.</p>
+<p style="font-size:26px;color:#4A5560;line-height:1.45"><b style="color:#12202B">Inventario:</b> muchas empresas tardaron semanas en saber dónde usaban log4j.</p>
+</div>
+</div>
+<aside>Cada control en azul corta la cadena en un punto distinto: eso también es defensa en profundidad. La herramienta para responder "¿dónde usamos log4j?" (SBOM) la trabajamos el 20 de noviembre.</aside>
+</section>

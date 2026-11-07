@@ -1,0 +1,15 @@
+digraph ssdlc {
+  graph [layout=circo, mindist=0.4, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.4, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fillcolor="#12202B", color="#12202B", fontname="DejaVu Sans", fontsize=14, fontcolor="#F4F2EC", margin="0.22,0.16", width=2.2];
+  edge  [color="#A8520F", penwidth=2.2, arrowsize=0.9];
+
+  req  [label=<<font color="#E8893A"><b>Requisitos</b></font><br/>Requisitos ASVS<br/>privacidad · normativa<br/><font point-size="11" color="#BCC8D2">SSDF PO.1</font>>];
+  dis  [label=<<font color="#E8893A"><b>Diseño</b></font><br/>Modelado de amenazas<br/>STRIDE<br/><font point-size="11" color="#BCC8D2">SSDF PW.1 · 13 nov</font>>];
+  cod  [label=<<font color="#E8893A"><b>Código</b></font><br/>Codificación segura<br/>revisión<br/><font point-size="11" color="#BCC8D2">SSDF PW.5 · 13-14 nov</font>>];
+  ver  [label=<<font color="#E8893A"><b>Verificación</b></font><br/>SAST · DAST · SCA<br/>pruebas ASVS<br/><font point-size="11" color="#BCC8D2">SSDF PW.7-8 · 14 nov</font>>];
+  rel  [label=<<font color="#E8893A"><b>Release</b></font><br/>SBOM · firma<br/>procedencia<br/><font point-size="11" color="#BCC8D2">SSDF PS · 20 nov</font>>];
+  ope  [label=<<font color="#E8893A"><b>Operación</b></font><br/>Vulnerabilidades<br/>respuesta<br/><font point-size="11" color="#BCC8D2">SSDF RV · 21 nov</font>>];
+
+  req -> dis -> cod -> ver -> rel -> ope;
+  ope -> req [style=dashed];
+}

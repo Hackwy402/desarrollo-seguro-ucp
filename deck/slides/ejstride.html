@@ -1,0 +1,18 @@
+<section id="ejstride" hidden style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#A8520F;letter-spacing:2px">EJERCICIO 4 · 15 MIN · SALAS POR EQUIPO</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Una amenaza por cada letra de STRIDE</h2>
+<div style="display:flex;gap:24px;align-items:center">
+<div style="width:300px;background:#FFFDF8;border:2px solid #D9D4C7;border-radius:16px;padding:28px"><p style="font-size:28px;font-weight:600">Navegador</p><p style="font-size:24px;color:#4A5560">usuario final</p></div>
+<x-shape kind="arrow-right" style="background:#A8520F;width:80px;height:40px"></x-shape>
+<div style="flex:1;border:3px dashed #A8520F;border-radius:20px;padding:24px;display:flex;gap:24px;align-items:center">
+<div style="flex:1;background:#12202B;border-radius:16px;padding:28px"><p style="font-size:28px;font-weight:600;color:#F4F2EC">API de login</p><p style="font-size:24px;color:#BCC8D2">/login, /reset</p></div>
+<x-shape kind="arrow-right" style="background:#A8520F;width:80px;height:40px"></x-shape>
+<div style="flex:1;background:#12202B;border-radius:16px;padding:28px"><p style="font-size:28px;font-weight:600;color:#F4F2EC">BD usuarios</p><p style="font-size:24px;color:#BCC8D2">hash de claves</p></div>
+</div>
+<x-shape kind="arrow-right" style="background:#A8520F;width:80px;height:40px"></x-shape>
+<div style="width:300px;background:#FFFDF8;border:2px solid #D9D4C7;border-radius:16px;padding:28px"><p style="font-size:28px;font-weight:600">Correo</p><p style="font-size:24px;color:#4A5560">proveedor externo</p></div>
+</div>
+<p style="font-size:24px;color:#A8520F">Línea punteada: límite de confianza del sistema</p>
+<p style="font-size:30px;color:#4A5560;line-height:1.4">Cada equipo escribe seis amenazas (S, T, R, I, D, E), la propiedad que violan y un control. Se comparten en el chat al volver.</p>
+<aside>Ejemplos para cerrar: S, robo de sesión por token predecible en el enlace de reset; T, cambiar el correo destino del reset; R, sin registro de quién pidió el reset; I, mensaje que revela si el correo existe; D, envío masivo de resets sin límite; E, parámetro rol=admin aceptado en el registro.</aside>
+</section>

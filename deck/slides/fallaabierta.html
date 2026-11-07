@@ -1,0 +1,18 @@
+<section id="fallaabierta" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#A8520F;letter-spacing:2px">DEMO 3B · FALLAR DE FORMA SEGURA · A10</p>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1">Cuando el servicio de permisos se cae</h2>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;background:#FFFDF8;border:2px solid #D9D4C7;border-radius:16px;padding:20px;display:flex;justify-content:center;align-items:center">
+<img src="/_blob/19b4584e2c08bb7f1276079208018c49" alt="Flujo: si el servicio de permisos no responde, la versión insegura entra al except y devuelve True (200, falla abierta) y la segura devuelve False y registra (403, falla segura)" style="width:760px;height:457px;object-fit:contain">
+</div>
+<div style="flex:1;background:#0B151D;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:12px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:14px;height:14px;border-radius:50%;background:#E8893A"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:12px">salida real</p>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.55;padding:20px 24px">Luis edita el doc 10 (no es editor)<br>:5001 → 403&#160;&#160;&#160;:5002 → 403<br><br>$ docker compose stop permisos<br>Container permisos-1 Stopped<br><br>:5001 → <span style="color:#E8893A">200 {"editado_por": "luis"}</span><br>:5002 → <span style="color:#7FB3E6">403 {"error": "solicitud no</span><br><span style="color:#7FB3E6">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;procesada"}</span></p>
+</div>
+</div>
+<p style="font-size:28px;color:#4A5560;line-height:1.4">Nadie atacó la API: bastó con que otro servicio fallara. Ante la duda, <b style="color:#12202B">negar y registrar</b>.</p>
+<aside>Detener el servicio en vivo con docker compose stop permisos; es el momento más llamativo de la mañana. Categoría nueva del Top 10:2025, A10 Mishandling of Exceptional Conditions.</aside>
+</section>

@@ -20,9 +20,14 @@ El curso trata los principios de seguridad y el ciclo de vida de desarrollo segu
 
 ```
 setup/        guía de instalación y script de verificación del entorno
-estudio/      guías de estudio independiente por sesión
-demos/        demos en vivo del docente, reproducibles (ver demos/README.md)
 lab-env/      aplicaciones de práctica (docker compose, solo 127.0.0.1)
+demos/        demos en vivo, reproducibles, organizadas por sesión
+  sesion-1/   las 8 demos de la sesión 1 (ver demos/sesion-1/README.md)
+  sesion-3/   Semgrep con reglas propias
+  sesion-4/   cadena de suministro y pipeline en GitHub
+docs/         diagramas de arquitectura y de flujo (Graphviz) y pantallazos
+deck/         fuentes del deck de la sesión 1
+estudio/      guías de estudio independiente por sesión
 labs/         laboratorios, se publican antes de cada sesión
 proyecto/     plantilla del proyecto integrador
 ```

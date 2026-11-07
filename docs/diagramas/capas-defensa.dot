@@ -1,0 +1,21 @@
+digraph capas {
+  graph [bgcolor="transparent", fontname="DejaVu Sans", fontsize=14, pad=0.3, margin=0];
+  node  [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=15, margin="0.3,0.2"];
+
+  subgraph cluster_c5 {
+    label="Capa 5 · Límites de recursos: 64 procesos, 256 MB"; labeljust=l; style="rounded,filled"; fillcolor="#E3EDF7"; color="#2F6FB0"; fontcolor="#12202B";
+    subgraph cluster_c4 {
+      label="Capa 4 · no-new-privileges: no puede escalar con setuid"; labeljust=l; style="rounded,filled"; fillcolor="#C9DBEE"; color="#2F6FB0";
+      subgraph cluster_c3 {
+        label="Capa 3 · cap_drop ALL: ninguna capacidad del kernel"; labeljust=l; style="rounded,filled"; fillcolor="#A9C6E4"; color="#2F6FB0";
+        subgraph cluster_c2 {
+          label="Capa 2 · read_only: no puede escribir en disco"; labeljust=l; style="rounded,filled"; fillcolor="#7FA9D6"; color="#2F6FB0";
+          subgraph cluster_c1 {
+            label="Capa 1 · USER app (uid 10001): no es root"; labeljust=l; style="rounded,filled"; fillcolor="#2F6FB0"; color="#2F6FB0"; fontcolor="#FFFDF8";
+            atacante [label="Código del atacante\ndentro de la API", fillcolor="#A8520F", color="#A8520F", fontcolor="#FFFDF8"];
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+digraph api {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", fontsize=15, pad=0.3, nodesep=0.6, ranksep=0.9];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=14, fontcolor="#12202B", margin="0.25,0.14", penwidth=1.5];
+  edge  [color="#4A5560", fontname="DejaVu Sans", fontsize=12, fontcolor="#4A5560", penwidth=1.5];
+
+  nav [label=<<b>curl o navegador</b><br/><font point-size="12">GET /facturas/{id} · POST /documentos/{id}/editar<br/>token-ana · token-luis</font>>];
+
+  subgraph cluster_ins {
+    label="insegura · 127.0.0.1:5001"; labeljust=l; style="rounded,filled"; fillcolor="#FBEBDD"; color="#A8520F"; fontcolor="#A8520F"; penwidth=2;
+    ins [label=<<b>app_insegura.py</b><br/><font point-size="12">python:latest · root · debug=True<br/>sin verificar dueño · falla abierta</font>>];
+  }
+
+  subgraph cluster_seg {
+    label="segura · 127.0.0.1:5002"; labeljust=l; style="rounded,filled"; fillcolor="#E3EDF7"; color="#2F6FB0"; fontcolor="#2F6FB0"; penwidth=2;
+    seg [label=<<b>app_segura.py</b><br/><font point-size="12">python:3.12-slim · USER app · read_only<br/>cap_drop ALL · no-new-privileges · límites</font>>];
+  }
+
+  perm [label=<<b>permisos.py</b><br/><font point-size="12">ana es editora del doc 10</font>>];
+
+  nav -> ins [label="  :5001"];
+  nav -> seg [label="  :5002"];
+  ins -> perm [label="  GET /rol"];
+  seg -> perm [label="  GET /rol"];
+}

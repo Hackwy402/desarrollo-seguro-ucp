@@ -1,0 +1,15 @@
+<section id="laboratorio" data-transition="fade" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Arquitectura del laboratorio</h2>
+<div style="display:flex;gap:40px;align-items:center">
+<div style="flex:3;background:#FFFDF8;border:2px solid #D9D4C7;border-radius:16px;padding:24px;display:flex;justify-content:center">
+<img src="/_blob/7f1f3ffc2996a0e5f1c5783c52903d96" alt="Diagrama: equipo del estudiante con una VM Ubuntu; dentro, Docker con Juice Shop, la API de facturas, PostgreSQL y contenedores de herramientas; la red externa queda bloqueada porque todo escucha en 127.0.0.1" style="width:1040px;height:434px;object-fit:contain">
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:30px;font-weight:600;color:#A8520F">Aislamiento</h3><p style="font-size:26px;color:#4A5560;line-height:1.4">Lo vulnerable vive en la VM, no en su equipo.</p></div>
+<div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:30px;font-weight:600;color:#A8520F">127.0.0.1</h3><p style="font-size:26px;color:#4A5560;line-height:1.4">Nada queda expuesto a la red.</p></div>
+<div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:30px;font-weight:600;color:#A8520F">Desechable</h3><p style="font-size:26px;color:#4A5560;line-height:1.4">Las herramientas corren con docker run --rm.</p></div>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6A7179">Fuente del diagrama: docs/diagramas/arquitectura-laboratorio.dot</p>
+<aside>VirtualBox en Intel/AMD, UTM en Mac con Apple Silicon. Plan B para equipos de 8 GB: Docker Desktop en el host, con el mismo compose que publica solo en 127.0.0.1.</aside>
+</section>

@@ -1,0 +1,20 @@
+<section id="d-modelo" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#E8893A;letter-spacing:3px">DEMO 8 · 20 MIN</p>
+<p style="font-size:26px;color:#BCC8D2">Pregunta 1: ¿en qué estamos trabajando?</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1;color:#F4F2EC">El modelo de amenazas es código</h2>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:3;background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:12px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:14px;height:14px;border-radius:50%;background:#E8893A"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:12px">08-modelo-amenazas/modelo.py · OWASP pytm</p>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.5;padding:18px 24px">internet = Boundary("Internet")<br>servidor = Boundary("Red del servidor")<br><br>api = Server("API de facturas")<br>api.inBoundary = servidor<br><span style="color:#E8893A">api.controls.authorizesSource = False</span><br><span style="color:#E8893A">api.controls.isHardened = False</span><br><br>f1 = Dataflow(usuario, api,<br>&#160;&#160;"GET /facturas/{id} con token")<br>f1.protocol = "HTTP"</p>
+</div>
+<div style="flex:2;background:#FFFDF8;border-radius:16px;padding:16px;display:flex;justify-content:center;align-items:center">
+<img src="/_blob/191a5123b10ddfefd98fc9c9b0711c20" alt="Diagrama de flujo de datos generado por pytm: el navegador en el límite Internet y la API, el servicio de permisos y los datos en la red del servidor, con los cuatro flujos numerados" style="width:480px;height:606px;object-fit:contain">
+</div>
+</div>
+<aside>bash demos/sesion-1/08-modelo-amenazas/demo-modelo.sh. El diagrama de la derecha no se dibujó: lo generó pytm desde el código de la izquierda, con python modelo.py --dfd | dot. Ventaja: el modelo se versiona en git junto al código y se revisa en los pull requests.</aside>
+</section>

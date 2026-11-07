@@ -1,0 +1,15 @@
+<section id="d-entorno" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#E8893A;letter-spacing:3px">DEMO 1 · 25 MIN</p>
+<p style="font-size:26px;color:#BCC8D2">Principio: superficie mínima · SSDF PO.3</p>
+</div>
+<h2 style="font-size:60px;font-weight:700;line-height:1.1;color:#F4F2EC">El mismo contenedor, dos formas de publicarlo</h2>
+<div style="background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:14px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:16px;height:16px;border-radius:50%;background:#E8893A"></div><div style="width:16px;height:16px;border-radius:50%;background:#4A5560"></div><div style="width:16px;height:16px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:16px">bash demos/sesion-1/01-entorno/demo-entorno.sh · salida real</p>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#D7E0E7;line-height:1.55;padding:24px 28px">NAME&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;IMAGE&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;PORTS<br>juice-shop&#160;&#160;&#160;bkimminich/juice-shop:latest&#160;&#160;&#160;<span style="color:#7FB3E6">127.0.0.1:3000-&gt;3000/tcp</span><br><br>$ docker run -d -p 3001:3000 bkimminich/juice-shop<br>juice-expuesto&#160;&#160;&#160;<span style="color:#E8893A">0.0.0.0:3001-&gt;3000/tcp, [::]:3001-&gt;3000/tcp</span><br><br>com.docke&#160;&#160;TCP <span style="color:#7FB3E6">127.0.0.1:3000</span> (LISTEN)<br>com.docke&#160;&#160;TCP <span style="color:#E8893A">*:3001</span> (LISTEN)&#160;&#160;&#160;← cualquier equipo de la red llega aquí</p>
+</div>
+<aside>Mostrar primero que el compose del curso dice "127.0.0.1:3000:3000". Luego el error común con -p 3001:3000. En Linux, Docker escribe sus propias reglas de iptables: el puerto queda abierto aunque ufw diga lo contrario. Cerrar con check-env.sh: es lo que harán en la tarde.</aside>
+</section>

@@ -1,0 +1,15 @@
+<section id="d-xz" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#E8893A;letter-spacing:3px">DEMO 2 · 15 MIN</p>
+<p style="font-size:26px;color:#BCC8D2">Principio: integridad · SSDF PS.2</p>
+</div>
+<h2 style="font-size:60px;font-weight:700;line-height:1.1;color:#F4F2EC">Lo publicado no es lo revisado</h2>
+<div style="background:#0B151D;border:1px solid #2A3F51;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:14px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:16px;height:16px;border-radius:50%;background:#E8893A"></div><div style="width:16px;height:16px;border-radius:50%;background:#4A5560"></div><div style="width:16px;height:16px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:16px">bash demos/sesion-1/02-xz/demo-xz.sh · salida real</p>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#D7E0E7;line-height:1.55;padding:24px 28px">$ git ls-files<br>Makefile&#160;&#160;src/comprimir.c&#160;&#160;tests/files/good-1.xz<br><br>$ diff -r desde-git/ publicado/libcompresion-5.6.0/<br><span style="color:#E8893A">&gt; # paso extra del build que solo existe en el tarball</span><br><span style="color:#E8893A">Only in publicado/.../tests/files: bad-3-corrupt_lzma2.xz</span><br><br>$ shasum -a 256 libcompresion-5.6.0.tar.gz desde-git.tar.gz<br><span style="color:#E8893A">49b80172…cf765b55</span>&#160;&#160;libcompresion-5.6.0.tar.gz<br><span style="color:#7FB3E6">c7a3de6e…bd0e</span>&#160;&#160;desde-git.tar.gz</p>
+</div>
+<aside>El archivo extra se llama igual que en el caso real. Control: publicar desde CI y no desde el equipo de una persona, builds reproducibles y procedencia firmada (20 de noviembre).</aside>
+</section>

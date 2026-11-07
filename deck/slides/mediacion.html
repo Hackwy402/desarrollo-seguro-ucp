@@ -1,0 +1,20 @@
+<section id="mediacion" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#A8520F;letter-spacing:2px">DEMO 3A · MEDIACIÓN COMPLETA · A01</p>
+</div>
+<h2 style="font-size:56px;font-weight:700;line-height:1.1">Autenticado no es lo mismo que autorizado</h2>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;background:#FFFDF8;border:2px solid #D9D4C7;border-radius:16px;padding:20px;display:flex;justify-content:center;align-items:center">
+<img src="/_blob/670f34d67019c6ce7515159f5618a592" alt="Flujo: Ana pide la factura 2 de Luis; con token válido, la versión insegura responde 200 con la factura ajena y la segura verifica el dueño y responde 404" style="width:760px;height:362px;object-fit:contain">
+</div>
+<div style="flex:1;background:#0B151D;border-radius:16px;display:flex;flex-direction:column">
+<div style="display:flex;gap:10px;align-items:center;padding:12px 20px;border-bottom:1px solid #2A3F51">
+<div style="width:14px;height:14px;border-radius:50%;background:#E8893A"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div><div style="width:14px;height:14px;border-radius:50%;background:#4A5560"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8796A3;padding-left:12px">salida real</p>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#D7E0E7;line-height:1.55;padding:20px 24px">GET :5001/facturas/2 (token-ana)<br><span style="color:#E8893A">→ 200 {"cliente": "luis",</span><br><span style="color:#E8893A">&#160;&#160;&#160;&#160;&#160;&#160;&#160;"total": 980000}</span><br><br>GET :5002/facturas/2 (token-ana)<br><span style="color:#7FB3E6">→ 404 {"error": "solicitud</span><br><span style="color:#7FB3E6">&#160;&#160;&#160;&#160;&#160;&#160;&#160;no procesada"}</span></p>
+</div>
+</div>
+<p style="font-size:28px;color:#4A5560;line-height:1.4">El control: verificar el dueño <b style="color:#12202B">en cada consulta</b>, en el servidor. Responder 404 y no 403 evita confirmar que la factura existe.</p>
+<aside>Es la categoría número uno del OWASP Top 10:2025 y del API Security Top 10 (BOLA). Volver al ejercicio 2: es exactamente este código.</aside>
+</section>

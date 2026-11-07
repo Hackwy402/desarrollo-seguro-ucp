@@ -1,0 +1,20 @@
+digraph xz {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", pad=0.3, nodesep=0.6, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=15, fontcolor="#12202B", margin="0.25,0.14", penwidth=1.5, width=3.6];
+  edge  [color="#4A5560", fontname="DejaVu Sans", fontsize=13, fontcolor="#4A5560", penwidth=1.6];
+
+  repo [label=<<b>Repositorio git</b><br/><font point-size="13">el código que la comunidad revisa</font>>];
+
+  mant [label=<<b>Equipo del mantenedor</b><br/><font point-size="13">«Jia Tan»: 2 años ganando confianza</font>>, fillcolor="#FBEBDD", color="#A8520F"];
+  tar  [label=<<b>Tarball 5.6.0 / 5.6.1</b><br/><font point-size="13">+ archivo de prueba con la carga<br/>+ paso extra en el build</font>>, fillcolor="#A8520F", fontcolor="#FFFDF8", color="#A8520F"];
+  imp  [label=<<b>Distribuciones Linux → liblzma → sshd</b><br/><font point-size="13">versiones de prueba de varias distribuciones</font>>, fillcolor="#12202B", fontcolor="#F4F2EC", color="#12202B"];
+  det  [label=<<b>Detección, marzo de 2024</b><br/><font point-size="13">SSH tardaba ~500 ms más (Andres Freund)</font>>, fillcolor="#E3EDF7", color="#2F6FB0"];
+
+  ci   [label=<<b>Control</b><br/><font point-size="13">build en CI desde la etiqueta git<br/>build reproducible<br/>procedencia firmada<br/>hash = hash de git archive</font>>, fillcolor="#2F6FB0", fontcolor="#FFFDF8", color="#2F6FB0"];
+
+  repo -> mant [label="  código visible"];
+  repo -> ci [color="#2F6FB0", fontcolor="#2F6FB0", label="  lo que debió pasar"];
+  mant -> tar [label="  build manual", color="#A8520F", fontcolor="#A8520F"];
+  tar -> imp -> det;
+  ci -> tar [label="  no coincide:\n  se detiene", color="#2F6FB0", fontcolor="#2F6FB0", style=dashed, arrowhead=tee, constraint=false];
+}
