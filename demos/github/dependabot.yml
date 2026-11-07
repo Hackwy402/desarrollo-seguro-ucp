@@ -1,0 +1,15 @@
+# Copiar a .github/dependabot.yml: Dependabot abre PR cuando una dependencia o una acción tiene versión nueva o vulnerable.
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

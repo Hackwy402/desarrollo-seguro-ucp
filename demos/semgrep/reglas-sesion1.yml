@@ -1,0 +1,63 @@
+rules:
+  - id: falla-abierta
+    message: >-
+      El bloque except devuelve True: si la verificación falla, se concede el acceso.
+      Principio violado: fallar de forma segura (valores por defecto seguros).
+    severity: ERROR
+    languages: [python]
+    metadata:
+      cwe: "CWE-636: Not Failing Securely ('Failing Open')"
+      owasp: "A10:2025 Mishandling of Exceptional Conditions"
+    pattern: |
+      try:
+          ...
+      except $E:
+          ...
+          return True
+
+  - id: except-generico
+    message: >-
+      Captura genérica de Exception: oculta la causa real del error.
+      Capture solo las excepciones que espera manejar.
+    severity: WARNING
+    languages: [python]
+    metadata:
+      owasp: "A10:2025 Mishandling of Exceptional Conditions"
+    pattern: |
+      try:
+          ...
+      except Exception:
+          ...
+
+  - id: flask-debug-activo
+    message: >-
+      Flask con debug=True expone trazas y una consola de depuración.
+      Principio violado: seguro por defecto.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      cwe: "CWE-489: Active Debug Code"
+      owasp: "A02:2025 Security Misconfiguration"
+    pattern: $APP.run(..., debug=True, ...)
+
+  - id: secreto-en-codigo
+    message: >-
+      Secreto escrito en el código fuente. Léalo de una variable de entorno o de un gestor de secretos.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      cwe: "CWE-798: Use of Hard-coded Credentials"
+      owasp: "A02:2025 Security Misconfiguration"
+    pattern-either:
+      - pattern: $APP.config["SECRET_KEY"] = "..."
+      - pattern: $APP.config["DB_URL"] = "..."
+
+  - id: cors-comodin
+    message: >-
+      CORS con '*' permite que cualquier origen lea las respuestas. Use una lista de orígenes permitidos.
+    severity: WARNING
+    languages: [python]
+    metadata:
+      cwe: "CWE-942: Permissive Cross-domain Policy"
+      owasp: "A02:2025 Security Misconfiguration"
+    pattern: $RESP.headers["Access-Control-Allow-Origin"] = "*"

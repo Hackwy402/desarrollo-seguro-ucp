@@ -1,0 +1,10 @@
+# This is a Gradle generated file for dependency locking.
+# Manual edits can break the build and are not advised.
+# This file is expected to be part of source control.
+com.fasterxml.jackson.core:jackson-annotations:2.12.3=compileClasspath,runtimeClasspath
+com.fasterxml.jackson.core:jackson-core:2.12.3=compileClasspath,runtimeClasspath
+com.fasterxml.jackson.core:jackson-databind:2.12.3=compileClasspath,runtimeClasspath
+org.apache.logging.log4j:log4j-api:2.14.1=compileClasspath,runtimeClasspath
+org.apache.logging.log4j:log4j-core:2.14.1=compileClasspath,runtimeClasspath
+org.slf4j:slf4j-api:1.7.30=compileClasspath,runtimeClasspath
+empty=

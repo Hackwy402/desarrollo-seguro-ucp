@@ -21,6 +21,7 @@ El curso trata los principios de seguridad y el ciclo de vida de desarrollo segu
 ```
 setup/        guía de instalación y script de verificación del entorno
 estudio/      guías de estudio independiente por sesión
+demos/        demos en vivo del docente, reproducibles (ver demos/README.md)
 lab-env/      aplicaciones de práctica (docker compose, solo 127.0.0.1)
 labs/         laboratorios, se publican antes de cada sesión
 proyecto/     plantilla del proyecto integrador

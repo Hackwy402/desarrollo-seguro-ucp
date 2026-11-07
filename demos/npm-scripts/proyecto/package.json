@@ -1,0 +1,8 @@
+{
+  "name": "proyecto-demo",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "utilidad-fechas": "file:../utilidad-fechas"
+  }
+}

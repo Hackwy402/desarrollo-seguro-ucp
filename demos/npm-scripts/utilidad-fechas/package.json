@@ -1,0 +1,10 @@
+{
+  "name": "utilidad-fechas",
+  "version": "1.0.1",
+  "description": "Paquete de DEMOSTRACIÓN: muestra lo que un script de instalación puede ver. No lee ni envía nada.",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node aviso.js"
+  },
+  "license": "MIT"
+}
