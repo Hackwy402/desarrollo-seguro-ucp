@@ -1,0 +1,9 @@
+# Entorno de práctica del curso. Las aplicaciones son intencionalmente vulnerables:
+# se publican SOLO en 127.0.0.1 para que no queden expuestas a la red.
+services:
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    container_name: juice-shop
+    ports:
+      - "127.0.0.1:3000:3000"
+    restart: "no"
