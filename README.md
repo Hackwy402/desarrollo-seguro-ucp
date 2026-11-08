@@ -2,7 +2,7 @@
 
 Optativa I – Ciberseguridad Aplicada al Desarrollo de Software
 Especialización en Desarrollo de Software · Universidad Católica de Pereira · Cohorte 2026-2
-Docente: Ing. Jawy Andrés Romero
+Docente: Ing. Jawy Andrés Romero ([@Hackwy402](https://github.com/Hackwy402))
 
 El curso trata los principios de seguridad y el ciclo de vida de desarrollo seguro (SSDLC), teórico y aplicado: diseñar, construir y verificar software seguro. La parte ofensiva aparece solo como medio para entender el control.
 
