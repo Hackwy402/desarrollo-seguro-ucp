@@ -1,6 +1,6 @@
 # Estudio independiente – Sesión 1
 
-Plazo: antes del viernes 13 de noviembre, 5:00 p. m.
+Plazo: antes del viernes 13 de noviembre, 6:00 p. m.
 Carga estimada: 16 horas (parte de las 64 h de trabajo independiente del curso).
 
 El objetivo es llegar a la sesión presencial con los conceptos claros y con el diagrama de su aplicación listo para modelar amenazas.

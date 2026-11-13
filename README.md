@@ -11,7 +11,7 @@ El curso trata los principios de seguridad y el ciclo de vida de desarrollo segu
 | Sesión | Fecha | Modalidad | Horario | Tema |
 |---|---|---|---|---|
 | 1 | Sáb. 7 nov. | Virtual | 8:00–12:00 y 2:00–4:00 p. m. | Principios, SSDLC y preparación del entorno |
-| 2 | Vie. 13 nov. | Presencial | 5:00–10:00 p. m. | Modelado de amenazas y codificación segura |
+| 2 | Vie. 13 nov. | Presencial | 6:00–10:00 p. m. | Modelado de amenazas y codificación segura |
 | 3 | Sáb. 14 nov. | Presencial | 8:00 a. m.–5:00 p. m. | Autenticación, APIs, criptografía y ASVS |
 | 4 | Vie. 20 nov. | Presencial | 5:00–10:00 p. m. | Cadena de suministro y DevSecOps |
 | 5 | Sáb. 21 nov. | Presencial | 8:00 a. m.–5:00 p. m. | IA segura, gobernanza y sustentación |

@@ -1,7 +1,7 @@
 # Laboratorio 1 · Modelo de amenazas de la aplicación del equipo
 
-**Sesión 2 · viernes 13 de noviembre · 75 min en clase · 7,5 % de la nota**
-**Entrega:** al cierre del bloque (7:15 p. m.), como comentario en el issue de su equipo.
+**Sesión 2 · viernes 13 de noviembre · 60 min en clase · 7,5 % de la nota**
+**Entrega:** al cierre del bloque (7:50 p. m.), como comentario en el issue de su equipo.
 
 Van a hacer con **su** aplicación lo que vimos con la Tienda UCP en la demo 1: responder las cuatro preguntas del Threat Modeling Manifesto y salir con requisitos de seguridad verificables.
 
@@ -16,7 +16,7 @@ bash demos/sesion-2/01-modelo-amenazas/threat-dragon.sh     # http://127.0.0.1:8
 
 Si su aplicación es muy grande, **acoten**: un flujo de negocio completo (por ejemplo, registro → login → compra) modelado a fondo vale más que todo el sistema en superficie.
 
-## 1. ¿En qué estamos trabajando? (20 min)
+## 1. ¿En qué estamos trabajando? (15 min)
 
 Dibujen el diagrama de flujo de datos (DFD) en Threat Dragon:
 
@@ -28,7 +28,7 @@ Dibujen el diagrama de flujo de datos (DFD) en Threat Dragon:
 
 > Regla práctica: **toda amenaza interesante cruza un límite de confianza.** Si su diagrama no tiene límites, no tiene amenazas.
 
-## 2. ¿Qué puede salir mal? (25 min)
+## 2. ¿Qué puede salir mal? (20 min)
 
 Recorran **cada elemento** con STRIDE y registren las amenazas en Threat Dragon (panel *Threats* → *New Threat*):
 
@@ -43,7 +43,7 @@ Recorran **cada elemento** con STRIDE y registren las amenazas en Threat Dragon 
 
 **Mínimo:** 10 amenazas, al menos una de cada letra, y **al menos una de lógica de negocio** que ninguna herramienta automática encontraría (como el cupón reutilizable de la tienda).
 
-## 3. ¿Qué vamos a hacer al respecto? (20 min)
+## 3. ¿Qué vamos a hacer al respecto? (15 min)
 
 1. Califiquen cada amenaza: **impacto** (1–3) × **probabilidad** (1–3) = riesgo (1–9). En Threat Dragon usen *Severity*: 7–9 → High, 4–6 → Medium, 1–3 → Low.
 2. Elijan las **5 de mayor riesgo** y para cada una escriban un **requisito verificable** con su capítulo de ASVS 5.0:
