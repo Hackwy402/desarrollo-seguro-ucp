@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sesión 3: Semgrep con reglas propias sobre la API de la sesión 1.
+# Sesión 3: Semgrep con reglas propias sobre la API de la sesión 1 y la Billetera UCP.
 set -u
 cd "$(dirname "$0")" || exit 1
 API=../../sesion-1/03-api
@@ -13,5 +13,14 @@ semgrep scan --config reglas-principios.yml --metrics=off "$API/app_insegura.py"
 
 pausa "3. Escanear la versión segura"
 semgrep scan --config reglas-principios.yml --metrics=off "$API/app_segura.py"
+
+pausa "4. Reglas de la billetera: tokens, contraseñas, cifrado, secretos y asignación masiva"
+semgrep scan --config reglas-billetera.yml --metrics=off ../02-billetera/app.py
+
+pausa "5. La solución de la billetera"
+[ -f ../02-billetera/.soluciones/app.py ] && semgrep scan --config reglas-billetera.yml --metrics=off ../02-billetera/.soluciones/app.py
+
+pausa "6. Las reglas de la comunidad sobre su propio proyecto (Lab 2)"
+echo "   semgrep scan --config p/python --config p/owasp-top-ten --config reglas-billetera.yml --metrics=off RUTA/A/SU/PROYECTO"
 
 pausa "Fin. Con --error, el código de salida permite bloquear un pull request (sesión 4)."

@@ -10,3 +10,5 @@ datos/panorama/*.log
 
 # Solución de referencia del docente: no publicar antes de la sesión 3
 demos/sesion-2/02-tienda/.soluciones/
+demos/sesion-3/02-billetera/.soluciones/
+demos/sesion-3/02-billetera/zap/reportes/

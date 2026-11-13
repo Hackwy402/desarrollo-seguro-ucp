@@ -1,0 +1,9 @@
+<section id="hash" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:36px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#A8520F;letter-spacing:2px">V6 · V11 · ALMACENAMIENTO DE CONTRASEÑAS</p><h2 style="font-size:64px;font-weight:700;line-height:1.1;color:#12202B">Un hash rápido es un regalo para el atacante</h2><div style="display:flex;gap:96px;align-items:end">
+<div style="display:flex;flex-direction:column;gap:8px"><p style="font-size:150px;font-weight:700;line-height:1;color:#A8520F">2 573 691</p><p style="font-size:32px;color:#4A5560">intentos por segundo con MD5, en un núcleo</p></div>
+</div>
+<div style="display:flex;gap:96px;align-items:end">
+<div style="display:flex;flex-direction:column;gap:8px"><p style="font-size:150px;font-weight:700;line-height:1;color:#2F6FB0">43</p><p style="font-size:32px;color:#4A5560">con Argon2id, y cada uno ocupa 64 MiB de memoria</p></div>
+</div><p style="font-size:28px;color:#4A5560;line-height:1.4">Medido en la VM del curso. Una GPU multiplica el MD5 por mil; el Argon2id casi no mejora: esa es la idea de una función con costo de memoria.</p>
+<aside>Estos números salen de la demo, en vivo. El punto no es la cifra exacta sino la relación: unas 60 000 veces más caro probar cada clave. La sal hace que dos usuarios con la misma clave tengan hashes distintos y que no sirvan las tablas precalculadas; Argon2id la genera sola y la guarda dentro del hash.</aside>
+</section>

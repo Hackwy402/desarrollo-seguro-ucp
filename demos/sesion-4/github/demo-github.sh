@@ -7,7 +7,7 @@ REPO="${1:-demo-facturas-ucp}"
 DEMOS="$(cd "$(dirname "$0")/../.." && pwd)"
 API="$DEMOS/sesion-1/03-api"
 GH="$DEMOS/sesion-4/github"
-REGLAS="$DEMOS/sesion-3/semgrep/reglas-principios.yml"
+REGLAS="$DEMOS/sesion-3/01-semgrep/reglas-principios.yml"
 pausa() { printf '\n\033[1;33m>> %s\033[0m\n' "$1"; read -r -p "   [Enter para continuar] " _; }
 
 DIR=$(mktemp -d); cd "$DIR" || exit 1

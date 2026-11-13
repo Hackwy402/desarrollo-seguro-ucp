@@ -1,0 +1,21 @@
+# Billetera UCP: versión insegura (:5005) y solución del docente (:5006). Solo en 127.0.0.1.
+name: billetera-ucp
+x-base: &base
+  image: ucp-billetera
+  build: .
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  pids_limit: 64
+  mem_limit: 256m
+  volumes: [./:/app:ro]
+services:
+  insegura:
+    <<: *base
+    ports: ["127.0.0.1:5005:5000"]
+  segura:
+    <<: *base
+    working_dir: /app
+    command: ["sh", "-c", "cp .soluciones/app.py /tmp/app_segura.py && PYTHONPATH=/app python /tmp/app_segura.py"]
+    ports: ["127.0.0.1:5006:5000"]

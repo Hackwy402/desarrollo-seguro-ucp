@@ -24,11 +24,11 @@ lab-env/      aplicaciones de práctica (docker compose, solo 127.0.0.1)
 demos/        demos en vivo, reproducibles, organizadas por sesión
   sesion-1/   las 8 demos de la sesión 1 (ver demos/sesion-1/README.md)
   sesion-2/   modelo de amenazas en Threat Dragon y katas de codificación segura (Tienda UCP)
-  sesion-3/   Semgrep con reglas propias
+  sesion-3/   Billetera UCP (autenticación, JWT, APIs, cripto), Semgrep y ZAP
   sesion-4/   cadena de suministro y pipeline en GitHub
 docs/         diagramas de arquitectura y de flujo (Graphviz) y pantallazos
 datos/        panorama: CVE (NVD), vulnerabilidades explotadas (CISA KEV), gráficos y fuentes
-deck/         fuentes de los decks (sesión 1; sesión 2 en deck/sesion-2)
+deck/         fuentes de los decks (sesión 1; sesiones 2 y 3 en deck/sesion-N)
 estudio/      guías de estudio independiente por sesión
 labs/         laboratorios, se publican antes de cada sesión
 proyecto/     plantilla del proyecto integrador

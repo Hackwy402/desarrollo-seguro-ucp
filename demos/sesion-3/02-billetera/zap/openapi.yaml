@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info: {title: Billetera UCP (laboratorio), version: "1.0"}
+servers: [{url: "http://insegura:5000"}]
+components:
+  securitySchemes: {bearer: {type: http, scheme: bearer, bearerFormat: JWT}}
+security: [{bearer: []}]
+paths:
+  /salud: {get: {security: [], responses: {"200": {description: ok}}}}
+  /api/login:
+    post:
+      security: []
+      requestBody: {content: {application/json: {schema: {type: object, properties: {usuario: {type: string, example: ana}, clave: {type: string, example: x}}}}}}
+      responses: {"200": {description: token}}
+  /api/registro:
+    post:
+      security: []
+      requestBody: {content: {application/json: {schema: {type: object, properties: {usuario: {type: string, example: zap}, clave: {type: string, example: "una frase larga de prueba"}, documento: {type: string, example: "1"}}}}}}
+      responses: {"201": {description: creado}}
+  /api/perfil:
+    get: {responses: {"200": {description: perfil}}}
+    patch:
+      requestBody: {content: {application/json: {schema: {type: object, properties: {nombre: {type: string, example: Ana}}}}}}
+      responses: {"200": {description: perfil}}
+  /api/cuentas/{cid}/movimientos:
+    get:
+      parameters:
+        - {name: cid, in: path, required: true, schema: {type: integer, example: 1}}
+        - {name: limite, in: query, schema: {type: integer, example: 20}}
+      responses: {"200": {description: movimientos}}

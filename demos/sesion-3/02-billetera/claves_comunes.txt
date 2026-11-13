@@ -1,0 +1,29 @@
+# Muestra de contraseñas comunes para la kata v6_claves. En producción: la lista
+# completa de Have I Been Pwned (k-anonimato) o una de 100 000+ entradas.
+123456
+123456789
+12345678
+password
+password1
+password123
+password1234
+qwerty
+qwerty123
+111111
+abc123
+admin
+admin123
+iloveyou
+colombia
+colombia123
+contraseña
+contraseña1
+contraseña123
+contrasena123
+pereira
+pereira123
+ucp2026
+universidad
+teamo
+bienvenido
+bienvenido123
