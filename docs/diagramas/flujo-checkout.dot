@@ -1,0 +1,30 @@
+digraph checkout {
+  graph [rankdir=TB, bgcolor="transparent", fontname="DejaVu Sans", fontsize=15, pad=0.3, nodesep=0.5, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fillcolor="#FFFDF8", color="#D9D4C7", fontname="DejaVu Sans", fontsize=14, fontcolor="#12202B", margin="0.22,0.12", penwidth=1.5];
+  edge  [color="#4A5560", fontname="DejaVu Sans", fontsize=12, fontcolor="#4A5560", penwidth=1.5];
+
+  req [label=<<b>POST /carrito/checkout</b><br/><font point-size="12">items: id, cantidad (el precio del cliente se ignora)</font>>];
+  q   [shape=diamond, style="filled", fillcolor="#E3EDF7", color="#2F6FB0", label="cantidad entera\n1 a 10?"];
+  p   [shape=diamond, style="filled", fillcolor="#E3EDF7", color="#2F6FB0", label="producto visible\nen la base?"];
+  tot [label=<<b>total = precio de la base × cantidad</b>>];
+  c   [shape=diamond, style="filled", fillcolor="#E3EDF7", color="#2F6FB0", label="UPDATE cupón\nusado=0 y dueño\n→ 1 fila?"];
+  pay [label=<<b>pasarela.cobrar(total)</b>>];
+  ok  [style="rounded,filled", fillcolor="#E3EDF7", color="#2F6FB0", label=<<b>201 · pagado</b>>];
+  rj  [label=<<b>201 · rechazado</b>>];
+  e400 [style="rounded,filled", fillcolor="#FBEBDD", color="#A8520F", label=<<b>400</b> · rollback>];
+  e503 [style="rounded,filled", fillcolor="#FBEBDD", color="#A8520F", label=<<b>503</b> · rollback · registrar<br/><font point-size="12">no se entrega sin cobro confirmado</font>>];
+
+  req -> q;
+  q -> p [label=" sí"];
+  q -> e400 [label=" no"];
+  p -> tot [label=" sí"];
+  p -> e400 [label=" no"];
+  tot -> c [label=" con cupón"];
+  tot -> pay [label=" sin cupón"];
+  c -> pay [label=" sí"];
+  c -> e400 [label=" no"];
+  pay -> ok [label=" aprobado"];
+  pay -> rj [label=" Rechazado"];
+  pay -> e503 [label=" timeout / error"];
+  {rank=same; ok; rj; e503}
+}

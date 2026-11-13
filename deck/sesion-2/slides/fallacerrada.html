@@ -1,0 +1,16 @@
+<section id="fallacerrada" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#A8520F;letter-spacing:2px">A10 · CONDICIONES EXCEPCIONALES · KATA a10_excepciones</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Si no se sabe si se cobró, no se entrega</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;background:#12202B;padding:32px;border-radius:16px;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:26px;font-weight:600;color:#E8893A">Antes</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:25px;color:#F4F2EC;line-height:1.5"><span style="color:#E8893A">estado = "pagado"</span><br>try:<br>&#160;&#160;pasarela.cobrar(usuario, total)<br>except pasarela.Rechazado:<br>&#160;&#160;estado = "rechazado"<br>except Exception as e:<br>&#160;&#160;<span style="color:#E8893A">app.logger.warning(e)</span></p>
+</div>
+<div style="flex:1;background:#FFFDF8;padding:32px;border-radius:16px;border:2px solid #D9D4C7;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:26px;font-weight:600;color:#A8520F">Después</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:25px;color:#12202B;line-height:1.5">try:<br>&#160;&#160;pasarela.cobrar(usuario, total)<br>&#160;&#160;<b>estado = "pagado"</b><br>except pasarela.Rechazado:<br>&#160;&#160;estado = "rechazado"<br>except Exception:<br>&#160;&#160;db().rollback()<br>&#160;&#160;<b>return …, 503</b></p>
+</div>
+</div>
+<p style="font-size:28px;color:#4A5560">Y un manejador global que registra el detalle y responde <span style="font-family:'JetBrains Mono', 'Courier New', monospace">{"error": "solicitud no procesada"}</span>, sin traza.</p>
+<aside>Es el mismo principio de la demo 3 del sábado (el servicio de permisos caído), ahora en un pago. La diferencia está en el orden: en la versión segura «pagado» solo se asigna después de que cobrar() termina bien. Nueva categoría del Top 10:2025.</aside>
+</section>

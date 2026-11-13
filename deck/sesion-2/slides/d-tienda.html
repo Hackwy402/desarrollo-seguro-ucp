@@ -1,0 +1,18 @@
+<section id="d-tienda" data-transition="fade" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#E8893A;letter-spacing:3px">DEMO 2 · 45 MIN</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#BCC8D2">bash demos/sesion-2/02-tienda/demo-tienda.sh</p>
+</div>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1;color:#F4F2EC">Siete fallas, la misma tienda, dos versiones</h2>
+<table style="font-size:26px;color:#F4F2EC">
+<tr><th style="width:12%">OWASP</th><th style="width:44%">Ataque</th><th style="width:22%">Insegura :5003</th><th style="width:22%">Segura :5004</th></tr>
+<tr><td>A05</td><td>q=' OR 1=1 -- y UNION con usuarios</td><td>Ocultos y hashes</td><td>[ ]</td></tr>
+<tr><td>A05</td><td>Reseña con &lt;script&gt;</td><td>Página tomada</td><td>Texto + CSP</td></tr>
+<tr><td>A05</td><td>Reporte «x; id; uname -a #»</td><td>uid=10001(app)</td><td>400</td></tr>
+<tr><td>A06</td><td>Monitor a 1 peso · cantidad −1</td><td>total: 1</td><td>1.100.000 · 400</td></tr>
+<tr><td>A06</td><td>Cupón de un solo uso ×3</td><td>3 descuentos</td><td>1 y luego 400</td></tr>
+<tr><td>A10</td><td>Pasarela caída</td><td>201 pagado</td><td>503</td></tr>
+<tr><td>A02</td><td>Origin: atacante.example</td><td>Lo refleja</td><td>Lista blanca</td></tr>
+</table>
+<aside>Ambas corren en 127.0.0.1, con sistema de archivos de solo lectura, sin capacidades y con límites. La inyección de comandos muestra uid=10001(app): el contenedor endurecido de la sesión 1 limita el daño, pero no lo evita. Eso es defensa en profundidad. Abrir en el navegador las dos páginas de reseñas para que vean el XSS.</aside>
+</section>

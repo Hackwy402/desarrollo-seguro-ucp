@@ -1,0 +1,16 @@
+<section id="amenazas" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#A8520F;letter-spacing:2px">PREGUNTA 3 · DEL MODELO SALEN LOS REQUISITOS</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Las amenazas altas y su control</h2>
+<table style="font-size:25px;color:#12202B">
+<tr><th style="width:26%">Amenaza</th><th style="width:8%">STRIDE</th><th style="width:44%">Control</th><th style="width:10%">ASVS</th><th style="width:12%">Kata</th></tr>
+<tr><td>IDOR en pedidos</td><td>E</td><td>Dueño en la consulta; ajeno → 404</td><td>V8</td><td>a01</td></tr>
+<tr><td>Inyección SQL</td><td>T</td><td>Consulta parametrizada</td><td>V1</td><td>a05_sql</td></tr>
+<tr><td>XSS en reseñas</td><td>T</td><td>Escape automático + CSP</td><td>V1 · V3</td><td>a05_xss</td></tr>
+<tr><td>Inyección de comandos</td><td>E</td><td>Lista blanca + tarfile, sin shell</td><td>V1 · V5</td><td>a05_cmd</td></tr>
+<tr><td>Precio del cliente</td><td>T</td><td>Precio y límites desde el servidor</td><td>V2</td><td>a06</td></tr>
+<tr><td>Falla abierta en el pago</td><td>T</td><td>Sin cobro confirmado → 503</td><td>V16</td><td>a10</td></tr>
+<tr><td>CORS con credenciales</td><td>I</td><td>Lista blanca de orígenes</td><td>V3</td><td>a02</td></tr>
+<tr><td>Datos personales en la base</td><td>I</td><td>Mínimo privilegio, Argon2id, cifrado</td><td>V11 · V14</td><td>—</td></tr>
+</table>
+<aside>La última fila no tiene kata: queda como requisito del proyecto y la tocamos el sábado en criptografía. Es normal que un modelo tenga amenazas que hoy no se mitigan; lo importante es que queden registradas y con dueño.</aside>
+</section>

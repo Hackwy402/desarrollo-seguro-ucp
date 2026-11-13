@@ -1,0 +1,1559 @@
+{
+  "version": "2.3.0",
+  "summary": {
+    "title": "Tienda UCP",
+    "owner": "Desarrollo Seguro UCP – Sesión 2",
+    "description": "Modelo de amenazas de referencia de la Tienda UCP: cuatro preguntas, STRIDE por elemento y requisitos trazables a ASVS 5.0.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Docente"
+      }
+    ],
+    "diagrams": [
+      {
+        "cells": [
+          {
+            "shape": "trust-boundary-curve",
+            "attrs": {
+              "line": {
+                "targetMarker": "",
+                "sourceMarker": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Internet | servidor",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  },
+                  "text": {
+                    "text": ""
+                  }
+                },
+                "position": {
+                  "distance": 0.5,
+                  "args": {
+                    "keepGradient": true,
+                    "ensureLegibility": true
+                  }
+                }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "Internet | servidor",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "fe7808b0-4cf2-4828-9bd7-665d82820a99",
+            "source": {
+              "x": 260,
+              "y": 20
+            },
+            "target": {
+              "x": 260,
+              "y": 640
+            },
+            "vertices": [
+              {
+                "x": 250,
+                "y": 200
+              },
+              {
+                "x": 270,
+                "y": 420
+              }
+            ]
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "attrs": {
+              "line": {
+                "targetMarker": "",
+                "sourceMarker": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Servidor | proveedor externo",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  },
+                  "text": {
+                    "text": ""
+                  }
+                },
+                "position": {
+                  "distance": 0.5,
+                  "args": {
+                    "keepGradient": true,
+                    "ensureLegibility": true
+                  }
+                }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "Servidor | proveedor externo",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "69dbdf60-2f42-496b-a71a-738a61eab1ec",
+            "source": {
+              "x": 720,
+              "y": 240
+            },
+            "target": {
+              "x": 1020,
+              "y": 420
+            },
+            "vertices": [
+              {
+                "x": 760,
+                "y": 410
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 20,
+              "y": 230
+            },
+            "size": {
+              "width": 150,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "Cliente\n(navegador)"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "strokeDasharray": ""
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 7,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "369debe7-6df7-45dc-bb6d-c87465d7db5f"
+                },
+                {
+                  "group": "right",
+                  "id": "eb3ee29c-65e1-4026-8d6e-5d841af35d5e"
+                },
+                {
+                  "group": "bottom",
+                  "id": "5a8d22ec-ea9a-4115-a1af-2e538d175ced"
+                },
+                {
+                  "group": "left",
+                  "id": "44e43d7c-b614-4001-a738-53d9fc22ee45"
+                }
+              ]
+            },
+            "id": "3d1ee3d3-7dc7-4e98-b81c-e359df0e4324",
+            "data": {
+              "name": "Cliente\n(navegador)",
+              "description": "",
+              "type": "tm.Actor",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [],
+              "hasOpenThreats": false,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 400,
+              "y": 210
+            },
+            "size": {
+              "width": 130,
+              "height": 130
+            },
+            "attrs": {
+              "text": {
+                "text": "API Tienda\n(Flask)"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": ""
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 5,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "0dfcca99-c501-402c-add2-6ce2bca1ade3"
+                },
+                {
+                  "group": "right",
+                  "id": "a9da5e36-505b-47c2-ac5f-a5c77adf572f"
+                },
+                {
+                  "group": "bottom",
+                  "id": "7e273021-b458-4060-92fa-206890082eb3"
+                },
+                {
+                  "group": "left",
+                  "id": "50651f03-0f6f-4195-b861-1f2cb151a4be"
+                }
+              ]
+            },
+            "id": "eb4634c1-3994-4c29-b692-62c0fe801dbd",
+            "data": {
+              "name": "API Tienda\n(Flask)",
+              "description": "Búsqueda, reseñas, pedidos, checkout y reportes. Kata: demos/sesion-2/02-tienda/app.py",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "A01 · IDOR: leer el pedido de otro cliente",
+                  "type": "Elevation of privilege",
+                  "description": "GET /pedidos/<id> verifica la sesión pero no que el pedido sea de quien lo pide. Ana cambia el id y ve la dirección de Beto.",
+                  "mitigation": "Mediación completa: el dueño va en la consulta (WHERE id = ? AND usuario = ?) y un pedido ajeno responde 404. ASVS 5.0 V8 (autorización). Kata a01_acceso.",
+                  "modelType": "STRIDE",
+                  "id": "24aa34e5-df4a-4fde-9945-9bd5d079741d"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "A06 · El cliente decide el precio y la cantidad",
+                  "type": "Tampering",
+                  "description": "El checkout suma precio × cantidad tal como llegan en el JSON: un monitor de 1.100.000 se compra por 1 peso, o una cantidad negativa resta del total.",
+                  "mitigation": "El servidor es la fuente de verdad: precio desde la base, cantidad entera entre 1 y 10, solo productos visibles. ASVS 5.0 V2 (validación y lógica de negocio). Kata a06_diseno.",
+                  "modelType": "STRIDE",
+                  "id": "054e3725-2891-4302-bc6b-96616cad7c0f"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "A06 · Cupón de un solo uso reutilizable y transferible",
+                  "type": "Tampering",
+                  "description": "El cupón BIENVENIDA (50 %) no registra su uso ni a quién pertenece.",
+                  "mitigation": "UPDATE ... SET usado = 1 WHERE codigo = ? AND usuario = ? AND usado = 0 en la misma transacción; si no afecta una fila, 400. Kata a06_diseno.",
+                  "modelType": "STRIDE",
+                  "id": "80e43aae-c93b-4d1f-8565-2c6219931762"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "A02 · CORS refleja cualquier origen con credenciales",
+                  "type": "Information disclosure",
+                  "description": "Cualquier sitio que visite el cliente puede leer sus pedidos usando su sesión.",
+                  "mitigation": "Lista blanca explícita de orígenes, Vary: Origin; nunca reflejar. Cabeceras nosniff y CSP frame-ancestors. ASVS 5.0 V3 (seguridad del frontend web). Kata a02_config.",
+                  "modelType": "STRIDE",
+                  "id": "e9a4582f-12e6-43c9-bf1c-83a14ca7f39f"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "A02/A10 · Errores con traza y modo depuración",
+                  "type": "Information disclosure",
+                  "description": "Con debug encendido por defecto, un error devuelve rutas, versiones y la consola de Werkzeug.",
+                  "mitigation": "Debug apagado por defecto; manejador genérico que registra el detalle y responde {error: solicitud no procesada}. ASVS 5.0 V13 y V16.",
+                  "modelType": "STRIDE",
+                  "id": "41db23b9-6730-40dd-a2a1-e5e03cd559dc"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "A09 · Sin registro de eventos de seguridad",
+                  "type": "Repudiation",
+                  "description": "No queda rastro de cobros fallidos, cupones rechazados ni accesos negados: no se puede investigar ni demostrar qué pasó.",
+                  "mitigation": "Registrar con usuario, acción, resultado y hora (sin datos sensibles). ASVS 5.0 V16.",
+                  "modelType": "STRIDE",
+                  "id": "0133df84-6125-4765-9157-93a43ddc54da"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "Fuerza bruta y abuso sin límites",
+                  "type": "Denial of service",
+                  "description": "Búsqueda y checkout sin límite de solicitudes por usuario o IP.",
+                  "mitigation": "Rate limiting por usuario e IP y tamaño máximo del carrito. ASVS 5.0 V2 / V4.",
+                  "modelType": "STRIDE",
+                  "id": "8a9d73b2-54fc-4f5e-85cc-336745f0616f"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "Tokens estáticos sin expiración",
+                  "type": "Spoofing",
+                  "description": "token-ana nunca expira ni se puede revocar: quien lo copie suplanta a Ana para siempre.",
+                  "mitigation": "Sesiones con expiración y rotación, o JWT/OIDC bien validados (sesión 3, sábado 14). ASVS 5.0 V6, V7 y V9.",
+                  "modelType": "STRIDE",
+                  "id": "97fceb81-b97a-4ced-8128-638929d2a20a"
+                }
+              ],
+              "hasOpenThreats": true
+            }
+          },
+          {
+            "position": {
+              "x": 400,
+              "y": 470
+            },
+            "size": {
+              "width": 130,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "Generador de\nreportes (tar)"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": ""
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 5,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "807b3290-9246-42b4-bf5b-9ee3befb7fbb"
+                },
+                {
+                  "group": "right",
+                  "id": "6e159b3f-6937-4bac-bc9d-eaed13bd4d34"
+                },
+                {
+                  "group": "bottom",
+                  "id": "b563ae44-a001-40a9-bb6e-56b502fb69ae"
+                },
+                {
+                  "group": "left",
+                  "id": "560b32bf-37ff-45ca-9763-b219d0d32c3f"
+                }
+              ]
+            },
+            "id": "06dd6b86-76a0-404a-9d55-83c2b16be168",
+            "data": {
+              "name": "Generador de\nreportes (tar)",
+              "description": "",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "A05 · Inyección de comandos en el nombre del reporte",
+                  "type": "Elevation of privilege",
+                  "description": "El nombre termina dentro de una línea de shell: 'x; id #' ejecuta comandos con el usuario del servicio.",
+                  "mitigation": "Lista blanca [A-Za-z0-9_-]{1,40} y tarfile de Python, sin shell=True. ASVS 5.0 V1 (codificación y sanitización). Kata a05_comandos.",
+                  "modelType": "STRIDE",
+                  "id": "d71f5574-3fb6-48f0-b0dd-3b6e9c90a778"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "Path traversal: escribir fuera de la carpeta de reportes",
+                  "type": "Tampering",
+                  "description": "'../../fuera' escribe archivos fuera de /tmp/reportes.",
+                  "mitigation": "La misma lista blanca impide / y ..; contenedor read-only. ASVS 5.0 V5 (manejo de archivos).",
+                  "modelType": "STRIDE",
+                  "id": "dcc9d40c-6c77-4194-9aee-87a94b6876d0"
+                }
+              ],
+              "hasOpenThreats": true
+            }
+          },
+          {
+            "position": {
+              "x": 800,
+              "y": 60
+            },
+            "size": {
+              "width": 190,
+              "height": 90
+            },
+            "attrs": {
+              "text": {
+                "text": "Base de datos\n(productos, pedidos,\ncupones, usuarios)"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": ""
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": ""
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 1,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "52868a3e-c918-4eed-ab47-af8a7f8af6a5"
+                },
+                {
+                  "group": "right",
+                  "id": "aa6fd231-78df-430d-878a-32c1c63b1c50"
+                },
+                {
+                  "group": "bottom",
+                  "id": "bd9fd8cb-f5cc-444f-bb4c-2ded9d8788b7"
+                },
+                {
+                  "group": "left",
+                  "id": "07f50021-1e2e-47c8-84e7-e0b87a4e9d93"
+                }
+              ]
+            },
+            "id": "1413724c-9751-4529-b34f-2668d013adda",
+            "data": {
+              "name": "Base de datos\n(productos, pedidos,\ncupones, usuarios)",
+              "description": "",
+              "type": "tm.Store",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "Datos personales y hashes de contraseña expuestos",
+                  "type": "Information disclosure",
+                  "description": "La base guarda direcciones (Ley 1581) y hashes. Cualquier inyección o copia de la base los expone.",
+                  "mitigation": "Mínimo privilegio del usuario de la app (sesión 1, demo 4), Argon2id con parámetros OWASP, cifrado en reposo y respaldos protegidos. ASVS 5.0 V11 y V14.",
+                  "modelType": "STRIDE",
+                  "id": "3307979a-d7fa-4a22-85d9-5fcbeade203e"
+                }
+              ],
+              "hasOpenThreats": true,
+              "isALog": false,
+              "storesCredentials": true,
+              "isEncrypted": false,
+              "isSigned": false
+            }
+          },
+          {
+            "position": {
+              "x": 800,
+              "y": 500
+            },
+            "size": {
+              "width": 170,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "Archivos de\nreportes (.tgz)"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": ""
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": ""
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 1,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "a9b1cb6e-5e46-4fbb-b272-298bc0a6966b"
+                },
+                {
+                  "group": "right",
+                  "id": "d90689f2-71c4-416b-aed4-a8e4e2f3b14b"
+                },
+                {
+                  "group": "bottom",
+                  "id": "69e4bcb7-ff27-448c-8a18-f02ab72b514a"
+                },
+                {
+                  "group": "left",
+                  "id": "2d07cbf8-6c24-4981-8e53-5187476caefb"
+                }
+              ]
+            },
+            "id": "a999d5ac-b75f-4764-ab32-290e50dfa367",
+            "data": {
+              "name": "Archivos de\nreportes (.tgz)",
+              "description": "",
+              "type": "tm.Store",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "title": "Reportes de ventas legibles por cualquiera en el servidor",
+                  "type": "Information disclosure",
+                  "description": "Los .tgz quedan en /tmp sin control de acceso ni expiración.",
+                  "mitigation": "Carpeta dedicada con permisos del usuario del servicio y borrado programado. ASVS 5.0 V14.",
+                  "modelType": "STRIDE",
+                  "id": "d92118d5-f7db-4c2b-b12a-eebe6f19a9fa"
+                }
+              ],
+              "hasOpenThreats": true,
+              "isALog": false,
+              "storesCredentials": true,
+              "isEncrypted": false,
+              "isSigned": false
+            }
+          },
+          {
+            "position": {
+              "x": 820,
+              "y": 300
+            },
+            "size": {
+              "width": 170,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "Pasarela de pagos\n(proveedor externo)"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "strokeDasharray": ""
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 7,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "1dfd9417-0614-443b-9c7d-ea85f6d18485"
+                },
+                {
+                  "group": "right",
+                  "id": "4df5cf3f-9189-4096-8fed-a30721fd8054"
+                },
+                {
+                  "group": "bottom",
+                  "id": "f6e5e22e-d973-4d0c-bc3f-0988edd39540"
+                },
+                {
+                  "group": "left",
+                  "id": "4ef4507b-835f-46a7-a4c7-b5959124f6a6"
+                }
+              ]
+            },
+            "id": "4dc873bf-0057-4789-a92d-f6d99b998031",
+            "data": {
+              "name": "Pasarela de pagos\n(proveedor externo)",
+              "description": "",
+              "type": "tm.Actor",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [],
+              "hasOpenThreats": false,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Peticiones HTTP\n(búsqueda, reseñas, checkout)",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  }
+                },
+                "position": 0.5
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Peticiones HTTP\n(búsqueda, reseñas, checkout)",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "Tráfico interceptable o degradable a HTTP",
+                  "type": "Information disclosure",
+                  "description": "Si la API acepta HTTP o no envía HSTS, la sesión viaja en claro en redes públicas.",
+                  "mitigation": "Solo TLS 1.2+/1.3 y HSTS. ASVS 5.0 V12 (comunicación segura).",
+                  "modelType": "STRIDE",
+                  "id": "438ec869-adcc-413b-92d8-8982e32680a8"
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "4f39b023-3be9-4c03-b552-daedd36ce4f4",
+            "source": {
+              "cell": "3d1ee3d3-7dc7-4e98-b81c-e359df0e4324"
+            },
+            "target": {
+              "cell": "eb4634c1-3994-4c29-b692-62c0fe801dbd"
+            },
+            "vertices": [
+              {
+                "x": 280,
+                "y": 230
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "HTML de reseñas / JSON",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  }
+                },
+                "position": 0.5
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTML de reseñas / JSON",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "A05 · XSS almacenado en las reseñas",
+                  "type": "Tampering",
+                  "description": "Una reseña con <script> se entrega como código a todos los que abren el producto y puede robar la sesión.",
+                  "mitigation": "Escape automático de plantillas (Jinja) + Content-Security-Policy sin unsafe-inline como segunda capa. ASVS 5.0 V1 y V3. Kata a05_xss.",
+                  "modelType": "STRIDE",
+                  "id": "2c37b718-dedd-4ac3-94a0-2789e4d0f9ec"
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "1a9cf988-cb9e-4704-b6bf-0622ff18545f",
+            "source": {
+              "cell": "eb4634c1-3994-4c29-b692-62c0fe801dbd"
+            },
+            "target": {
+              "cell": "3d1ee3d3-7dc7-4e98-b81c-e359df0e4324"
+            },
+            "vertices": [
+              {
+                "x": 280,
+                "y": 330
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Consultas SQL",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  }
+                },
+                "position": 0.5
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Consultas SQL",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQLite (local)",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "A05 · Inyección SQL en la búsqueda",
+                  "type": "Tampering",
+                  "description": "La búsqueda pega q dentro del SQL: ' OR 1=1 -- muestra productos ocultos y UNION extrae usuarios y hashes.",
+                  "mitigation": "Consultas parametrizadas siempre (?), nunca f-strings con datos. ASVS 5.0 V1. Kata a05_sql.",
+                  "modelType": "STRIDE",
+                  "id": "5e40f153-9a01-4b18-9b00-06783c696cd8"
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "bbf407e4-6687-4e99-b5e5-e2cbe5532a4b",
+            "source": {
+              "cell": "eb4634c1-3994-4c29-b692-62c0fe801dbd"
+            },
+            "target": {
+              "cell": "1413724c-9751-4529-b34f-2668d013adda"
+            },
+            "vertices": [
+              {
+                "x": 650,
+                "y": 170
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Cobro (usuario, monto)",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  }
+                },
+                "position": 0.5
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Cobro (usuario, monto)",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "90c3da94-f00a-4383-9268-1edc24e567dc",
+            "source": {
+              "cell": "eb4634c1-3994-4c29-b692-62c0fe801dbd"
+            },
+            "target": {
+              "cell": "4dc873bf-0057-4789-a92d-f6d99b998031"
+            },
+            "vertices": [
+              {
+                "x": 680,
+                "y": 290
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Respuesta o timeout",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  }
+                },
+                "position": 0.5
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Respuesta o timeout",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "A10 · Falla abierta cuando la pasarela no responde",
+                  "type": "Tampering",
+                  "description": "Ante un timeout el código registra un warning y deja el pedido como pagado: se entrega sin cobrar.",
+                  "mitigation": "Falla cerrada: si no se confirma el cobro, rollback y 503; reintentos idempotentes. ASVS 5.0 V16 (manejo de errores). Kata a10_excepciones.",
+                  "modelType": "STRIDE",
+                  "id": "e66b17ca-de48-4746-9858-a9e8251b37de"
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "90836e48-02b7-4ea3-bbd3-2bf342ec9c3b",
+            "source": {
+              "cell": "4dc873bf-0057-4789-a92d-f6d99b998031"
+            },
+            "target": {
+              "cell": "eb4634c1-3994-4c29-b692-62c0fe801dbd"
+            },
+            "vertices": [
+              {
+                "x": 680,
+                "y": 350
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Nombre del reporte",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  }
+                },
+                "position": 0.5
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Nombre del reporte",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "Llamada local",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "9cc64a13-7048-4c64-abab-dcd336f9e6b4",
+            "source": {
+              "cell": "eb4634c1-3994-4c29-b692-62c0fe801dbd"
+            },
+            "target": {
+              "cell": "06dd6b86-76a0-404a-9d55-83c2b16be168"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "labels": [
+              {
+                "markup": [
+                  {
+                    "tagName": "ellipse",
+                    "selector": "labelBody"
+                  },
+                  {
+                    "tagName": "text",
+                    "selector": "labelText"
+                  }
+                ],
+                "attrs": {
+                  "labelText": {
+                    "text": "Escribe el .tgz",
+                    "textAnchor": "middle",
+                    "textVerticalAnchor": "middle"
+                  },
+                  "labelBody": {
+                    "ref": "labelText",
+                    "refRx": "50%",
+                    "refRy": "60%",
+                    "fill": "#fff",
+                    "strokeWidth": 0
+                  }
+                },
+                "position": 0.5
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Escribe el .tgz",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "Sistema de archivos",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "99cc231e-9c8e-48bd-9000-a8e325040943",
+            "source": {
+              "cell": "06dd6b86-76a0-404a-9d55-83c2b16be168"
+            },
+            "target": {
+              "cell": "a999d5ac-b75f-4764-ab32-290e50dfa367"
+            },
+            "vertices": []
+          }
+        ],
+        "version": "2.3.0",
+        "title": "Tienda UCP: flujo principal",
+        "description": "Diagrama de flujo de datos de la Tienda UCP (demos/sesion-2/02-tienda).",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "diagramType": "STRIDE",
+        "id": 0
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "",
+    "threatTop": 0
+  }
+}

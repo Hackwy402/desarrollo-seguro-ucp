@@ -1,0 +1,29 @@
+digraph dfd {
+  graph [rankdir=LR, bgcolor="transparent", fontname="DejaVu Sans", fontsize=15, pad=0.3, nodesep=0.55, ranksep=1.0, newrank=true];
+  node  [fontname="DejaVu Sans", fontsize=14, fontcolor="#12202B", penwidth=1.6, color="#4A5560"];
+  edge  [color="#4A5560", fontname="DejaVu Sans", fontsize=12, fontcolor="#4A5560", penwidth=1.5];
+
+  subgraph cluster_internet {
+    label="INTERNET (no confiable)"; labeljust=l; style="dashed,rounded"; color="#A8520F"; fontcolor="#A8520F"; penwidth=2;
+    cliente [shape=box, style="filled", fillcolor="#FFFDF8", label=<<b>Cliente</b><br/><font point-size="12">navegador</font>>];
+  }
+  subgraph cluster_servidor {
+    label="SERVIDOR DE LA TIENDA"; labeljust=l; style="dashed,rounded"; color="#2F6FB0"; fontcolor="#2F6FB0"; penwidth=2;
+    api [shape=circle, style="filled", fillcolor="#FBEBDD", color="#A8520F", width=1.9, fixedsize=true, label=<<b>API Tienda</b><br/><font point-size="12">Flask</font>>];
+    rep [shape=circle, style="filled", fillcolor="#FBEBDD", color="#A8520F", width=1.6, fixedsize=true, label=<<b>Generador</b><br/><font point-size="12">de reportes</font>>];
+    bd  [shape=cylinder, style="filled", fillcolor="#FFFDF8", label=<<b>Base de datos</b><br/><font point-size="12">productos · pedidos<br/>cupones · usuarios</font>>];
+    arc [shape=cylinder, style="filled", fillcolor="#FFFDF8", label=<<b>Reportes</b><br/><font point-size="12">.tgz</font>>];
+  }
+  subgraph cluster_ext {
+    label="PROVEEDOR EXTERNO"; labeljust=l; style="dashed,rounded"; color="#4A5560"; fontcolor="#4A5560"; penwidth=2;
+    pas [shape=box, style="filled", fillcolor="#FFFDF8", label=<<b>Pasarela de pagos</b>>];
+  }
+
+  cliente -> api [label=<búsqueda · reseñas · checkout<br/><font color="#A8520F"><b>A01 IDOR · A06 precio y cupón</b></font>>];
+  api -> cliente [label=<HTML de reseñas<br/><font color="#A8520F"><b>A05 XSS</b></font>>];
+  api -> bd [label=<SQL<br/><font color="#A8520F"><b>A05 inyección SQL</b></font>>];
+  api -> rep [label=<nombre del reporte<br/><font color="#A8520F"><b>A05 comandos</b></font>>];
+  rep -> arc [label="escribe .tgz"];
+  api -> pas [label="cobro"];
+  pas -> api [label=<respuesta o timeout<br/><font color="#A8520F"><b>A10 falla abierta</b></font>>];
+}

@@ -1,0 +1,15 @@
+<section id="trazabilidad" style="background:#12202B;color:#F4F2EC;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#E8893A;letter-spacing:2px">9:40 · CIERRE</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1;color:#F4F2EC">Del modelo a la prueba, sin saltos</h2>
+<div style="display:flex;gap:16px;align-items:center">
+<div style="flex:1;background:#1C2E3C;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:12px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E8893A">AMENAZA</p><p style="font-size:28px;color:#F4F2EC;line-height:1.35">Ana lee el pedido de Beto</p></div>
+<x-shape kind="arrow-right" style="background:#E8893A;width:64px;height:32px"></x-shape>
+<div style="flex:1;background:#1C2E3C;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:12px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E8893A">REQUISITO</p><p style="font-size:28px;color:#F4F2EC;line-height:1.35">Ajeno → 404 · ASVS V8</p></div>
+<x-shape kind="arrow-right" style="background:#E8893A;width:64px;height:32px"></x-shape>
+<div style="flex:1;background:#1C2E3C;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:12px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E8893A">CONTROL</p><p style="font-size:28px;color:#F4F2EC;line-height:1.35">AND usuario = ?</p></div>
+<x-shape kind="arrow-right" style="background:#E8893A;width:64px;height:32px"></x-shape>
+<div style="flex:1;background:#1C2E3C;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:12px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E8893A">PRUEBA</p><p style="font-size:28px;color:#F4F2EC;line-height:1.35">Se ejecuta en cada cambio</p></div>
+</div>
+<p style="font-size:32px;color:#BCC8D2;line-height:1.4">Así debe verse la sección 3 de su proyecto: cada fila del Lab 1 termina en un commit y una prueba. El 20 de noviembre esa prueba correrá sola en el pipeline.</p>
+<aside>Esta es la idea que quiero que se lleven: el modelo de amenazas no es un documento, es el origen de requisitos que terminan en pruebas automáticas. SSDF PW.1 (diseño) conectado con PW.7 y PW.8 (revisión y pruebas).</aside>
+</section>

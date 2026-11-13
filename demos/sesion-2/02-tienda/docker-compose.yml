@@ -1,0 +1,24 @@
+# Tienda UCP: versión insegura (:5003) y solución del docente (:5004). Solo en 127.0.0.1.
+name: tienda-ucp
+x-base: &base
+  image: ucp-tienda
+  build: .
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  pids_limit: 64
+  mem_limit: 256m
+services:
+  insegura:
+    <<: *base
+    volumes: [./:/app:ro]
+    environment: ["DEBUG=0", "PASARELA=${PASARELA:-ok}"]
+    ports: ["127.0.0.1:5003:5000"]
+  segura:
+    <<: *base
+    volumes: [./:/app:ro]
+    working_dir: /app
+    command: ["sh", "-c", "cp .soluciones/app.py /tmp/app_segura.py && cd /app && PYTHONPATH=/app python /tmp/app_segura.py"]
+    environment: ["PASARELA=${PASARELA:-ok}", "ORIGENES=http://127.0.0.1:5003"]
+    ports: ["127.0.0.1:5004:5000"]

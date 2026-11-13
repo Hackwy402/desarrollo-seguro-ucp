@@ -1,0 +1,16 @@
+<section id="cors" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#A8520F;letter-spacing:2px">A02 · CONFIGURACIÓN INSEGURA · KATA a02_config</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Reflejar el origen es invitar a todos</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;background:#12202B;padding:32px;border-radius:16px;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:26px;font-weight:600;color:#E8893A">Antes</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:25px;color:#F4F2EC;line-height:1.5">origen = request.headers.get("Origin")<br>if origen:<br>&#160;&#160;resp.headers["…-Allow-Origin"] = <span style="color:#E8893A">origen</span><br>&#160;&#160;resp.headers["…-Allow-Credentials"] = <span style="color:#E8893A">"true"</span><br><br>app.run(debug=<span style="color:#E8893A">os.environ.get("DEBUG", "1")</span> == "1")</p>
+</div>
+<div style="flex:1;background:#FFFDF8;padding:32px;border-radius:16px;border:2px solid #D9D4C7;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:26px;font-weight:600;color:#A8520F">Después</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:25px;color:#12202B;line-height:1.5">if origen <b>in ORIGENES</b>:  # lista explícita<br>&#160;&#160;… Allow-Origin = origen; Vary: Origin<br>X-Content-Type-Options: nosniff<br>Content-Security-Policy:<br>&#160;&#160;frame-ancestors 'none'<br>debug = os.environ.get("DEBUG") == "1"</p>
+</div>
+</div>
+<p style="font-size:28px;color:#4A5560">Con el origen reflejado y credenciales, cualquier página que visite Ana puede leer sus pedidos con su sesión.</p>
+<aside>Seguro por defecto: si alguien olvida la variable de entorno, la aplicación queda segura y no en modo depuración. Reflejar Origin con credenciales es peor que el asterisco, porque los navegadores no permiten credenciales con *: el reflejo esquiva esa protección.</aside>
+</section>

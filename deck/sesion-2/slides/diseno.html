@@ -1,0 +1,16 @@
+<section id="diseno" style="background:#F4F2EC;color:#12202B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#A8520F;letter-spacing:2px">A06 · DISEÑO INSEGURO · KATA a06_diseno</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Ningún escáner encuentra esta falla</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;background:#12202B;padding:32px;border-radius:16px;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:26px;font-weight:600;color:#E8893A">Antes</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:25px;color:#F4F2EC;line-height:1.5">for item in items:<br>&#160;&#160;total += item[<span style="color:#E8893A">"precio"</span>] \<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;* item[<span style="color:#E8893A">"cantidad"</span>]<br>if cupon:<br>&#160;&#160;total *= 1 - descuento</p>
+</div>
+<div style="flex:1;background:#FFFDF8;padding:32px;border-radius:16px;border:2px solid #D9D4C7;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:26px;font-weight:600;color:#A8520F">Después</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:25px;color:#12202B;line-height:1.5">if not 1 &lt;= cantidad &lt;= 10: → 400<br>precio = SELECT precio … visible = 1<br>UPDATE cupones SET usado = 1<br>&#160;WHERE codigo = ? AND usuario = ?<br>&#160;&#160;&#160;AND usado = 0<br>if rowcount != 1: → 400</p>
+</div>
+</div>
+<p style="font-size:28px;color:#4A5560">No hay una línea «mala»: el error es haber diseñado que el cliente decida. Lo encuentra el modelado de amenazas, no una herramienta.</p>
+<aside>Por eso A06 es categoría propia desde 2021. El UPDATE con usado = 0 y la verificación de rowcount hacen la operación atómica: dos solicitudes simultáneas con el mismo cupón no pueden ganar las dos (condición de carrera). Con SELECT y después UPDATE, sí podrían.</aside>
+</section>
