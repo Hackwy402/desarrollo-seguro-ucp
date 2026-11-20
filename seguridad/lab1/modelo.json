@@ -1,0 +1,534 @@
+{
+  "version": "2.3.0",
+  "summary": {
+    "title": "Tienda UCP – Modelo de Amenazas Lab 1",
+    "owner": "Equipo – Desarrollo Seguro UCP Sesión 2",
+    "description": "Modelo de amenazas del flujo Registro → Login → Búsqueda → Compra → Pago → Reporte de la Tienda UCP. Cuatro preguntas del Threat Modeling Manifesto, análisis STRIDE por elemento, priorización I×P y requisitos ASVS 5.0.",
+    "id": 1
+  },
+  "detail": {
+    "contributors": [
+      { "name": "Equipo Lab 1" }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "Tienda UCP – Flujo principal (Compra)",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.3.0",
+        "cells": [
+
+          {
+            "id": "tb-lt1",
+            "shape": "trust-boundary-curve",
+            "attrs": {
+              "line": { "targetMarker": "", "sourceMarker": "" }
+            },
+            "width": 200, "height": 100, "zIndex": 10,
+            "labels": [
+              {
+                "attrs": {
+                  "labelText": { "text": "LT-1: Internet → Servidor" }
+                },
+                "position": { "distance": 0.5 }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "LT-1: Internet → Servidor",
+              "description": "Límite entre el cliente externo (navegador/pasarela) y el servidor Flask interno.",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "source": { "x": 320, "y": 20 },
+            "target": { "x": 320, "y": 700 },
+            "vertices": [{ "x": 310, "y": 350 }]
+          },
+
+          {
+            "id": "tb-lt2",
+            "shape": "trust-boundary-curve",
+            "attrs": {
+              "line": { "targetMarker": "", "sourceMarker": "" }
+            },
+            "width": 200, "height": 100, "zIndex": 10,
+            "labels": [
+              {
+                "attrs": {
+                  "labelText": { "text": "LT-2: Servidor → BD / SO" }
+                },
+                "position": { "distance": 0.5 }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "LT-2: Servidor → BD / SO",
+              "description": "Límite entre la capa de aplicación y los almacenes (SQLite) y el sistema operativo (subprocess).",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "source": { "x": 620, "y": 20 },
+            "target": { "x": 620, "y": 700 },
+            "vertices": [{ "x": 610, "y": 350 }]
+          },
+
+          {
+            "id": "tb-lt3",
+            "shape": "trust-boundary-curve",
+            "attrs": {
+              "line": { "targetMarker": "", "sourceMarker": "" }
+            },
+            "width": 200, "height": 100, "zIndex": 10,
+            "labels": [
+              {
+                "attrs": {
+                  "labelText": { "text": "LT-3: Servidor → Pasarela" }
+                },
+                "position": { "distance": 0.5 }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "LT-3: Servidor → Pasarela de pagos",
+              "description": "Límite entre el servidor y el proveedor externo de pagos (webhook entrante sin firma).",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "source": { "x": 920, "y": 20 },
+            "target": { "x": 920, "y": 700 },
+            "vertices": [{ "x": 910, "y": 350 }]
+          },
+
+          {
+            "id": "actor-cliente",
+            "shape": "actor",
+            "x": 60, "y": 300,
+            "width": 160, "height": 60,
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Cliente Navegador",
+              "description": "Usuario final autenticado o anónimo que interactúa con la tienda.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "label": "Cliente Navegador"
+          },
+
+          {
+            "id": "actor-admin",
+            "shape": "actor",
+            "x": 60, "y": 460,
+            "width": 160, "height": 60,
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Administrador",
+              "description": "Usuario interno con privilegios para gestionar catálogo y cupones.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "label": "Administrador"
+          },
+
+          {
+            "id": "actor-pasarela",
+            "shape": "actor",
+            "x": 980, "y": 300,
+            "width": 160, "height": 60,
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Pasarela de Pagos",
+              "description": "Proveedor externo que confirma transacciones vía webhook POST /pago/confirmar.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "label": "Pasarela de Pagos"
+          },
+
+          {
+            "id": "proc-api",
+            "shape": "process",
+            "x": 380, "y": 290,
+            "width": 160, "height": 80,
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Process",
+              "name": "API Tienda (Flask)",
+              "description": "Núcleo de la aplicación: autenticación, pedidos, búsqueda de productos, aplicación de cupones, lógica de precios.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "t01",
+                  "title": "T01 · Token estático sin expiración",
+                  "type": "Spoofing",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "9",
+                  "description": "El token Bearer (ej. 'token-ana') nunca expira ni se puede revocar. Si se captura, el atacante suplanta al usuario indefinidamente.",
+                  "mitigation": "Implementar JWT con exp de 15 min + refresh token de 7 días (ASVS V7.1.1). Invalidar tokens al cerrar sesión.",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t04",
+                  "title": "T04 · El cliente decide el precio del pedido",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "6",
+                  "description": "El body de POST /pedidos incluye el campo 'precio'. El servidor lo acepta sin validarlo contra el catálogo. Un atacante puede comprar a $0.",
+                  "mitigation": "Nunca confiar en precios del cliente. Recalcular el total en el servidor consultando la BD del catálogo (ASVS V2.1).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t05",
+                  "title": "T05 · Cupón reutilizable por race condition (lógica de negocio)",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "score": "4",
+                  "description": "Race condition entre la lectura del estado del cupón y la escritura del pedido. Con peticiones concurrentes el cupón puede aplicarse N veces.",
+                  "mitigation": "Usar transacción atómica: UPDATE cupones SET usado=1 WHERE id=? AND usado=0 con verificación de filas afectadas antes de crear el pedido (ASVS V2.2).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t06",
+                  "title": "T06 · Sin registro de eventos de seguridad",
+                  "type": "Repudiation",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "score": "4",
+                  "description": "No hay log de quién aprobó pagos, aplicó cupones o consultó pedidos ajenos. Imposible auditar incidentes de seguridad.",
+                  "mitigation": "Registrar en log estructurado: actor, acción, objeto, timestamp, IP. Almacenar en almacén append-only (ASVS V16.1).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t08",
+                  "title": "T08 · IDOR: leer pedido de otro cliente",
+                  "type": "Information disclosure",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "9",
+                  "description": "GET /pedidos/<id> verifica autenticación pero no que el pedido pertenezca al usuario. Iterar IDs expone pedidos ajenos (datos personales, direcciones, montos).",
+                  "mitigation": "Filtrar siempre por usuario autenticado: WHERE id=? AND usuario=? → 404 si no es suyo (ASVS V8.3.1).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t09",
+                  "title": "T09 · CORS refleja cualquier origen con credenciales",
+                  "type": "Information disclosure",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "6",
+                  "description": "Access-Control-Allow-Origin copia el Origin recibido y activa Allow-Credentials. Un sitio malicioso puede leer pedidos y datos del usuario autenticado.",
+                  "mitigation": "Usar lista blanca de orígenes permitidos. Nunca combinar * o reflejo dinámico con Allow-Credentials (ASVS V3.2).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t11",
+                  "title": "T11 · Modo debug y traza de errores expuestos",
+                  "type": "Information disclosure",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "score": "4",
+                  "description": "Flask corre con DEBUG=True. Errores 500 muestran stack trace completo con rutas, variables y código fuente al cliente externo.",
+                  "mitigation": "Desactivar DEBUG en producción. Responder errores genéricos al cliente; logs detallados solo en servidor (ASVS V16.2).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t12",
+                  "title": "T12 · Sin límite de solicitudes (rate limiting)",
+                  "type": "Denial of service",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "score": "4",
+                  "description": "Todos los endpoints aceptan solicitudes ilimitadas. Permite ataques de fuerza bruta a tokens, saturación de BD y agotamiento de recursos.",
+                  "mitigation": "Implementar rate limiting por IP y por usuario (flask-limiter o WAF). Mínimo: 60 req/min por IP en endpoints de auth (ASVS V4.3).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t16",
+                  "title": "T16 · Escalada de privilegios por campo 'role' editable",
+                  "type": "Elevation of privilege",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "9",
+                  "description": "PUT /perfil acepta el campo 'role' del body sin restricción. Un usuario puede enviarse rol=admin y obtener acceso total.",
+                  "mitigation": "Usar allowlist de campos actualizables por el usuario. El campo 'role' solo puede modificarse por otro administrador (ASVS V8.1.1).",
+                  "modelType": "STRIDE",
+                  "new": false
+                }
+              ]
+            },
+            "label": "API Tienda (Flask)"
+          },
+
+          {
+            "id": "proc-reportes",
+            "shape": "process",
+            "x": 680, "y": 160,
+            "width": 160, "height": 80,
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Process",
+              "name": "Generador de Reportes",
+              "description": "Proceso que crea PDFs/CSV llamando a comandos del sistema operativo con el nombre de archivo proporcionado por el usuario.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "t07",
+                  "title": "T07 · Generación de reportes no auditada",
+                  "type": "Repudiation",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "score": "2",
+                  "description": "Cualquier usuario autenticado puede generar un reporte de cualquier cliente sin que quede registro de quién lo solicitó.",
+                  "mitigation": "Registrar en log: usuario, timestamp, ID de reporte generado y para qué usuario/rango (ASVS V16.1).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t14",
+                  "title": "T14 · Inyección de comandos en nombre de archivo",
+                  "type": "Elevation of privilege",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "9",
+                  "description": "El nombre del reporte se pasa a subprocess sin sanitizar. Un payload como '; rm -rf /tmp' ejecuta código arbitrario en el servidor.",
+                  "mitigation": "Validar nombre con regex [a-zA-Z0-9_\\-\\.]{1,64}$. Nunca pasar entradas de usuario a shell=True. Usar shlex.quote() (ASVS V1.1, V5.3.3).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t15",
+                  "title": "T15 · Path traversal en descarga de reportes",
+                  "type": "Elevation of privilege",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "6",
+                  "description": "La ruta del reporte se construye concatenando REPORTES_DIR + '/' + filename. Un atacante usa '../../etc/passwd' para leer archivos del sistema.",
+                  "mitigation": "Usar os.path.realpath() y verificar que la ruta resultante empiece con REPORTES_DIR. Rechazar '..' en el nombre (ASVS V5.3.3).",
+                  "modelType": "STRIDE",
+                  "new": false
+                }
+              ]
+            },
+            "label": "Generador de Reportes"
+          },
+
+          {
+            "id": "store-bd",
+            "shape": "store",
+            "x": 680, "y": 360,
+            "width": 160, "height": 60,
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Store",
+              "name": "BD SQLite",
+              "description": "Almacena usuarios (con hashes de contraseña), pedidos, productos, cupones e historial de pagos.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "t03",
+                  "title": "T03 · Inyección SQL en búsqueda de productos",
+                  "type": "Tampering",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "9",
+                  "description": "El parámetro 'q' de GET /productos se concatena en la consulta SQL. Un atacante puede leer toda la BD, modificar precios o eliminar registros.",
+                  "mitigation": "Usar consultas parametrizadas con '?' en sqlite3. Nunca f-strings o concatenación en SQL (ASVS V1.1).",
+                  "modelType": "STRIDE",
+                  "new": false
+                },
+                {
+                  "id": "t13",
+                  "title": "T13 · Consultas sin paginación agotan memoria",
+                  "type": "Denial of service",
+                  "status": "Open",
+                  "severity": "Low",
+                  "score": "2",
+                  "description": "GET /productos devuelve toda la tabla sin LIMIT. Con un catálogo grande la respuesta agota RAM del servidor.",
+                  "mitigation": "Añadir LIMIT/OFFSET obligatorio. Máximo 100 ítems por página. Valor por defecto si no se especifica (ASVS V4.3).",
+                  "modelType": "STRIDE",
+                  "new": false
+                }
+              ]
+            },
+            "label": "BD SQLite"
+          },
+
+          {
+            "id": "store-archivos",
+            "shape": "store",
+            "x": 680, "y": 480,
+            "width": 160, "height": 60,
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Store",
+              "name": "Archivos de Reportes (/tmp)",
+              "description": "Archivos PDF/CSV generados en /tmp/reportes/. Legibles por cualquier proceso del SO.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "label": "Archivos /tmp/reportes"
+          },
+
+          {
+            "id": "flow-cliente-api",
+            "shape": "flow",
+            "source": { "cell": "actor-cliente" },
+            "target": { "cell": "proc-api" },
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP REST (HTTPS:443)",
+              "description": "Peticiones del cliente: GET /productos, POST /pedidos, GET /pedidos/<id>, PUT /perfil, POST /pago",
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "t10",
+                  "title": "T10 · XSS almacenado en reseñas",
+                  "type": "Information disclosure",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "6",
+                  "description": "El campo de reseña se guarda y se devuelve al navegador sin sanitizar. Un atacante inyecta <script> que roba cookies/tokens de todos los visitantes.",
+                  "mitigation": "Sanitizar entrada con bleach o escape HTML en la capa de presentación. CSP header que bloquee scripts inline (ASVS V3.1).",
+                  "modelType": "STRIDE",
+                  "new": false
+                }
+              ]
+            },
+            "label": "HTTPS:443 (REST)"
+          },
+
+          {
+            "id": "flow-pasarela-api",
+            "shape": "flow",
+            "source": { "cell": "actor-pasarela" },
+            "target": { "cell": "proc-api" },
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Flow",
+              "name": "Webhook POST /pago/confirmar",
+              "description": "La pasarela notifica al servidor sobre el resultado del pago. Sin firma HMAC.",
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "t02",
+                  "title": "T02 · Webhook de pago sin firma HMAC",
+                  "type": "Spoofing",
+                  "status": "Open",
+                  "severity": "High",
+                  "score": "6",
+                  "description": "La API acepta cualquier llamada a /pago/confirmar sin verificar la firma del proveedor. Un tercero puede confirmar pagos falsos y obtener mercancía gratis.",
+                  "mitigation": "Verificar firma HMAC-SHA256 del header X-Signature antes de procesar el webhook. Rechazar si no coincide (ASVS V6.3).",
+                  "modelType": "STRIDE",
+                  "new": false
+                }
+              ]
+            },
+            "label": "Webhook HTTPS (sin firma)"
+          },
+
+          {
+            "id": "flow-api-bd",
+            "shape": "flow",
+            "source": { "cell": "proc-api" },
+            "target": { "cell": "store-bd" },
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Flow",
+              "name": "sqlite3 (SQL)",
+              "description": "Consultas SQL directas: SELECT, INSERT, UPDATE sobre usuarios, pedidos, productos, cupones.",
+              "protocol": "sqlite3",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "label": "sqlite3"
+          },
+
+          {
+            "id": "flow-api-reportes",
+            "shape": "flow",
+            "source": { "cell": "proc-api" },
+            "target": { "cell": "proc-reportes" },
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Flow",
+              "name": "Llamada interna (nombre de archivo)",
+              "description": "La API invoca al generador pasando el nombre del archivo proporcionado por el usuario sin sanitizar.",
+              "protocol": "IPC/subprocess",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "label": "IPC (nombre sin sanitizar)"
+          },
+
+          {
+            "id": "flow-reportes-archivos",
+            "shape": "flow",
+            "source": { "cell": "proc-reportes" },
+            "target": { "cell": "store-archivos" },
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Flow",
+              "name": "Escritura de archivos",
+              "description": "El generador escribe PDFs/CSVs en /tmp/reportes/ sin control de acceso sobre los archivos.",
+              "protocol": "filesystem",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "label": "Escritura /tmp/reportes"
+          }
+        ]
+      }
+    ]
+  }
+}
