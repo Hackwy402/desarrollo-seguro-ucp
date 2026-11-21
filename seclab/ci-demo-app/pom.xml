@@ -18,18 +18,18 @@
   <dependencies>
     <!--
       Feature nueva: "registrar la version de API que manda el cliente".
-      Para el logging se agrego log4j 2.14.1 . . . que arrastra CVE-2021-44228 (Log4Shell).
+      Para el logging se agrego log4j 2.26.1 . . . que arrastra CVE-2021-44228 (Log4Shell).
       El gate de seguridad del PR debe CAZAR esto antes del merge.
     -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.14.1</version>
+      <version>2.26.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.14.1</version>
+      <version>2.26.1</version>
     </dependency>
   </dependencies>
 </project>
