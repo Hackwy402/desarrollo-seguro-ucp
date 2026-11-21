@@ -12,7 +12,7 @@
 set -u
 
 GREEN=$'\033[38;5;46m'; YEL=$'\033[38;5;226m'; CYAN=$'\033[38;5;51m'
-DIM=$'\033[2m'; BOLD=$'\033[1m'; RED=$'\033[38;5;196m'; WHT=$'\033[38;5;255m'; RST=$'\033[0m'
+DIM=$'\033[2m'; BOLD=$'\033[1m'; RED=$'\033[38;5;196m'; WHT=$'\033[38;5;255m'; GRY=$'\033[38;5;240m'; RST=$'\033[0m'
 HIDE=$'\033[?25l'; SHOW=$'\033[?25h'
 
 msg="${1:-Cocinando…}"
@@ -20,10 +20,10 @@ msg="${1:-Cocinando…}"
 # --- retrato de Heisenberg (estatico, se ve igual en Ubuntu y macOS) ---
 portrait() {
 cat <<ART
-       ${YEL}╔════════════════════╗${RST}
-       ${YEL}║${DIM}LOS POLLOS DEVSECOPS${RST}${YEL}║${RST}
-    ${YEL}╔══╩════════════════════╩══╗${RST}
-    ${YEL}╚══════════════════════════╝${RST}
+            ${GRY}▄▄▄▄▄▄▄▄▄▄▄▄${RST}
+            ${GRY}████████████${RST}
+        ${GRY}▄▄▄████████████▄▄▄${RST}
+        ${GRY}▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀${RST}
         ${CYAN}┌──────────────────┐${RST}
         ${CYAN}│${RST}   ${WHT}▄▄▄${RST}      ${WHT}▄▄▄${RST}    ${CYAN}│${RST}
         ${CYAN}│${RST}  ${WHT}█${DIM}▓▓▓${RST}${WHT}█${RST}    ${WHT}█${DIM}▓▓▓${RST}${WHT}█${RST}   ${CYAN}│${RST}
