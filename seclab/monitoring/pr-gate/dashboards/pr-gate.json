@@ -1,0 +1,534 @@
+{
+ "uid": "seclab-pr-gate",
+ "title": "Security Gate — Pull Requests",
+ "tags": [
+  "seclab",
+  "devsecops"
+ ],
+ "timezone": "browser",
+ "schemaVersion": 39,
+ "refresh": "10m",
+ "time": {
+  "from": "now-7d",
+  "to": "now"
+ },
+ "panels": [
+  {
+   "id": 1,
+   "type": "stat",
+   "title": "PRs bloqueados (runs fallidos)",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "github"
+   },
+   "gridPos": {
+    "h": 4,
+    "w": 6,
+    "x": 0,
+    "y": 0
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "github"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100&status=failure",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "total_count",
+       "text": "total",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "red"
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 2,
+   "type": "stat",
+   "title": "Runs en verde",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "github"
+   },
+   "gridPos": {
+    "h": 4,
+    "w": 6,
+    "x": 6,
+    "y": 0
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "github"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100&status=success",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "total_count",
+       "text": "total",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "green"
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 5,
+   "type": "text",
+   "title": "Enlaces",
+   "gridPos": {
+    "h": 4,
+    "w": 12,
+    "x": 12,
+    "y": 0
+   },
+   "options": {
+    "mode": "markdown",
+    "content": "**[Pull Requests en GitHub](https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls)** · **[Runs del gate](https://github.com/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml)** · **[Slack ucp-devsecops](https://ucp-devsecops.slack.com)**\n\nEl gate escanea cada PR y bloquea si hay hallazgos. Clic en la **rama** para abrir el PR, o en el **run** para ver el detalle."
+   }
+  },
+  {
+   "id": 3,
+   "type": "table",
+   "title": "🚫 PRs que fallaron el gate",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "github"
+   },
+   "gridPos": {
+    "h": 10,
+    "w": 24,
+    "x": 0,
+    "y": 4
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "github"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100&status=failure",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "workflow_runs",
+     "columns": [
+      {
+       "selector": "created_at",
+       "text": "Fecha",
+       "type": "timestamp"
+      },
+      {
+       "selector": "actor.login",
+       "text": "Alumno",
+       "type": "string"
+      },
+      {
+       "selector": "head_branch",
+       "text": "Rama (abre el PR)",
+       "type": "string"
+      },
+      {
+       "selector": "display_title",
+       "text": "PR",
+       "type": "string"
+      },
+      {
+       "selector": "conclusion",
+       "text": "Gate",
+       "type": "string"
+      },
+      {
+       "selector": "html_url",
+       "text": "Run en GitHub",
+       "type": "string"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "showHeader": true,
+    "sortBy": [
+     {
+      "displayName": "Fecha",
+      "desc": true
+     }
+    ]
+   },
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "filterable": true
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Rama (abre el PR)"
+      },
+      "properties": [
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir PR en GitHub",
+          "targetBlank": true,
+          "url": "https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls?q=is%3Apr+head%3A${__value.raw}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Run en GitHub"
+      },
+      "properties": [
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir run",
+          "targetBlank": true,
+          "url": "${__value.raw}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Gate"
+      },
+      "properties": [
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-background"
+        }
+       },
+       {
+        "id": "mappings",
+        "value": [
+         {
+          "type": "value",
+          "options": {
+           "failure": {
+            "text": "🚫 BLOQUEADO",
+            "color": "red"
+           },
+           "success": {
+            "text": "✅ PASA",
+            "color": "green"
+           },
+           "cancelled": {
+            "text": "cancelado",
+            "color": "gray"
+           }
+          }
+         }
+        ]
+       },
+       {
+        "id": "custom.width",
+        "value": 150
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Fecha"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 180
+       }
+      ]
+     }
+    ]
+   },
+   "transformations": [
+    {
+     "id": "organize",
+     "options": {
+      "indexByName": {
+       "Fecha": 0,
+       "Alumno": 1,
+       "PR": 2,
+       "Gate": 3,
+       "Rama (abre el PR)": 4,
+       "Run en GitHub": 5
+      },
+      "excludeByName": {},
+      "renameByName": {}
+     }
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "type": "table",
+   "title": "Historial completo",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "github"
+   },
+   "gridPos": {
+    "h": 12,
+    "w": 24,
+    "x": 0,
+    "y": 14
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "github"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "workflow_runs",
+     "columns": [
+      {
+       "selector": "created_at",
+       "text": "Fecha",
+       "type": "timestamp"
+      },
+      {
+       "selector": "actor.login",
+       "text": "Alumno",
+       "type": "string"
+      },
+      {
+       "selector": "head_branch",
+       "text": "Rama (abre el PR)",
+       "type": "string"
+      },
+      {
+       "selector": "display_title",
+       "text": "PR",
+       "type": "string"
+      },
+      {
+       "selector": "conclusion",
+       "text": "Gate",
+       "type": "string"
+      },
+      {
+       "selector": "html_url",
+       "text": "Run en GitHub",
+       "type": "string"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "showHeader": true,
+    "sortBy": [
+     {
+      "displayName": "Fecha",
+      "desc": true
+     }
+    ]
+   },
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "filterable": true
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Rama (abre el PR)"
+      },
+      "properties": [
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir PR en GitHub",
+          "targetBlank": true,
+          "url": "https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls?q=is%3Apr+head%3A${__value.raw}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Run en GitHub"
+      },
+      "properties": [
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir run",
+          "targetBlank": true,
+          "url": "${__value.raw}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Gate"
+      },
+      "properties": [
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-background"
+        }
+       },
+       {
+        "id": "mappings",
+        "value": [
+         {
+          "type": "value",
+          "options": {
+           "failure": {
+            "text": "🚫 BLOQUEADO",
+            "color": "red"
+           },
+           "success": {
+            "text": "✅ PASA",
+            "color": "green"
+           },
+           "cancelled": {
+            "text": "cancelado",
+            "color": "gray"
+           }
+          }
+         }
+        ]
+       },
+       {
+        "id": "custom.width",
+        "value": 150
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Fecha"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 180
+       }
+      ]
+     }
+    ]
+   },
+   "transformations": [
+    {
+     "id": "organize",
+     "options": {
+      "indexByName": {
+       "Fecha": 0,
+       "Alumno": 1,
+       "PR": 2,
+       "Gate": 3,
+       "Rama (abre el PR)": 4,
+       "Run en GitHub": 5
+      },
+      "excludeByName": {},
+      "renameByName": {}
+     }
+    }
+   ]
+  }
+ ]
+}

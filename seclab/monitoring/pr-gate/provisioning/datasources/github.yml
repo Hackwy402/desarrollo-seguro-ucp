@@ -1,0 +1,9 @@
+apiVersion: 1
+datasources:
+  - name: GitHub
+    type: yesoreyeram-infinity-datasource
+    uid: github
+    access: proxy
+    isDefault: true
+    jsonData:
+      allowedHosts: ["https://api.github.com"]
