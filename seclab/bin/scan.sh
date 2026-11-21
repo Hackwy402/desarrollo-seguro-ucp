@@ -45,18 +45,27 @@ if [ "${1:-}" = "__run" ]; then
      --output=/scan/.state/semgrep.json /scan >/dev/null 2>&1 || true
 
   echo ">> SCA (osv-scanner)"
+  osv_neterr=0
   osv_out="$($DR ghcr.io/google/osv-scanner:latest --format=json \
      --output=/scan/.state/osv.json -r /scan 2>&1)"
-  # fail-closed: si osv no pudo consultar la base de vulnerabilidades, NO es "0 vulns".
+  # osv necesita red a osv.dev; si no la alcanza, su "0 vulns" no es fiable.
   if printf '%s' "$osv_out" | grep -qiE "error during extraction|max retries|tls handshake|connection refused|no such host|i/o timeout"; then
-     echo "El SCA (osv-scanner) no pudo consultar la base de vulnerabilidades (sin acceso a osv.dev). No se puede afirmar que las dependencias esten limpias." > "$STATE/scan_error"
+     osv_neterr=1
   fi
 
+  trivy_ok=0
   if [ "$WITH_TRIVY" = "1" ]; then
     echo ">> SBOM + vulns (trivy)"
     docker run --rm -v "${SCANDIR}:/scan" -v "${STATE}:/scan/.state" \
        -v trivy-db-cache:/root/.cache/ aquasec/trivy:latest fs --quiet \
        --format=json --output=/scan/.state/trivy.json /scan >/dev/null 2>&1 || true
+    # trivy trae su propia base (ghcr.io) -> si produjo salida, el SCA quedo cubierto.
+    [ -s "$STATE/trivy.json" ] && trivy_ok=1
+  fi
+
+  # fail-closed: el SCA solo queda SIN VERIFICAR si NINGUNA herramienta de SCA lo cubrio.
+  if [ "$osv_neterr" = "1" ] && [ "$trivy_ok" = "0" ]; then
+     echo "El SCA no pudo consultar ninguna base de vulnerabilidades (osv.dev sin acceso y sin Trivy). No se puede afirmar que las dependencias esten limpias. Reintenta con red, o corre con --with-trivy (base offline desde ghcr.io)." > "$STATE/scan_error"
   fi
   echo ">> escaneres terminados"
   exit 0

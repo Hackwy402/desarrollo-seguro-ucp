@@ -1,0 +1,89 @@
+name: Security Gate (SCA + IA)
+
+# Gate de seguridad del curso. Escanea la app en cada PR, comenta el resultado
+# con explicacion de IA y BLOQUEA el merge si hay hallazgos. Detecta Log4Shell
+# (CVE-2021-44228) por la dependencia, sin ejecutar la app.
+#
+# Para que la IA comente: guarda un secret del repo con una key GRATIS:
+#   gh secret set GATE_AI_API_KEY        # p.ej. una key de Groq (gratis)
+# (opcional) variables para otro proveedor:
+#   gh variable set GATE_AI_BASE_URL -b 'https://api.groq.com/openai/v1'
+#   gh variable set GATE_AI_MODEL    -b 'llama-3.3-70b-versatile'
+# Sin el secret, el gate igual escanea y bloquea; solo se omite la parte de IA.
+
+on:
+  pull_request:
+    paths:
+      - "seclab/ci-demo-app/**"
+      - "seclab/bin/**"
+      - ".github/workflows/gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    env:
+      TARGET: seclab/ci-demo-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Escaneo (SCA/SAST/secretos) con Trivy
+        id: scan
+        run: |
+          set +e
+          bash seclab/bin/scan.sh --with-trivy --no-anim "$TARGET"
+          echo "gate_exit=$?" >> "$GITHUB_OUTPUT"
+          REPORT="$(ls -t seclab/.state/*/report.json 2>/dev/null | head -1)"
+          echo "report=$REPORT" >> "$GITHUB_OUTPUT"
+          STATEDIR="$(dirname "$REPORT" 2>/dev/null)"
+          if [ -f "$STATEDIR/scan_error" ]; then echo "scan_error=1" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Triage con IA -> comment.md
+        if: always()
+        env:
+          GATE_AI_API_KEY: ${{ secrets.GATE_AI_API_KEY }}
+          GATE_AI_BASE_URL: ${{ vars.GATE_AI_BASE_URL }}
+          GATE_AI_MODEL: ${{ vars.GATE_AI_MODEL }}
+        run: |
+          REPORT='${{ steps.scan.outputs.report }}'
+          if [ -z "$REPORT" ] || [ ! -f "$REPORT" ]; then
+            printf '<!-- seclab-gate-ai -->\n## 🛡️ Gate de seguridad\n\n⚠️ No se genero reporte (el escaneo no pudo completarse).\n' > comment.md
+          else
+            python3 seclab/bin/ai_triage.py "$REPORT" > comment.md
+          fi
+          echo "----- comment.md -----"; cat comment.md
+
+      - name: Comentar el PR (crea o actualiza)
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('comment.md', 'utf8');
+            const marker = '<!-- seclab-gate-ai -->';
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.rest.issues.listComments({ owner, repo, issue_number });
+            const mine = comments.data.find(c => c.body && c.body.includes(marker));
+            if (mine) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: mine.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
+
+      - name: Veredicto del gate (fail-closed)
+        if: always()
+        run: |
+          if [ "${{ steps.scan.outputs.scan_error }}" = "1" ]; then
+            echo "::error::Escaneo INCOMPLETO — fail-closed."; exit 2
+          fi
+          GE='${{ steps.scan.outputs.gate_exit }}'
+          if [ "$GE" != "0" ]; then
+            echo "::error::Gate bloquea el PR: hay hallazgos de seguridad."; exit 1
+          fi
+          echo "Gate verde: sin hallazgos."
