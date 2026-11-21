@@ -31,7 +31,10 @@ igual escanea y bloquea.
 
 No necesitas escribirla en ningún archivo a mano: **el lab te la pedirá oculta** la
 primera vez y la guardará (si quieres) en `seclab/.env`, que **está en `.gitignore`**
-(nunca se sube). Si prefieres dejarla lista:
+(nunca se sube). El prompt además **limpia el pegado** (espacios/comillas), **detecta
+tu proveedor** por el prefijo (`gsk_` → Groq, `sk-ms-` → Kimi) y **valida la key**
+contra el endpoint antes de guardarla: si está mal copiada, te avisa y la vuelve a
+pedir en vez de guardar basura. Si prefieres dejarla lista a mano:
 
 ```bash
 cp seclab/.env.example seclab/.env && chmod 600 seclab/.env
