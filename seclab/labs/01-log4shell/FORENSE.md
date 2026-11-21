@@ -161,3 +161,43 @@ docker compose ps             # vacio
 ```
 La causa raíz: **datos no confiables** (una cabecera) tratados como **instrucción**
 (una búsqueda+carga de código). El mismo patrón que la inyección en LLM de la sesión 5.
+
+---
+
+## Cierre DFIR · de "confirmé el RCE" a "reconstruí el incidente"
+
+Tras confirmar la evidencia (pasos 4-5), un forense reconstruye el incidente completo:
+
+```bash
+# 6 · LINEA DE TIEMPO (cuando) — artefacto y log deben coincidir al segundo
+docker compose exec victim stat -c '%n creado: %y' /tmp/pwned.txt
+docker compose logs -t victim | grep "payload ejecutado"
+#   OJO: los logs son acumulativos; correlaciona por timestamp.
+
+# 7 · PROCESO Y PRIVILEGIO (con que permisos) — hallazgo: corria como root
+docker compose exec victim ps -o pid,user,args | grep java
+#   -> PID 1 root java -jar /app/vulnapp.jar   => el RCE fue root por esto.
+
+# 8 · VECTOR DE ENTRADA (por donde) — la cadena jndi en los logs de la app
+docker compose logs victim | grep -iE "jndi|ldap://"
+#   en real: cruzar con el access log para IP y peticion del atacante.
+
+# 9 · CAUSA RAIZ (por que) — una dependencia, no tu codigo
+#     log4j-core 2.14.1 -> CVE-2021-44228
+
+# 12 · DETECCION en logs reales (lo que buscaria un SIEM)
+docker compose logs victim | grep -iE '\$\{jndi:(ldap|rmi|dns)'
+```
+
+### IOCs (indicadores de compromiso) para barrer toda la flota
+| Tipo | Indicador |
+|---|---|
+| Patron en logs | `${jndi:ldap://`, `${jndi:rmi://`, `${jndi:dns://`, ofuscaciones `${lower:j}ndi` |
+| Archivo | `/tmp/pwned.txt` (en real: binarios raros en /tmp, /dev/shm) |
+| Red saliente | conexiones a :1389 (LDAP) y :8888 (HTTP) desde la app |
+| Dependencia | log4j-core 2.0-beta9 .. 2.14.1 |
+
+### Veredicto
+- Impacto: ejecucion de codigo **como root** en la victima.
+- Contencion: red `internal: true` -> sin egress; no hubo exfiltracion ni 2a etapa.
+- Remediacion: actualizar a log4j 2.17.x (ver `./demo-log4shell.sh`).
