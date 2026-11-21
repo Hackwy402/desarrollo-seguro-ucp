@@ -55,8 +55,9 @@ def ask_ai(report):
     key = (os.environ.get("GATE_AI_API_KEY")
            or os.environ.get("GROQ_API_KEY")
            or os.environ.get("OPENAI_API_KEY"))
-    base = os.environ.get("GATE_AI_BASE_URL", "https://api.groq.com/openai/v1").rstrip("/")
-    model = os.environ.get("GATE_AI_MODEL", "llama-3.3-70b-versatile")
+    # ojo: en CI una variable no definida llega como "" (no ausente) -> usar `or`.
+    base = (os.environ.get("GATE_AI_BASE_URL") or "https://api.groq.com/openai/v1").rstrip("/")
+    model = os.environ.get("GATE_AI_MODEL") or "llama-3.3-70b-versatile"
 
     if not key:
         return "", ("IA no configurada: define el secret `GATE_AI_API_KEY` "
