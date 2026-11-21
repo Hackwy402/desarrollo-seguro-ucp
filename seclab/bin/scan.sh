@@ -18,12 +18,13 @@ SECLAB="$(cd "$HERE/.." && pwd)"
 GREEN=$'\033[38;5;46m'; YEL=$'\033[38;5;226m'; CYAN=$'\033[38;5;51m'
 RED=$'\033[38;5;196m'; DIM=$'\033[2m'; BOLD=$'\033[1m'; RST=$'\033[0m'
 
-WITH_TRIVY=0; SOFT=0; ANIM=1; TARGET="."
+WITH_TRIVY=0; SOFT=0; ANIM=1; AI=0; TARGET="."
 for a in "$@"; do
   case "$a" in
     --with-trivy) WITH_TRIVY=1;;
     --soft) SOFT=1;;
     --no-anim) ANIM=0;;
+    --ai) AI=1;;
     __run) :;;
     *) TARGET="$a";;
   esac
@@ -93,6 +94,13 @@ TOTAL="$(cat "$STATE/_total" 2>/dev/null || echo 0)"
 # ---------------------------- notificar --------------------------------------
 if [ -x "$HERE/notify.sh" ]; then
   "$HERE/notify.sh" "$STATE" "$SCANDIR" || true
+fi
+
+# ---------------------------- triage con IA (opcional) -----------------------
+if [ "$AI" = "1" ]; then
+  echo
+  printf "${DIM}── triage con IA ──────────────────────────────────${RST}\n"
+  python3 "$HERE/ai_triage.py" "$STATE/report.json" || true
 fi
 
 # ---------------------------- gate -------------------------------------------
