@@ -429,7 +429,7 @@
    },
    "options": {
     "mode": "markdown",
-    "content": "🔗 **[Pull Requests en GitHub](https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls)**  ·  ⚙️ **[Runs del gate](https://github.com/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml)**  ·  💬 **[Canal de Slack](https://app.slack.com/client/T0CKFF9UGH5/C0CKQKSJMGT)**  ·  Clic en el **PR** o el **título** abre GitHub; clic en el **estado** abre el run."
+    "content": "🔗 **[Pull Requests en GitHub](https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls)**  ·  ⚙️ **[Runs del gate](https://github.com/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml)**  ·  💬 **[Canal de Discord](https://discord.com/channels/1573813836841230448/1573813837629755494)**  ·  Clic en el **PR** o el **título** abre GitHub; clic en el **estado** abre el run."
    }
   },
   {

@@ -18,9 +18,11 @@ Para refrescar cada 30 s agrega a `.env` un token de solo lectura:
 
     GITHUB_TOKEN=github_pat_...      # fine-grained, "Public repositories (read-only)"
 
-Avisos a Slack: el step "Avisar a Slack" de `gate.yml` usa
-`seclab/bin/slack_pr.py` y necesita:
+Avisos al canal: el step "Avisar al canal" de `gate.yml` usa
+`seclab/bin/notify_pr.py` y necesita:
 
-    gh secret   set SLACK_WEBHOOK_URL            # Incoming Webhook del canal
+    gh secret   set DISCORD_WEBHOOK_URL          # webhook del canal de Discord
     gh variable set GRAFANA_URL -b 'http://<host>:3000/d/seclab-pr-gate'
-    gh variable set SLACK_CHANNEL_URL -b 'https://app.slack.com/client/<TEAM>/<CANAL>'
+    gh variable set GATE_CHANNEL_URL -b 'https://discord.com/channels/<servidor>/<canal>'
+
+(Tambien acepta `SLACK_WEBHOOK_URL` si se quiere avisar a Slack.)
