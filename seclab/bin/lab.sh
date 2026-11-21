@@ -27,60 +27,11 @@ pause() { [ -t 0 ] && { printf "\n${D}   (Enter para continuar)${X} "; read -r _
 command -v docker >/dev/null 2>&1 || { printf "${R}Falta docker. Instala Docker y vuelve a correr.${X}\n"; exit 1; }
 docker info >/dev/null 2>&1 || { printf "${R}Docker no responde. Arranca el servicio:${X}  sudo systemctl start docker\n"; exit 1; }
 
-# 1) andamiar la app vulnerable si no existe
-if [ ! -f "$APP/pom.xml" ]; then
-  say "Creando la app de ejemplo con log4j $VULN (vulnerable)"
-  mkdir -p "$APP/src/main/java/com/ucp/demo"
-  cat > "$APP/pom.xml" <<POM
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.ucp.demo</groupId>
-  <artifactId>app-pedidos</artifactId>
-  <version>1.0.0</version>
-  <packaging>jar</packaging>
-  <properties>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-    <!-- log4j $VULN arrastra CVE-2021-44228 (Log4Shell). El gate debe cazarlo. -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>$VULN</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>$VULN</version>
-    </dependency>
-  </dependencies>
-</project>
-POM
-  cat > "$APP/src/main/java/com/ucp/demo/App.java" <<'JAVA'
-package com.ucp.demo;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-// Feature: registrar la version de API que manda el cliente (cabecera X-Api-Version).
-// Ojo: loggear texto controlado por el cliente con log4j vulnerable = vector Log4Shell.
-public class App {
-  private static final Logger log = LogManager.getLogger(App.class);
-  public static void main(String[] args) {
-    String apiVersion = args.length > 0 ? args[0] : "v1";
-    log.info("Pedido recibido. X-Api-Version={}", apiVersion);
-  }
-}
-JAVA
-  printf "${G}   app creada en %s${X}\n" "$APP"
-else
-  say "Restaurando la app a la version vulnerable ($VULN)"
-  sedi "s/>2\.[0-9][0-9]*\.[0-9][0-9]*</>$VULN</g" "$APP/pom.xml"
-fi
+# 1) app vulnerable (scaffold compartido con lab-pr.sh)
+. "$HERE/_demo_app.sh"
+say "Preparando la app de ejemplo con log4j $VULN (vulnerable)"
+scaffold_vuln_app "$APP"
+printf "${G}   app lista en %s${X}\n" "$APP"
 
 # 2) ROJO
 say "PASO 1 — Escaneo con el Security Gate (esperamos ROJO)"

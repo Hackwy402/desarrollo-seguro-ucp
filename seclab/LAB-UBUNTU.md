@@ -7,11 +7,12 @@ hasta ponerlo en verde.
 ## 1. Requisitos (una sola vez)
 
 ```bash
-# Docker (los escaneres corren en contenedores; no instalas nada mas)
-sudo apt-get update && sudo apt-get install -y docker.io git
+# Docker (los escaneres corren en contenedores; no instalas nada mas) + git + gh
+sudo apt-get update && sudo apt-get install -y docker.io git gh
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"   # cierra sesion y vuelve a entrar, o: newgrp docker
 docker info >/dev/null && echo "Docker OK"
+gh auth login                     # para abrir tu PR (paso 6)
 ```
 
 ## 2. Clona el repo
@@ -66,6 +67,36 @@ sed -i 's/2.14.1/2.26.1/g' seclab/ci-demo-app/pom.xml          # Ubuntu: sed -i 
 # re-escaneo
 bash seclab/bin/scan.sh --with-trivy --ai seclab/ci-demo-app   # -> verde
 ```
+
+## 6. Abre tu PR y genera el informe (entrega en Moodle)
+
+El gate también corre en **GitHub Actions** sobre tu Pull Request, usando el modelo
+de IA ya configurado en el repo. Trabajas en **tu propia rama** del mismo repo.
+
+```bash
+# 1) abre tu PR con la app vulnerable -> el gate lo BLOQUEA (rojo) y la IA comenta
+bash seclab/bin/lab-pr.sh
+
+# 2) en GitHub mira el check `gate` en rojo + el comentario de la IA; luego parcha:
+bash seclab/bin/lab-pr.sh --fix     # sube log4j a 2.26.1 -> el gate pasa a VERDE
+
+# 3) genera tu informe (antes/después, CVEs, análisis IA, remediación)
+bash seclab/bin/informe.sh          # escribe seclab/ci-demo-app/REPORTE.md
+
+# 4) deja el informe en el repo y súbelo a Moodle
+git add seclab/ci-demo-app/REPORTE.md
+git commit -m "docs: informe del lab log4shell"
+git push
+```
+
+**La API key en el PR:** el modelo está configurado como *secret* del repo
+(`GATE_AI_API_KEY`) y **todos los PR del repo lo usan automáticamente** — no necesitas
+poner nada para que la IA comente en tu PR. Para correr el gate **localmente** con tu
+propia key usa `lab.sh` (te la pide oculta). Si quieres usar **tu** key en el CI (con
+permiso del instructor): `gh secret set GATE_AI_API_KEY` — el secret es único por repo.
+
+**Entrega:** sube a **Moodle** tu `REPORTE.md` (o su PDF) y el enlace a tu PR, del lab
+de ayer y el de hoy.
 
 ## Seguridad de la key (importante)
 
