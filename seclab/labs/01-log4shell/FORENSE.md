@@ -201,3 +201,31 @@ docker compose logs victim | grep -iE '\$\{jndi:(ldap|rmi|dns)'
 - Impacto: ejecucion de codigo **como root** en la victima.
 - Contencion: red `internal: true` -> sin egress; no hubo exfiltracion ni 2a etapa.
 - Remediacion: actualizar a log4j 2.17.x (ver `./demo-log4shell.sh`).
+
+---
+
+## Filtros limpios: ver el vector y la causa raíz sin el ruido de la pila
+
+El stack trace tiene ~8 lineas; **solo 2 son evidencia**. No leas la pila entera:
+
+```bash
+# VECTOR DE ENTRADA (que recibio la app) + timeline de todo el incidente
+docker compose logs victim | grep "Peticion recibida"
+
+# CAUSA RAIZ (la clase vulnerable de log4j que hizo el lookup)
+docker compose logs victim | grep "JndiLookup.lookup"
+#   -> at org.apache.logging.log4j.core.lookup.JndiLookup.lookup(JndiLookup.java:56)
+
+# VECTOR + CAUSA, combinado y limpio (NO uses grep -v '\tat': borraria JndiLookup)
+docker compose logs victim | grep -iE "Peticion recibida|JndiLookup.lookup"
+
+# Solo el payload deduplicado -> lista de IOCs
+docker compose logs victim | grep -oE '\$\{jndi:[^}]*\}' | sort -u
+
+# Solo las peticiones MALICIOSAS (descarta las benignas)
+docker compose logs victim | grep "Peticion recibida" | grep 'jndi:'
+```
+
+Regla: pregunta *"¿que linea prueba el vector?"* (`Peticion recibida`) y *"¿que linea
+prueba la causa?"* (`JndiLookup.lookup`). El resto de la pila (`c_lookup`, `p_lookup`,
+`GenericURLContext`...) es el camino interno de Java: contexto, no evidencia.
