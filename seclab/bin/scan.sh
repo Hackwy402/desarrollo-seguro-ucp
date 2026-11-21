@@ -100,6 +100,9 @@ fi
 if [ "$AI" = "1" ]; then
   echo
   printf "${DIM}── triage con IA ──────────────────────────────────${RST}\n"
+  # carga/solicita la key de forma segura (oculta, guardada en seclab/.env)
+  . "$HERE/_ai_env.sh"
+  ai_ensure_key || true
   python3 "$HERE/ai_triage.py" "$STATE/report.json" || true
 fi
 
