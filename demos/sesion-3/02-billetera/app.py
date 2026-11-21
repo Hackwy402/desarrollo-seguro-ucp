@@ -12,6 +12,7 @@ import base64
 import datetime as dt
 import hashlib
 import os
+import secrets
 import sqlite3
 
 import jwt
@@ -85,20 +86,42 @@ def descifrar(blob, usuario):
 
 # ---------------------------------------------------------------------------
 # KATA V9 · Tokens JWT
-# Secreto adivinable, sin expiración, y la verificación ni siquiera revisa la
-# firma: cualquiera puede fabricar un token con el usuario que quiera.
+# El secreto se lee del entorno (o se genera aleatorio por proceso), el token
+# expira en 15 minutos y lleva emisor y audiencia, y la verificación exige
+# firma válida con el algoritmo fijo HS256.
 # ---------------------------------------------------------------------------
-JWT_SECRETO = "secreto"
+JWT_SECRETO = os.environ.get("JWT_SECRETO") or secrets.token_hex(32)
+if len(JWT_SECRETO.encode()) < 32:
+    raise RuntimeError("JWT_SECRETO debe tener al menos 32 bytes")
+JWT_ALGORITMO = "HS256"
+JWT_EMISOR = "billetera-ucp"
+JWT_AUDIENCIA = "billetera-ucp-api"
+JWT_VIGENCIA = dt.timedelta(minutes=15)
 
 
 def emitir_token(usuario):
-    return jwt.encode({"sub": usuario}, JWT_SECRETO, algorithm="HS256")
+    ahora = dt.datetime.now(dt.timezone.utc)
+    datos_token = {
+        "sub": usuario,
+        "iss": JWT_EMISOR,
+        "aud": JWT_AUDIENCIA,
+        "iat": ahora,
+        "exp": ahora + JWT_VIGENCIA,
+    }
+    return jwt.encode(datos_token, JWT_SECRETO, algorithm=JWT_ALGORITMO)
 
 
 def usuario_actual():
     token = request.headers.get("Authorization", "").removeprefix("Bearer ")
     try:
-        datos_token = jwt.decode(token, options={"verify_signature": False})
+        datos_token = jwt.decode(
+            token,
+            JWT_SECRETO,
+            algorithms=[JWT_ALGORITMO],
+            issuer=JWT_EMISOR,
+            audience=JWT_AUDIENCIA,
+            options={"require": ["exp", "iat", "iss", "aud", "sub"]},
+        )
     except jwt.PyJWTError:
         return None
     return datos_token.get("sub")
