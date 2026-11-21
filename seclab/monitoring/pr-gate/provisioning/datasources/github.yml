@@ -1,0 +1,9 @@
+apiVersion: 1
+datasources:
+  - name: Seclab
+    type: yesoreyeram-infinity-datasource
+    uid: seclab
+    access: proxy
+    isDefault: true
+    jsonData:
+      allowedHosts: ["http://seclab-data:8080"]

@@ -76,6 +76,21 @@ jobs:
               await github.rest.issues.createComment({ owner, repo, issue_number, body });
             }
 
+      - name: Avisar al canal (PR bloqueado)
+        if: always() && github.event_name == 'pull_request' && steps.scan.outputs.gate_exit != '0'
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GRAFANA_URL: ${{ vars.GRAFANA_URL }}
+          CHANNEL_URL: ${{ vars.GATE_CHANNEL_URL }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUM: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT: ${{ steps.scan.outputs.report }}
+        run: python3 seclab/bin/notify_pr.py
+
       - name: Veredicto del gate (fail-closed)
         if: always()
         run: |
