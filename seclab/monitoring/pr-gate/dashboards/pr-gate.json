@@ -7,7 +7,7 @@
  ],
  "timezone": "browser",
  "schemaVersion": 39,
- "refresh": "10m",
+ "refresh": "30s",
  "time": {
   "from": "now-7d",
   "to": "now"
@@ -16,14 +16,14 @@
   {
    "id": 1,
    "type": "stat",
-   "title": "PRs bloqueados (runs fallidos)",
+   "title": "Alumnos con PR",
    "datasource": {
     "type": "yesoreyeram-infinity-datasource",
-    "uid": "github"
+    "uid": "seclab"
    },
    "gridPos": {
     "h": 4,
-    "w": 6,
+    "w": 4,
     "x": 0,
     "y": 0
    },
@@ -32,13 +32,13 @@
      "refId": "A",
      "datasource": {
       "type": "yesoreyeram-infinity-datasource",
-      "uid": "github"
+      "uid": "seclab"
      },
      "type": "json",
      "source": "url",
      "format": "table",
      "parser": "backend",
-     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100&status=failure",
+     "url": "http://seclab-data:8080/resumen.json",
      "url_options": {
       "method": "GET",
       "data": ""
@@ -46,8 +46,8 @@
      "root_selector": "",
      "columns": [
       {
-       "selector": "total_count",
-       "text": "total",
+       "selector": "alumnos",
+       "text": "Alumnos con PR",
        "type": "number"
       }
      ]
@@ -58,7 +58,7 @@
      "calcs": [
       "lastNotNull"
      ],
-     "fields": "",
+     "fields": "/.*/",
      "values": false
     },
     "colorMode": "background",
@@ -69,8 +69,9 @@
     "defaults": {
      "color": {
       "mode": "fixed",
-      "fixedColor": "red"
-     }
+      "fixedColor": "blue"
+     },
+     "noValue": "0"
     },
     "overrides": []
    }
@@ -78,15 +79,15 @@
   {
    "id": 2,
    "type": "stat",
-   "title": "Runs en verde",
+   "title": "PRs con gate",
    "datasource": {
     "type": "yesoreyeram-infinity-datasource",
-    "uid": "github"
+    "uid": "seclab"
    },
    "gridPos": {
     "h": 4,
-    "w": 6,
-    "x": 6,
+    "w": 4,
+    "x": 4,
     "y": 0
    },
    "targets": [
@@ -94,13 +95,13 @@
      "refId": "A",
      "datasource": {
       "type": "yesoreyeram-infinity-datasource",
-      "uid": "github"
+      "uid": "seclab"
      },
      "type": "json",
      "source": "url",
      "format": "table",
      "parser": "backend",
-     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100&status=success",
+     "url": "http://seclab-data:8080/resumen.json",
      "url_options": {
       "method": "GET",
       "data": ""
@@ -108,8 +109,8 @@
      "root_selector": "",
      "columns": [
       {
-       "selector": "total_count",
-       "text": "total",
+       "selector": "prs",
+       "text": "PRs con gate",
        "type": "number"
       }
      ]
@@ -120,7 +121,220 @@
      "calcs": [
       "lastNotNull"
      ],
-     "fields": "",
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "blue"
+     },
+     "noValue": "0"
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 3,
+   "type": "stat",
+   "title": "🚫 Bloqueados ahora",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
+   },
+   "gridPos": {
+    "h": 4,
+    "w": 4,
+    "x": 8,
+    "y": 0
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/resumen.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "bloqueados",
+       "text": "🚫 Bloqueados ahora",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "thresholds"
+     },
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "red",
+        "value": 1
+       }
+      ]
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 4,
+   "type": "stat",
+   "title": "Hallazgos abiertos",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
+   },
+   "gridPos": {
+    "h": 4,
+    "w": 4,
+    "x": 12,
+    "y": 0
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/resumen.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "hallazgos_abiertos",
+       "text": "Hallazgos abiertos",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "thresholds"
+     },
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "red",
+        "value": 1
+       }
+      ]
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 5,
+   "type": "stat",
+   "title": "✅ Corregidos (rojo→verde)",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
+   },
+   "gridPos": {
+    "h": 4,
+    "w": 4,
+    "x": 16,
+    "y": 0
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/resumen.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "corregidos",
+       "text": "✅ Corregidos (rojo→verde)",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
      "values": false
     },
     "colorMode": "background",
@@ -132,86 +346,781 @@
      "color": {
       "mode": "fixed",
       "fixedColor": "green"
+     },
+     "noValue": "0"
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 6,
+   "type": "stat",
+   "title": "Min. promedio a verde",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
+   },
+   "gridPos": {
+    "h": 4,
+    "w": 4,
+    "x": 20,
+    "y": 0
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/resumen.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "min_a_verde_prom",
+       "text": "Min. promedio a verde",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "purple"
+     },
+     "noValue": "0",
+     "unit": "m"
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 20,
+   "type": "text",
+   "title": "",
+   "transparent": true,
+   "gridPos": {
+    "h": 2,
+    "w": 24,
+    "x": 0,
+    "y": 4
+   },
+   "options": {
+    "mode": "markdown",
+    "content": "🔗 **[Pull Requests en GitHub](https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls)**  ·  ⚙️ **[Runs del gate](https://github.com/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml)**  ·  💬 **[Canal de Slack](https://app.slack.com/client/T0CKFF9UGH5/C0CKQKSJMGT)**  ·  Clic en el **PR** o el **título** abre GitHub; clic en el **estado** abre el run."
+   }
+  },
+  {
+   "id": 7,
+   "type": "table",
+   "title": "🚨 ALARMAS — PRs abiertos que NO pasan el gate",
+   "description": "PRs abiertos cuyo último run del gate falló. Desaparecen al corregir (verde) o cerrar el PR.",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
+   },
+   "gridPos": {
+    "h": 9,
+    "w": 24,
+    "x": 0,
+    "y": 6
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/alarmas.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "pr",
+       "text": "PR",
+       "type": "number"
+      },
+      {
+       "selector": "alumno",
+       "text": "Alumno",
+       "type": "string"
+      },
+      {
+       "selector": "titulo",
+       "text": "Título",
+       "type": "string"
+      },
+      {
+       "selector": "gate",
+       "text": "Gate",
+       "type": "string"
+      },
+      {
+       "selector": "hallazgos",
+       "text": "Hallazgos",
+       "type": "number"
+      },
+      {
+       "selector": "criticos",
+       "text": "Críticos",
+       "type": "number"
+      },
+      {
+       "selector": "altos",
+       "text": "Altos",
+       "type": "number"
+      },
+      {
+       "selector": "cves",
+       "text": "CVE principales",
+       "type": "string"
+      },
+      {
+       "selector": "intentos",
+       "text": "Intentos",
+       "type": "number"
+      },
+      {
+       "selector": "ultimo_run",
+       "text": "Último run",
+       "type": "timestamp"
+      },
+      {
+       "selector": "pr_url",
+       "text": "pr_url",
+       "type": "string"
+      },
+      {
+       "selector": "run_url",
+       "text": "run_url",
+       "type": "string"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "showHeader": true,
+    "cellHeight": "sm"
+   },
+   "transformations": [
+    {
+     "id": "organize",
+     "options": {
+      "indexByName": {
+       "PR": 0,
+       "Alumno": 1,
+       "Título": 2,
+       "Gate": 3,
+       "Hallazgos": 4,
+       "Críticos": 5,
+       "Altos": 6,
+       "CVE principales": 7,
+       "Intentos": 8,
+       "Último run": 9,
+       "pr_url": 10,
+       "run_url": 11
+      },
+      "excludeByName": {},
+      "renameByName": {}
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "filterable": true
+     },
+     "noValue": "—"
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "pr_url"
+      },
+      "properties": [
+       {
+        "id": "custom.hidden",
+        "value": true
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "run_url"
+      },
+      "properties": [
+       {
+        "id": "custom.hidden",
+        "value": true
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "PR"
+      },
+      "properties": [
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir PR en GitHub",
+          "targetBlank": true,
+          "url": "${__data.fields[\"pr_url\"]}"
+         }
+        ]
+       },
+       {
+        "id": "custom.width",
+        "value": 70
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Título"
+      },
+      "properties": [
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir PR en GitHub",
+          "targetBlank": true,
+          "url": "${__data.fields[\"pr_url\"]}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Gate"
+      },
+      "properties": [
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-background"
+        }
+       },
+       {
+        "id": "mappings",
+        "value": [
+         {
+          "type": "value",
+          "options": {
+           "BLOQUEADO": {
+            "text": "🚫 BLOQUEADO",
+            "color": "red"
+           },
+           "INCOMPLETO": {
+            "text": "⚠️ ESCANEO INCOMPLETO",
+            "color": "orange"
+           },
+           "CORREGIDO": {
+            "text": "✅ CORREGIDO",
+            "color": "green"
+           },
+           "PASA": {
+            "text": "✅ PASA",
+            "color": "green"
+           },
+           "CORRIENDO": {
+            "text": "⏳ CORRIENDO",
+            "color": "blue"
+           },
+           "failure": {
+            "text": "🚫 falló",
+            "color": "red"
+           },
+           "success": {
+            "text": "✅ pasó",
+            "color": "green"
+           },
+           "cancelled": {
+            "text": "cancelado",
+            "color": "gray"
+           },
+           "in_progress": {
+            "text": "⏳ corriendo",
+            "color": "blue"
+           }
+          }
+         }
+        ]
+       },
+       {
+        "id": "custom.width",
+        "value": 210
+       },
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir run del gate",
+          "targetBlank": true,
+          "url": "${__data.fields[\"run_url\"]}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Hallazgos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 100
+       },
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-text"
+        }
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "thresholds"
+        }
+       },
+       {
+        "id": "thresholds",
+        "value": {
+         "mode": "absolute",
+         "steps": [
+          {
+           "color": "green",
+           "value": null
+          },
+          {
+           "color": "red",
+           "value": 1
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Críticos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 90
+       },
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-text"
+        }
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "thresholds"
+        }
+       },
+       {
+        "id": "thresholds",
+        "value": {
+         "mode": "absolute",
+         "steps": [
+          {
+           "color": "text",
+           "value": null
+          },
+          {
+           "color": "red",
+           "value": 1
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Altos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 80
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Intentos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 90
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Alumno"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 150
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "PR estado"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 100
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Min. a verde"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 110
+       },
+       {
+        "id": "unit",
+        "value": "m"
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Duración"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "s"
+       },
+       {
+        "id": "custom.width",
+        "value": 100
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Último run"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 170
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Fecha"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 170
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": 8,
+   "type": "bargauge",
+   "title": "Hallazgos abiertos por alumno",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
+   },
+   "gridPos": {
+    "h": 7,
+    "w": 12,
+    "x": 0,
+    "y": 15
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/alarmas.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "alumno",
+       "text": "Alumno",
+       "type": "string"
+      },
+      {
+       "selector": "hallazgos",
+       "text": "Hallazgos",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "values": true,
+     "fields": ""
+    },
+    "showUnfilled": true
+   },
+   "fieldConfig": {
+    "defaults": {
+     "min": 0,
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "red"
+     },
+     "noValue": "Sin PRs bloqueados 🎉"
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 9,
+   "type": "bargauge",
+   "title": "Intentos (runs del gate) por PR",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
+   },
+   "gridPos": {
+    "h": 7,
+    "w": 12,
+    "x": 12,
+    "y": 15
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/prs.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "titulo",
+       "text": "PR",
+       "type": "string"
+      },
+      {
+       "selector": "intentos",
+       "text": "Intentos",
+       "type": "number"
+      }
+     ]
+    }
+   ],
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "values": true,
+     "fields": ""
+    },
+    "showUnfilled": true
+   },
+   "fieldConfig": {
+    "defaults": {
+     "min": 0,
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "blue"
      }
     },
     "overrides": []
    }
   },
   {
-   "id": 5,
-   "type": "text",
-   "title": "Enlaces",
-   "gridPos": {
-    "h": 4,
-    "w": 12,
-    "x": 12,
-    "y": 0
-   },
-   "options": {
-    "mode": "markdown",
-    "content": "**[Pull Requests en GitHub](https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls)** · **[Runs del gate](https://github.com/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml)** · **[Slack ucp-devsecops](https://ucp-devsecops.slack.com)**\n\nEl gate escanea cada PR y bloquea si hay hallazgos. Clic en la **rama** para abrir el PR, o en el **run** para ver el detalle."
-   }
-  },
-  {
-   "id": 3,
+   "id": 10,
    "type": "table",
-   "title": "🚫 PRs que fallaron el gate",
+   "title": "Todos los PRs de los estudiantes",
+   "description": "",
    "datasource": {
     "type": "yesoreyeram-infinity-datasource",
-    "uid": "github"
+    "uid": "seclab"
    },
    "gridPos": {
     "h": 10,
     "w": 24,
     "x": 0,
-    "y": 4
+    "y": 22
    },
    "targets": [
     {
      "refId": "A",
      "datasource": {
       "type": "yesoreyeram-infinity-datasource",
-      "uid": "github"
+      "uid": "seclab"
      },
      "type": "json",
      "source": "url",
      "format": "table",
      "parser": "backend",
-     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100&status=failure",
+     "url": "http://seclab-data:8080/prs.json",
      "url_options": {
       "method": "GET",
       "data": ""
      },
-     "root_selector": "workflow_runs",
+     "root_selector": "",
      "columns": [
       {
-       "selector": "created_at",
-       "text": "Fecha",
-       "type": "timestamp"
+       "selector": "pr",
+       "text": "PR",
+       "type": "number"
       },
       {
-       "selector": "actor.login",
+       "selector": "alumno",
        "text": "Alumno",
        "type": "string"
       },
       {
-       "selector": "head_branch",
-       "text": "Rama (abre el PR)",
+       "selector": "titulo",
+       "text": "Título",
        "type": "string"
       },
       {
-       "selector": "display_title",
-       "text": "PR",
-       "type": "string"
-      },
-      {
-       "selector": "conclusion",
+       "selector": "gate",
        "text": "Gate",
        "type": "string"
       },
       {
-       "selector": "html_url",
-       "text": "Run en GitHub",
+       "selector": "estado_pr",
+       "text": "PR estado",
+       "type": "string"
+      },
+      {
+       "selector": "hallazgos",
+       "text": "Hallazgos",
+       "type": "number"
+      },
+      {
+       "selector": "criticos",
+       "text": "Críticos",
+       "type": "number"
+      },
+      {
+       "selector": "altos",
+       "text": "Altos",
+       "type": "number"
+      },
+      {
+       "selector": "intentos",
+       "text": "Intentos",
+       "type": "number"
+      },
+      {
+       "selector": "min_a_verde",
+       "text": "Min. a verde",
+       "type": "number"
+      },
+      {
+       "selector": "ultimo_run",
+       "text": "Último run",
+       "type": "timestamp"
+      },
+      {
+       "selector": "pr_url",
+       "text": "pr_url",
+       "type": "string"
+      },
+      {
+       "selector": "run_url",
+       "text": "run_url",
        "type": "string"
       }
      ]
@@ -219,24 +1128,68 @@
    ],
    "options": {
     "showHeader": true,
-    "sortBy": [
-     {
-      "displayName": "Fecha",
-      "desc": true
-     }
-    ]
+    "cellHeight": "sm"
    },
+   "transformations": [
+    {
+     "id": "organize",
+     "options": {
+      "indexByName": {
+       "PR": 0,
+       "Alumno": 1,
+       "Título": 2,
+       "Gate": 3,
+       "PR estado": 4,
+       "Hallazgos": 5,
+       "Críticos": 6,
+       "Altos": 7,
+       "Intentos": 8,
+       "Min. a verde": 9,
+       "Último run": 10,
+       "pr_url": 11,
+       "run_url": 12
+      },
+      "excludeByName": {},
+      "renameByName": {}
+     }
+    }
+   ],
    "fieldConfig": {
     "defaults": {
      "custom": {
       "filterable": true
-     }
+     },
+     "noValue": "—"
     },
     "overrides": [
      {
       "matcher": {
        "id": "byName",
-       "options": "Rama (abre el PR)"
+       "options": "pr_url"
+      },
+      "properties": [
+       {
+        "id": "custom.hidden",
+        "value": true
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "run_url"
+      },
+      "properties": [
+       {
+        "id": "custom.hidden",
+        "value": true
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "PR"
       },
       "properties": [
        {
@@ -245,25 +1198,29 @@
          {
           "title": "Abrir PR en GitHub",
           "targetBlank": true,
-          "url": "https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls?q=is%3Apr+head%3A${__value.raw}"
+          "url": "${__data.fields[\"pr_url\"]}"
          }
         ]
+       },
+       {
+        "id": "custom.width",
+        "value": 70
        }
       ]
      },
      {
       "matcher": {
        "id": "byName",
-       "options": "Run en GitHub"
+       "options": "Título"
       },
       "properties": [
        {
         "id": "links",
         "value": [
          {
-          "title": "Abrir run",
+          "title": "Abrir PR en GitHub",
           "targetBlank": true,
-          "url": "${__value.raw}"
+          "url": "${__data.fields[\"pr_url\"]}"
          }
         ]
        }
@@ -287,17 +1244,41 @@
          {
           "type": "value",
           "options": {
-           "failure": {
+           "BLOQUEADO": {
             "text": "🚫 BLOQUEADO",
             "color": "red"
            },
-           "success": {
+           "INCOMPLETO": {
+            "text": "⚠️ ESCANEO INCOMPLETO",
+            "color": "orange"
+           },
+           "CORREGIDO": {
+            "text": "✅ CORREGIDO",
+            "color": "green"
+           },
+           "PASA": {
             "text": "✅ PASA",
+            "color": "green"
+           },
+           "CORRIENDO": {
+            "text": "⏳ CORRIENDO",
+            "color": "blue"
+           },
+           "failure": {
+            "text": "🚫 falló",
+            "color": "red"
+           },
+           "success": {
+            "text": "✅ pasó",
             "color": "green"
            },
            "cancelled": {
             "text": "cancelado",
             "color": "gray"
+           },
+           "in_progress": {
+            "text": "⏳ corriendo",
+            "color": "blue"
            }
           }
          }
@@ -305,7 +1286,189 @@
        },
        {
         "id": "custom.width",
+        "value": 210
+       },
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir run del gate",
+          "targetBlank": true,
+          "url": "${__data.fields[\"run_url\"]}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Hallazgos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 100
+       },
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-text"
+        }
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "thresholds"
+        }
+       },
+       {
+        "id": "thresholds",
+        "value": {
+         "mode": "absolute",
+         "steps": [
+          {
+           "color": "green",
+           "value": null
+          },
+          {
+           "color": "red",
+           "value": 1
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Críticos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 90
+       },
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-text"
+        }
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "thresholds"
+        }
+       },
+       {
+        "id": "thresholds",
+        "value": {
+         "mode": "absolute",
+         "steps": [
+          {
+           "color": "text",
+           "value": null
+          },
+          {
+           "color": "red",
+           "value": 1
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Altos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 80
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Intentos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 90
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Alumno"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
         "value": 150
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "PR estado"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 100
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Min. a verde"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 110
+       },
+       {
+        "id": "unit",
+        "value": "m"
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Duración"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "s"
+       },
+       {
+        "id": "custom.width",
+        "value": 100
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Último run"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 170
        }
       ]
      },
@@ -317,90 +1480,84 @@
       "properties": [
        {
         "id": "custom.width",
-        "value": 180
+        "value": 170
        }
       ]
      }
     ]
-   },
-   "transformations": [
-    {
-     "id": "organize",
-     "options": {
-      "indexByName": {
-       "Fecha": 0,
-       "Alumno": 1,
-       "PR": 2,
-       "Gate": 3,
-       "Rama (abre el PR)": 4,
-       "Run en GitHub": 5
-      },
-      "excludeByName": {},
-      "renameByName": {}
-     }
-    }
-   ]
+   }
   },
   {
-   "id": 4,
+   "id": 11,
    "type": "table",
-   "title": "Historial completo",
+   "title": "Historial de runs del gate",
+   "description": "",
    "datasource": {
     "type": "yesoreyeram-infinity-datasource",
-    "uid": "github"
+    "uid": "seclab"
    },
    "gridPos": {
-    "h": 12,
+    "h": 10,
     "w": 24,
     "x": 0,
-    "y": 14
+    "y": 32
    },
    "targets": [
     {
      "refId": "A",
      "datasource": {
       "type": "yesoreyeram-infinity-datasource",
-      "uid": "github"
+      "uid": "seclab"
      },
      "type": "json",
      "source": "url",
      "format": "table",
      "parser": "backend",
-     "url": "https://api.github.com/repos/Hackwy402/desarrollo-seguro-ucp/actions/workflows/gate.yml/runs?event=pull_request&per_page=100",
+     "url": "http://seclab-data:8080/runs.json",
      "url_options": {
       "method": "GET",
       "data": ""
      },
-     "root_selector": "workflow_runs",
+     "root_selector": "",
      "columns": [
       {
-       "selector": "created_at",
+       "selector": "fecha",
        "text": "Fecha",
        "type": "timestamp"
       },
       {
-       "selector": "actor.login",
+       "selector": "pr",
+       "text": "PR",
+       "type": "number"
+      },
+      {
+       "selector": "alumno",
        "text": "Alumno",
        "type": "string"
       },
       {
-       "selector": "head_branch",
-       "text": "Rama (abre el PR)",
+       "selector": "titulo",
+       "text": "Título",
        "type": "string"
       },
       {
-       "selector": "display_title",
-       "text": "PR",
+       "selector": "resultado",
+       "text": "Resultado",
        "type": "string"
       },
       {
-       "selector": "conclusion",
-       "text": "Gate",
+       "selector": "duracion_s",
+       "text": "Duración",
+       "type": "number"
+      },
+      {
+       "selector": "pr_url",
+       "text": "pr_url",
        "type": "string"
       },
       {
-       "selector": "html_url",
-       "text": "Run en GitHub",
+       "selector": "run_url",
+       "text": "run_url",
        "type": "string"
       }
      ]
@@ -408,24 +1565,63 @@
    ],
    "options": {
     "showHeader": true,
-    "sortBy": [
-     {
-      "displayName": "Fecha",
-      "desc": true
-     }
-    ]
+    "cellHeight": "sm"
    },
+   "transformations": [
+    {
+     "id": "organize",
+     "options": {
+      "indexByName": {
+       "Fecha": 0,
+       "PR": 1,
+       "Alumno": 2,
+       "Título": 3,
+       "Resultado": 4,
+       "Duración": 5,
+       "pr_url": 6,
+       "run_url": 7
+      },
+      "excludeByName": {},
+      "renameByName": {}
+     }
+    }
+   ],
    "fieldConfig": {
     "defaults": {
      "custom": {
       "filterable": true
-     }
+     },
+     "noValue": "—"
     },
     "overrides": [
      {
       "matcher": {
        "id": "byName",
-       "options": "Rama (abre el PR)"
+       "options": "pr_url"
+      },
+      "properties": [
+       {
+        "id": "custom.hidden",
+        "value": true
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "run_url"
+      },
+      "properties": [
+       {
+        "id": "custom.hidden",
+        "value": true
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "PR"
       },
       "properties": [
        {
@@ -434,25 +1630,29 @@
          {
           "title": "Abrir PR en GitHub",
           "targetBlank": true,
-          "url": "https://github.com/Hackwy402/desarrollo-seguro-ucp/pulls?q=is%3Apr+head%3A${__value.raw}"
+          "url": "${__data.fields[\"pr_url\"]}"
          }
         ]
+       },
+       {
+        "id": "custom.width",
+        "value": 70
        }
       ]
      },
      {
       "matcher": {
        "id": "byName",
-       "options": "Run en GitHub"
+       "options": "Título"
       },
       "properties": [
        {
         "id": "links",
         "value": [
          {
-          "title": "Abrir run",
+          "title": "Abrir PR en GitHub",
           "targetBlank": true,
-          "url": "${__value.raw}"
+          "url": "${__data.fields[\"pr_url\"]}"
          }
         ]
        }
@@ -461,7 +1661,7 @@
      {
       "matcher": {
        "id": "byName",
-       "options": "Gate"
+       "options": "Resultado"
       },
       "properties": [
        {
@@ -476,17 +1676,41 @@
          {
           "type": "value",
           "options": {
-           "failure": {
+           "BLOQUEADO": {
             "text": "🚫 BLOQUEADO",
             "color": "red"
            },
-           "success": {
+           "INCOMPLETO": {
+            "text": "⚠️ ESCANEO INCOMPLETO",
+            "color": "orange"
+           },
+           "CORREGIDO": {
+            "text": "✅ CORREGIDO",
+            "color": "green"
+           },
+           "PASA": {
             "text": "✅ PASA",
+            "color": "green"
+           },
+           "CORRIENDO": {
+            "text": "⏳ CORRIENDO",
+            "color": "blue"
+           },
+           "failure": {
+            "text": "🚫 falló",
+            "color": "red"
+           },
+           "success": {
+            "text": "✅ pasó",
             "color": "green"
            },
            "cancelled": {
             "text": "cancelado",
             "color": "gray"
+           },
+           "in_progress": {
+            "text": "⏳ corriendo",
+            "color": "blue"
            }
           }
          }
@@ -494,7 +1718,189 @@
        },
        {
         "id": "custom.width",
+        "value": 210
+       },
+       {
+        "id": "links",
+        "value": [
+         {
+          "title": "Abrir run del gate",
+          "targetBlank": true,
+          "url": "${__data.fields[\"run_url\"]}"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Hallazgos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 100
+       },
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-text"
+        }
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "thresholds"
+        }
+       },
+       {
+        "id": "thresholds",
+        "value": {
+         "mode": "absolute",
+         "steps": [
+          {
+           "color": "green",
+           "value": null
+          },
+          {
+           "color": "red",
+           "value": 1
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Críticos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 90
+       },
+       {
+        "id": "custom.cellOptions",
+        "value": {
+         "type": "color-text"
+        }
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "thresholds"
+        }
+       },
+       {
+        "id": "thresholds",
+        "value": {
+         "mode": "absolute",
+         "steps": [
+          {
+           "color": "text",
+           "value": null
+          },
+          {
+           "color": "red",
+           "value": 1
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Altos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 80
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Intentos"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 90
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Alumno"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
         "value": 150
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "PR estado"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 100
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Min. a verde"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 110
+       },
+       {
+        "id": "unit",
+        "value": "m"
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Duración"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "s"
+       },
+       {
+        "id": "custom.width",
+        "value": 100
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Último run"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 170
        }
       ]
      },
@@ -506,29 +1912,90 @@
       "properties": [
        {
         "id": "custom.width",
-        "value": 180
+        "value": 170
        }
       ]
      }
     ]
+   }
+  },
+  {
+   "id": 12,
+   "type": "stat",
+   "title": "Datos actualizados",
+   "datasource": {
+    "type": "yesoreyeram-infinity-datasource",
+    "uid": "seclab"
    },
-   "transformations": [
+   "gridPos": {
+    "h": 3,
+    "w": 24,
+    "x": 0,
+    "y": 42
+   },
+   "targets": [
     {
-     "id": "organize",
-     "options": {
-      "indexByName": {
-       "Fecha": 0,
-       "Alumno": 1,
-       "PR": 2,
-       "Gate": 3,
-       "Rama (abre el PR)": 4,
-       "Run en GitHub": 5
+     "refId": "A",
+     "datasource": {
+      "type": "yesoreyeram-infinity-datasource",
+      "uid": "seclab"
+     },
+     "type": "json",
+     "source": "url",
+     "format": "table",
+     "parser": "backend",
+     "url": "http://seclab-data:8080/resumen.json",
+     "url_options": {
+      "method": "GET",
+      "data": ""
+     },
+     "root_selector": "",
+     "columns": [
+      {
+       "selector": "actualizado",
+       "text": "Actualizado",
+       "type": "timestamp"
       },
-      "excludeByName": {},
-      "renameByName": {}
-     }
+      {
+       "selector": "error",
+       "text": "Error del colector",
+       "type": "string"
+      }
+     ]
     }
-   ]
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "none",
+    "graphMode": "none",
+    "textMode": "value_and_name"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "dateTimeFromNow",
+     "noValue": "sin errores"
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Error del colector"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "string"
+       }
+      ]
+     }
+    ]
+   }
   }
  ]
 }

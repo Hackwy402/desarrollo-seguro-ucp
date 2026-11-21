@@ -1,9 +1,9 @@
 apiVersion: 1
 datasources:
-  - name: GitHub
+  - name: Seclab
     type: yesoreyeram-infinity-datasource
-    uid: github
+    uid: seclab
     access: proxy
     isDefault: true
     jsonData:
-      allowedHosts: ["https://api.github.com"]
+      allowedHosts: ["http://seclab-data:8080"]
