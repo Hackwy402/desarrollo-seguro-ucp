@@ -33,6 +33,7 @@ done
 if [ "${1:-}" = "__run" ]; then
   SCANDIR="$2"; STATE="$3"; WITH_TRIVY="$4"
   mkdir -p "$STATE"
+  rm -f "$STATE/scan_error"
   DR="docker run --rm -v ${SCANDIR}:/scan -v ${STATE}:/scan/.state"
 
   echo ">> secretos (gitleaks)"
@@ -44,8 +45,12 @@ if [ "${1:-}" = "__run" ]; then
      --output=/scan/.state/semgrep.json /scan >/dev/null 2>&1 || true
 
   echo ">> SCA (osv-scanner)"
-  $DR ghcr.io/google/osv-scanner:latest --format=json \
-     --output=/scan/.state/osv.json -r /scan >/dev/null 2>&1 || true
+  osv_out="$($DR ghcr.io/google/osv-scanner:latest --format=json \
+     --output=/scan/.state/osv.json -r /scan 2>&1)"
+  # fail-closed: si osv no pudo consultar la base de vulnerabilidades, NO es "0 vulns".
+  if printf '%s' "$osv_out" | grep -qiE "error during extraction|max retries|tls handshake|connection refused|no such host|i/o timeout"; then
+     echo "El SCA (osv-scanner) no pudo consultar la base de vulnerabilidades (sin acceso a osv.dev). No se puede afirmar que las dependencias esten limpias." > "$STATE/scan_error"
+  fi
 
   if [ "$WITH_TRIVY" = "1" ]; then
     echo ">> SBOM + vulns (trivy)"
@@ -83,6 +88,12 @@ fi
 
 # ---------------------------- gate -------------------------------------------
 echo
+# fail-closed: un escaneo que no pudo completarse NO pasa (aunque haya 0 hallazgos)
+if [ -f "$STATE/scan_error" ]; then
+  printf "   ${RED}${BOLD}🚫 GATE: escaneo INCOMPLETO — fail-closed.${RST}  ${DIM}(exit 2)${RST}\n"
+  printf "   ${DIM}%s${RST}\n" "$(cat "$STATE/scan_error")"
+  exit 2
+fi
 if [ "$TOTAL" -gt 0 ]; then
   if [ "$SOFT" = "1" ]; then
     printf "   ${YEL}● %s hallazgo(s). Modo --soft: no bloquea.${RST}\n" "$TOTAL"; exit 0

